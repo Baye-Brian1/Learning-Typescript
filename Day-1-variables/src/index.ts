@@ -16,5 +16,26 @@ console.log(`Level: ${Level}`);
 console.log(`Language: ${FavouriteLanguage}`);
 console.log(`Frontend Developer: ${isFrontEndDeveloper}`);
 
+let productName = "Keyboard";
+const Price = 50;
+let Quantity= 3;
+let inStock = 10;
+let Category: string= "Tech";
+
+const totalPrice= Price * Quantity;
+const QuantityAvailable= inStock - Quantity;
+
+console.log(`Product Name: ${productName}`);
+console.log(`Price: ${Price}`);
+console.log(`Ordered Qty: ${Quantity}`);
+console.log(`Initial Available Qty: ${inStock}`);
+console.log(`Total: ${totalPrice}`);
+console.log(`Final Available Qty: ${QuantityAvailable}`);
+
+
+
+
+
+
 
 
