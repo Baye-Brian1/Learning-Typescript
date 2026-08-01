@@ -184,9 +184,14 @@ Students.forEach(Student => {
     console.log(`Level: ${Student.level}`);
 });
 
+type Movie={
+    name:string;
+    year:number;
+    watched:boolean;
+};
 
 
-const movies=[
+const movies: Movie[]=[
     {
         name:"Avenger",
         year: 2020,
@@ -203,9 +208,9 @@ const movies=[
         watched: true,
     },
 ]
-movies.forEach(movie=>{
-    console.log(movie.name);
-    console.log(movie.year);
+console.log("=========ALL MOVIES=========");
+movies.forEach((movie)=>{
+    console.log(`${movie.name}.${movie.year}| Watched: ${movie.watched}`);
 })
 const SpiderMan={
     name:"SpiderMan",
@@ -213,14 +218,18 @@ const SpiderMan={
     watched: true
 }
 movies.push(SpiderMan)
+console.log("======Movie Successfully Added========");
+
 
 movies.forEach(movie=>{
-    console.log(movie.name);
-    console.log(movie.year);
+    console.log(`${movie.name}.${movie.year} | ${movie.watched}`);
 })
+console.log("=======Updated Movies========");
 
 const RemoveMovie= movies.filter(movie => movie.name!=="Avenger")
 console.log(RemoveMovie);
+console.log("========Movie Successfully Removed========");
 
 const WatchMovie = movies.filter(movie => movie.watched!== false)
 console.log(WatchMovie);
+console.log("========Movies Watched========");

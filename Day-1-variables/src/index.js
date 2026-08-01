@@ -175,9 +175,9 @@ const movies = [
         watched: true,
     },
 ];
-movies.forEach(movie => {
-    console.log(movie.name);
-    console.log(movie.year);
+console.log("=========ALL MOVIES=========");
+movies.forEach((movie) => {
+    console.log(`${movie.name}.${movie.year}| Watched: ${movie.watched}`);
 });
 const SpiderMan = {
     name: "SpiderMan",
@@ -185,12 +185,15 @@ const SpiderMan = {
     watched: true
 };
 movies.push(SpiderMan);
+console.log("======Movie Successfully Added========");
 movies.forEach(movie => {
-    console.log(movie.name);
-    console.log(movie.year);
+    console.log(`${movie.name}.${movie.year} | ${movie.watched}`);
 });
+console.log("=======Updated Movies========");
 const RemoveMovie = movies.filter(movie => movie.name !== "Avenger");
 console.log(RemoveMovie);
+console.log("========Movie Successfully Removed========");
 const WatchMovie = movies.filter(movie => movie.watched !== false);
 console.log(WatchMovie);
+console.log("========Movies Watched========");
 //# sourceMappingURL=index.js.map
