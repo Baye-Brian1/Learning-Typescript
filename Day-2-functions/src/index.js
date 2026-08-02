@@ -66,58 +66,122 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // }
 // address("Brian");
 // address("Brian", 675717944);
+// console.log("=====Student Grade Calculator======");
+//  type Students={
+//     name:string;
+//     course: string;
+//     scores: number[];
+//     average: number;
+//     grade: string;
+//  }
+// const students: Students[]=[];
+// const calculateAverage=(scores:number[])=>{ 
+//     const total= scores.reduce((num, score) =>{
+//         return num+score;
+//     },0)
+//     const Average= total/scores.length;
+//     return Average;
+// }
+// const getGrade=(Average:number)=>{
+//     if (Average>=80){
+//         return "A";   
+//     }else if (Average>=70){
+//         return "B";   
+//     }
+//     else if (Average>=60){
+//         return "C";   
+//     }
+//     else if (Average>=50){
+//         return "D";   
+//     }
+//     else{
+//         return "F";   
+//     }
+// }
+// const displayStudent=()=>{
+//  students.forEach(student =>{
+//     console.log(student.name, student.course, student.scores, student.average, student.grade);
+//  })   
+// }
+// const scores=[30, 60, 90, 60]
+// const average= calculateAverage(scores);
+// const grades= getGrade(average)
+// const addStudent=()=>{
+//     const nestaStud={
+//         name: "Nesta",
+//         course: "Management",
+//         scores: scores,
+//         average: average,
+//         grade: grades
+//     }
+//     const brianStud=  {
+//         name: "Brian",
+//         course: "Software En",
+//         scores: scores,
+//         average: average,
+//         grade: grades
+//     }
+//    students.push(brianStud);
+//    students.push(nestaStud);
+// }
+// addStudent()
+// displayStudent()
+// SMART STUDENT REPORT
 console.log("=====Student Grade Calculator======");
 const students = [];
-const calculateAverage = (scores) => {
-    const total = scores.reduce((num, score) => {
-        return num + score;
-    }, 0);
-    const Average = total / scores.length;
-    return Average;
+const addStudents = (name, course, scores) => {
+    const average = calculateAverage(scores);
+    const grade = getGrades(average);
+    const student = {
+        name,
+        course,
+        scores,
+        average,
+        grade
+    };
+    students.push(student);
 };
-const getGrade = (Average) => {
-    if (Average >= 80) {
+const calculateAverage = (scores) => {
+    const total = scores.reduce((sum, score) => {
+        return sum + score;
+    }, 0);
+    const average = total / scores.length;
+    return average;
+};
+const getGrades = (average) => {
+    if (average >= 80) {
         return "A";
     }
-    else if (Average >= 70) {
+    else if (average >= 70) {
         return "B";
     }
-    else if (Average >= 60) {
+    else if (average >= 60) {
         return "C";
     }
-    else if (Average >= 50) {
+    else if (average >= 50) {
         return "D";
+    }
+    else if (average >= 40) {
+        return "E";
     }
     else {
         return "F";
     }
 };
 const displayStudent = () => {
-    students.forEach(student => {
-        console.log(student.name, student.course, student.scores, student.average, student.grade);
+    students.forEach((student, index) => {
+        console.log("======INFO======");
+        console.log(`Student ${index + 1}`);
+        console.log(`Name: ${student.name}`);
+        console.log(`Course: ${student.course}`);
+        console.log(`Score: ${student.scores}`);
+        console.log(`Average: ${student.average.toFixed(2)}`);
+        console.log(`Grade: ${student.grade}`);
     });
 };
-const scores = [30, 60, 90, 60];
-const average = calculateAverage(scores);
-const grades = getGrade(average);
-const addStudent = () => {
-    const nestaStud = {
-        name: "Nesta",
-        course: "Management",
-        scores: scores,
-        average: average,
-        grade: grades
-    };
-    const brianStud = {
-        name: "Brian",
-        course: "Software En",
-        scores: scores,
-        average: average,
-        grade: grades
-    };
-    students.push(brianStud);
-    students.push(nestaStud);
-};
-addStudent();
+addStudents("Brian", "Mechatronics", [50, 70, 80]);
+addStudents("Joseph", "Deutsch", [50, 70, 80]);
+addStudents("Newton", "Next.js", [50, 70, 80]);
+addStudents("Albert", "Communication", [50, 70, 80]);
 displayStudent();
 //# sourceMappingURL=index.js.map
