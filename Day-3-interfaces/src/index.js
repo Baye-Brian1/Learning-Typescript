@@ -1,68 +1,74 @@
 "use strict";
-// Interfaces
+// // Interfaces
 Object.defineProperty(exports, "__esModule", { value: true });
-const user1 = {
-    id: 1,
-    name: "Brian",
-    age: 20,
-    isDeveloper: true,
-};
-const user2 = {
-    id: 2,
-    name: "Joseph",
-    age: 18,
-    phone: 67800123,
-    isDeveloper: true,
-};
-const dev = {
-    id: 2,
-    name: "Joseph",
-    age: 18,
-    phone: 67800123,
-    isDeveloper: true,
-    language: "typescript",
-};
-user1.name = "Baye";
-console.log(user1);
-console.log(user2);
-const car1 = {
-    brand: "Toyota",
-    model: "yaris",
-    year: 2010,
-};
-const car2 = {
-    brand: "KIA",
-    model: "Benz",
-    year: 2020,
-};
-console.log(car1);
-console.log(car2);
-const laptop = {
-    brand: "Dell",
-    ram: 16,
-    storage: 500,
-};
-console.log("====laptop interface====");
-console.log(`I have a ${laptop.brand} laptop with a 
-    ram size of ${laptop.ram}GB and storage capacity of ${laptop.storage}GB`);
-const employee = {
-    name: "Joseph",
-    age: 18,
-    company: "TIC Foundation",
-    position: "Frontend Dev",
-};
-console.log("====extended interface====");
-console.log(employee);
-const company = {
-    name: "Traitz Tech",
-    isVisible: true,
-    address: {
-        location: "bambili",
-        telephone: 675717944,
-        email: "traitztech@1gmail.com"
+const employees = [
+    {
+        id: 1,
+        name: "Brian",
+        department: "IT Sector",
+        salary: 500000,
+        isActive: true,
+        address: {
+            street: "Emana",
+            city: "Yaounde",
+            country: "Cameroon"
+        }
+    },
+    {
+        id: 2,
+        name: "Nesta",
+        department: "Management Sector",
+        salary: 300000,
+        isActive: true,
+        address: {
+            street: "Bambili",
+            city: "Bamenda",
+            country: "Cameroon"
+        }
+    },
+    {
+        id: 3,
+        name: "Magloire",
+        department: "Intelligence and Research",
+        salary: 400000,
+        isActive: false,
+        address: {
+            street: "Mile 3",
+            city: "Bamenda",
+            country: "Cameroon"
+        }
     }
+];
+const displayEmployee = () => {
+    employees.forEach((epmloyee) => {
+        console.log("====Employees====");
+        console.log(`Employee No: ${epmloyee.id}`);
+        console.log(`Name: Mr.${epmloyee.name}`);
+    });
 };
-console.log("====nested interface====");
-console.log(company);
-// 
+const activeEmployee = () => {
+    employees.forEach((employee) => {
+        console.log("===Active Employee===");
+        if (employee.isActive === true) {
+            console.log(`Name: ${employee.name}`);
+            console.log(`Department: ${employee.department}`);
+            console.log("Employee is Active");
+        }
+    });
+};
+console.log("===Average Salary====");
+const totalSalary = employees.reduce((sum, emp) => {
+    return sum + emp.salary;
+}, 0);
+const average = totalSalary / employees.length;
+console.log(`Average salary = ${average}`);
+const higehestSalary = () => {
+    console.log("====Highest Salary====");
+    employees.forEach((employee) => {
+        Math.max(employee.salary);
+    });
+};
+displayEmployee();
+activeEmployee();
+higehestSalary();
 //# sourceMappingURL=index.js.map
