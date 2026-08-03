@@ -62,13 +62,9 @@ const totalSalary = employees.reduce((sum, emp) => {
 }, 0);
 const average = totalSalary / employees.length;
 console.log(`Average salary = ${average}`);
-const higehestSalary = () => {
-    console.log("====Highest Salary====");
-    employees.forEach((employee) => {
-        Math.max(employee.salary);
-    });
-};
+const higehestSalary = Math.max(...employees.map(emp => emp.salary));
+console.log("====highest salary=====");
+console.log(higehestSalary);
 displayEmployee();
 activeEmployee();
-higehestSalary();
 //# sourceMappingURL=index.js.map

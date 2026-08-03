@@ -189,7 +189,7 @@ const activeEmployee=()=>{
   })
 }
 console.log("===Average Salary====");
-    const totalSalary= employees.reduce((sum, emp)=>{
+    const totalSalary= employees.reduce((sum, emp){
       return sum+emp.salary;
     },0)
 
@@ -197,14 +197,11 @@ console.log("===Average Salary====");
     console.log(`Average salary = ${average}`);
     
 
-const higehestSalary=()=>{
-  console.log("====Highest Salary====");
-  
-  employees.forEach((employee)=>{
-    Math.max(employee.salary)
-  })
-}
+const higehestSalary= Math.max(...employees.map(emp=>emp.salary))
+console.log("====highest salary=====");
+console.log(higehestSalary);
+
+
 
 displayEmployee()
 activeEmployee()
-higehestSalary()
