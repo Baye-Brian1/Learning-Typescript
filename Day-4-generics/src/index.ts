@@ -53,3 +53,26 @@ interface Pair<T,U>{
   second: U,
 }
 
+const Info: Pair<string, number>={
+   first: "Brian",
+   second: 20
+}
+console.log(`name: ${Info.first}`);
+console.log(`age: ${Info.second}`);
+
+function printItem<T>(value: T):T{
+  return value
+}
+
+console.log(printItem("Hello"));
+ console.log(printItem(22));
+ 
+
+
+const NameA: Array<string|number>=[
+  "Brian",
+  20, 
+  "Paul"
+]
+
+console.log(NameA);

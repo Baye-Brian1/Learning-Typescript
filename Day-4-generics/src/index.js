@@ -28,4 +28,21 @@ const Number = {
     item: 100,
 };
 console.log(Number.item);
+const Info = {
+    first: "Brian",
+    second: 20
+};
+console.log(`name: ${Info.first}`);
+console.log(`age: ${Info.second}`);
+function printItem(value) {
+    return value;
+}
+console.log(printItem("Hello"));
+console.log(printItem(22));
+const NameA = [
+    "Brian",
+    20,
+    "Paul"
+];
+console.log(NameA);
 //# sourceMappingURL=index.js.map
