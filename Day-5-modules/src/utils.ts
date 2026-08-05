@@ -1,7 +1,5 @@
-export function add(a:number, b:number){
-    return a+b
-}
-export default function greet(){
-    console.log("Hello jimmy");
-    
+import { Student } from "./student";
+
+export function displayStudent(student: Student){
+        console.log(`ID:${student.id} Name: ${student.name} | Course: ${student.course}`);
 }

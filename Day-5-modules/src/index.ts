@@ -1,5 +1,4 @@
 // import greet, {add} from "./utils"
-import {add, subtract, multiply} from "./math";
 // console.log(add(3,5));
 // greet()
 
@@ -53,34 +52,57 @@ import {add, subtract, multiply} from "./math";
 // console.log(subtract(20, 100));
 // console.log(multiply(2000, 2000));
 
-function fetchName():Promise<string>{
-  return new Promise(resolve =>{
+// function fetchName():Promise<string>{
+//   return new Promise(resolve =>{
+//     setTimeout(()=>{
+//       resolve("Learning Typescript")
+//     })
+//   })
+// }
+
+
+// async function fetchNamex(){
+//   const message= await fetchName()
+//   console.log(message);
+  
+// }
+// fetchNamex()
+
+// function login(password: string){
+//   if (password !== "12345"){
+//     throw new Error("Invalid Password")
+
+//   }
+//   console.log(password);
+// }
+
+// try {
+//   console.log(login("1234")); 
+  
+// } catch (error) {
+//   console.log(error);
+// }
+
+
+import { displayStudent } from "./utils";
+import { Student, students } from "./student";
+
+function fetchStudent():Promise<Student[]>{
+  return new Promise (resolve =>{
     setTimeout(()=>{
-      resolve("Learning Typescript")
-    })
+     resolve (students);
+    },3000)
   })
 }
 
-
-async function fetchNamex(){
-  const message= await fetchName()
-  console.log(message);
+async function displayStud(){
+  console.log("Loading students ....");
   
+  const data= await fetchStudent()
+  data.forEach(student=>{
+    displayStudent(student)
+  })
+  console.log("Students loaded Succesfully");
 }
-fetchNamex()
-
-function login(password: string){
-  if (password !== "12345"){
-    throw new Error("Invalid Password")
-
-  }
-  console.log(password);
-}
-
-try {
-  console.log(login("1234")); 
-  
-} catch (error) {
-  console.log(error);
-}
+displayStud()
 

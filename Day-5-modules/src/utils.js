@@ -1,11 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.add = add;
-exports.default = greet;
-function add(a, b) {
-    return a + b;
-}
-function greet() {
-    console.log("Hello jimmy");
+exports.displayStudent = displayStudent;
+function displayStudent(student) {
+    console.log(`ID:${student.id} Name: ${student.name} | Course: ${student.course}`);
 }
 //# sourceMappingURL=utils.js.map

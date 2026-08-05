@@ -1,3 +1,3 @@
-export declare function add(a: number, b: number): number;
-export default function greet(): void;
+import { Student } from "./student";
+export declare function displayStudent(student: Student): void;
 //# sourceMappingURL=utils.d.ts.map
