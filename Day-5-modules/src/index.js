@@ -1,49 +1,69 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || (function () {
-    var ownKeys = function(o) {
-        ownKeys = Object.getOwnPropertyNames || function (o) {
-            var ar = [];
-            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
-            return ar;
-        };
-        return ownKeys(o);
-    };
-    return function (mod) {
-        if (mod && mod.__esModule) return mod;
-        var result = {};
-        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
-        __setModuleDefault(result, mod);
-        return result;
-    };
-})();
 Object.defineProperty(exports, "__esModule", { value: true });
-const utils_1 = __importStar(require("./utils"));
-console.log((0, utils_1.add)(3, 5));
-(0, utils_1.default)();
-const promise = Promise.resolve("hello Joseph! Whats your problem");
-promise.then(result => console.log(result));
-async function Greet() {
-    return "Greetings Sir";
+// console.log(add(3,5));
+// greet()
+// const promise = Promise.resolve("hello Joseph! Whats your problem");
+// promise.then(result =>console.log(result));
+// async function Greet(){
+//   return "Greetings Sir"
+// }
+// async function run(){
+//   const message= await Greet()
+//   console.log(message);
+// }
+// run()
+// function fetchProduct(): Promise<string[]>{
+//   return new Promise(resolve  =>{
+//     setTimeout(()=>{
+//       resolve([
+//         "laptop",
+//         "phone",
+//         "tablet"
+//       ])
+//     }, 2000)
+//   })
+// }
+// async function loadProducts() {
+//   const products = await fetchProduct();
+//   console.log(products);
+// }
+// loadProducts()
+// function divide(a:number, b:number){
+//   if (b===0){
+//     throw new Error("caonnot divide by zero")
+//   }
+//   return a/b
+// }
+// try {
+//   console.log(divide(10, 0));
+// } catch (error) {
+//   console.log(error); 
+// }
+// console.log(add(5, 10));
+// console.log(subtract(20, 100));
+// console.log(multiply(2000, 2000));
+function fetchName() {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            resolve("Learning Typescript");
+        });
+    });
 }
-async function run() {
-    const message = await Greet();
+async function fetchNamex() {
+    const message = await fetchName();
     console.log(message);
 }
-run();
+fetchNamex();
+function login(password) {
+    if (password !== "12345") {
+        throw new Error("Invalid Password");
+    }
+    console.log(password);
+}
+try {
+    console.log(login("1234"));
+}
+catch (error) {
+    console.log(error);
+}
 //# sourceMappingURL=index.js.map
