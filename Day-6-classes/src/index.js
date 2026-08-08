@@ -67,7 +67,7 @@ class Student {
             return;
         }
         const total = this.scores.reduce((sum, score) => sum + score, 0);
-        this.average = total / this.scores.length;
+        this.average = Math.round(total / this.scores.length);
     }
     displayStudent() {
         console.log(`ID: ${this.id} | Name: Mr/Mrs. ${this.name} | Course: ${this.course}
@@ -98,5 +98,40 @@ class StudentManager {
         }
         this.students.forEach(student => student.displayStudent());
     }
+    findStudent(id) {
+        return this.students.find(student => student.id === id);
+    }
+    highestAverage() {
+        return this.students.reduce((current, highest) => current.average > highest.average ? current : highest);
+    }
+    countStudent() {
+        return this.students.length;
+    }
+    sortStudent() {
+        return this.students.sort((a, b) => b.average - a.average);
+    }
+    PrintStudent() {
+        const high = this.students.filter(student => student.average > 70);
+        high.forEach((student) => this.displayStudents());
+    }
 }
+const Manager = new StudentManager();
+Manager.addStudent(new Student(1, "Brian", "ICT", [80, 90, 60]));
+Manager.addStudent(new Student(2, "Nesta", "Economics", [80, 60, 70]));
+Manager.addStudent(new Student(3, "Chelsy", "Accounting", [70, 50, 85]));
+Manager.addStudent(new Student(4, "Clinton", "Commerce", [70, 95, 60]));
+Manager.addStudent(new Student(5, "Renzo", "Custom", [75, 65, 85]));
+Manager.displayStudents();
+Manager.removeStudent(3);
+Manager.displayStudents();
+console.log("---highest Average---");
+const topStudent = Manager.highestAverage();
+topStudent?.displayStudent();
+console.log("---find student---");
+const find = Manager.findStudent(4);
+find?.displayStudent();
+console.log(`Total Students: ${Manager.countStudent()}`);
+Manager.sortStudent();
+Manager.displayStudents();
+Manager.PrintStudent();
 //# sourceMappingURL=index.js.map
