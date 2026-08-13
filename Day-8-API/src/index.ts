@@ -201,7 +201,9 @@ const main= async()=>{
     displayProducts(electronics)
 
     console.log("===Total product Price===");
-    calculatePrice(products)
+    const Total= Math.round(calculatePrice(products)).toFixed(2)
+    console.log(Total);
+   
 
   } catch (error) {
     if (error instanceof Error){

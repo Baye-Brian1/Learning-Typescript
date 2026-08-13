@@ -74,7 +74,8 @@ const main = async () => {
         const electronics = filterByCategory(products, "electronics");
         displayProducts(electronics);
         console.log("===Total product Price===");
-        calculatePrice(products);
+        const Total = Math.round(calculatePrice(products)).toFixed(2);
+        console.log(Total);
     }
     catch (error) {
         if (error instanceof Error) {
