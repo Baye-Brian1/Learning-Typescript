@@ -111,3 +111,64 @@
 // console.log("===Users===");
 // fetchUsers
 
+interface Product{
+  id: number;
+  title: string;
+  price: number;
+  category: string;
+}
+
+async function fetchProducts():Promise<Product[]> {
+  try {
+    const response= await fetch("https://fakestoreapi.com/products");
+    if (!response.ok){
+      throw new Error("Failed to fetch data");
+      
+    }
+    const data: Product[]= await response.json(); 
+    return data
+  } catch (error) {
+    console.log("Error:", error);
+    throw error
+  }
+  
+}
+
+const displayProducts=(products: Product[])=>{
+  products.forEach(product=>{
+    console.log(`ID: ${product.id}| Title: ${product.title} | Price: $${product.price} | Category: ${product.category}`);
+    
+  })
+}
+const findProducts=(products:Product[], id:number):Product=>{
+  const product= products.find(product=> product.id === id);
+
+  if (!product){
+    throw new Error("Product with ID ${id} not found");
+    
+  }
+  return product
+}
+const filterByCategory=(products:Product[], category:string):Product[]=>{
+  const product:Product[]= products.filter(product=> product.category===category)
+   if (!product){
+    throw new Error("Product Category ${category} not found");
+  }
+  return product;
+}
+const calculatePrice=(products:Product[])=>{
+  const Total= products.reduce((sum, num)=> sum +num.price, 0)
+  return Total;
+}
+const getExpensive=(products:Product[]):Product=>{
+  if (products.length ===0){
+    throw new Error("No products Available");
+    
+  }
+   const Expensive =products.reduce((MostExpensive, currentProduct)=>{
+    return currentProduct.price> MostExpensive.price? currentProduct:MostExpensive
+   })
+
+   return Expensive;
+
+}
