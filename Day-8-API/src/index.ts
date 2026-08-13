@@ -136,7 +136,11 @@ async function fetchProducts():Promise<Product[]> {
 
 const displayProducts=(products: Product[])=>{
   products.forEach(product=>{
-    console.log(`ID: ${product.id}| Title: ${product.title} | Price: $${product.price} | Category: ${product.category}`);
+    console.log("---product---");
+    console.log(`ID: ${product.id}`);
+    console.log(`Title: ${product.title}`);
+    console.log(`Price: $${product.price} `);
+    console.log(`Category: ${product.category}`);
     
   })
 }
@@ -172,3 +176,39 @@ const getExpensive=(products:Product[]):Product=>{
    return Expensive;
 
 }
+
+const main= async()=>{
+  const products= await fetchProducts();
+
+  try {
+    console.log("===Display Products");
+    displayProducts(products)
+    
+    console.log("===Most expensive product===");
+    const expensive=getExpensive(products);
+    console.log(expensive);
+    
+    console.log("===Find product===");
+    const product1= findProducts(products, 1);
+    console.log(product1)
+    const product2= findProducts(products, 2);
+    console.log(product2)
+
+    console.log("===Filter product===");
+    const Jewelry=filterByCategory(products, "jewelry");
+    displayProducts(Jewelry)
+    const electronics=filterByCategory(products, "electronics");
+    displayProducts(electronics)
+
+    console.log("===Total product Price===");
+    calculatePrice(products)
+
+  } catch (error) {
+    if (error instanceof Error){
+      console.log(error.message);
+      
+    }
+  }
+}
+
+main();
