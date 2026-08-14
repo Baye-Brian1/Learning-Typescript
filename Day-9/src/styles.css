@@ -1,4 +1,4 @@
-body{
+/* body{
   margin: 0;
   font-family: Roboto; 
 }
@@ -69,4 +69,770 @@ footer a{
   color: #999;
   margin-top: 40px;
   font-size: 0.7em;
+} */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  font-family: Inter, Arial, Helvetica, sans-serif;
+  background: #ffffff;
+  color: #111111;
+  min-height: 100vh;
+  line-height: 1.5;
+}
+button,
+input,
+select {
+  font: inherit;
+}
+button {
+  cursor: pointer;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+.site-header {
+  width: 100%;
+  height: 62px;
+  border-bottom: 1px solid #e7e7e7;
+  background: #ffffff;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.header-container {
+  width: min(1380px, 92%);
+  height: 100%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: fit-content;
+}
+.logo-icon {
+  width: 33px;
+  height: 33px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000000;
+  color: #ffffff;
+  font-size: 16px;
+}
+.logo-text {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.04px;
+}
+.main-nav {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 45px;
+}
+.nav-link {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
+  font-size: 14px;
+  font-weight: 500;
+  color: #555555;
+  transition: color 0.2s ease;
+}
+.nav-link:hover {
+  color: #000000;
+}
+
+.nav-link.active {
+  color: #000000;
+  font-weight: 600;
+}
+.nav-link.active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: #000000;
+}
+.header-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.icon-button {
+  width: 33px;
+  height: 33px;
+  border-radius: 50%;
+  border: 1px solid #aaaaaa;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: #111111;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.icon-button:hover {
+  background: #f3f3f3;
+  transform: rotate(10deg);
+}
+.main-container {
+  width: min(1380px, 92%);
+  margin: 0 auto;
+  padding: 52px 0 80px;
+}
+.page-intro {
+  margin-bottom: 32px;
+}
+.page-intro h1 {
+  font-size: 38px;
+  line-height: 1.1;
+  letter-spacing: -1.5px;
+  margin-bottom: 10px;
+}
+.page-intro p {
+  color: #666666;
+  font-size: 16px;
+}
+.add-transaction-card,
+.transaction-history-card {
+  border: 1px solid #dddddd;
+  border-radius: 15px;
+  background: #ffffff;
+}
+.add-transaction-card {
+  padding: 30px;
+  margin-bottom: 26px;
+}
+.section-heading {
+  margin-bottom: 30px;
+}
+.section-heading h2 {
+  font-size: 18px;
+  letter-spacing: -0.3px;
+}
+.transaction-form {
+  display: grid;
+  grid-template-columns:
+    1.3fr
+    1.3fr
+    1.3fr
+    1.3fr
+    auto;
+  gap: 20px;
+  align-items: end;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.form-field label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #222222;
+}
+
+.form-field input,
+.form-field select {
+  width: 100%;
+  height: 46px;
+  border: 1px solid #dddddd;
+  border-radius: 6px;
+  outline: none;
+  background: #ffffff;
+  color: #111111;
+  padding: 0 8px;
+  font-size: 14px;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.form-field input::placeholder {
+  color: #999999;
+}
+
+.form-field input:focus,
+.form-field select:focus {
+  border-color: #111111;
+  box-shadow: 0 0 0 3px #f2f2f2;
+}
+
+.add-button {
+  height: 46px;
+  padding: 0 30px;
+  border: none;
+  border-radius: 6px;
+  background: #000000;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+.add-button:hover {
+  background: #252525;
+  transform: translateY(-1px);
+}
+
+.add-button:active {
+  transform: translateY(0);
+}
+
+.transaction-history-card {
+  padding: 30px;
+}
+.history-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+.history-header h2 {
+  font-size: 19px;
+  letter-spacing: -0.3px;
+}
+
+.filter-wrapper {
+    height: 46px;
+
+    min-width: 190px;
+
+    border: 1px solid #dddddd;
+
+    border-radius: 9px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 0 13px;
+
+    color: #222222;
+
+    position: relative;
+}
+
+
+.filter-wrapper select {
+    border: none;
+
+    outline: none;
+
+    background: transparent;
+
+    appearance: none;
+
+    flex: 1;
+
+    color: #111111;
+
+    font-size: 13px;
+
+    cursor: pointer;
+}
+
+
+.filter-wrapper > i:last-child {
+    font-size: 11px;
+}
+
+
+/* =========================================
+   SEARCH
+========================================= */
+
+.history-tools {
+    margin-bottom: 22px;
+
+    display: flex;
+
+    justify-content: space-between;
+}
+
+
+.search-box {
+    width: 330px;
+
+    height: 46px;
+
+    border: 1px solid #dddddd;
+
+    border-radius: 9px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 0 15px;
+
+    color: #777777;
+}
+
+
+.search-box input {
+    width: 100%;
+
+    height: 100%;
+
+    border: none;
+
+    outline: none;
+
+    background: transparent;
+
+    font-size: 13px;
+
+    color: #111111;
+}
+
+
+.search-box input::placeholder {
+    color: #999999;
+}
+
+
+/* =========================================
+   TABLE
+========================================= */
+
+.table-wrapper {
+    width: 100%;
+
+    overflow-x: auto;
+}
+
+
+.transactions-table {
+    width: 100%;
+
+    min-width: 850px;
+
+    border-collapse: separate;
+
+    border-spacing: 0;
+
+    border: 1px solid #e5e5e5;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+}
+
+
+/* =========================================
+   TABLE HEAD
+========================================= */
+
+.transactions-table thead {
+    background: #f5f5f5;
+}
+
+
+.transactions-table th {
+    text-align: left;
+
+    padding: 16px 19px;
+
+    font-size: 12px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.3px;
+
+    color: #555555;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================
+   TABLE BODY
+========================================= */
+
+.transactions-table td {
+    padding: 19px;
+
+    border-top: 1px solid #eeeeee;
+
+    font-size: 14px;
+
+    color: #222222;
+
+    white-space: nowrap;
+}
+
+
+.transactions-table tbody tr {
+    transition: background 0.2s ease;
+}
+
+
+.transactions-table tbody tr:hover {
+    background: #fafafa;
+}
+
+
+/* =========================================
+   TRANSACTION TYPE
+========================================= */
+
+.type-badge {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    font-weight: 600;
+}
+
+
+.type-badge i {
+    width: 25px;
+
+    height: 25px;
+
+    border: 1px solid #111111;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 10px;
+}
+
+
+/* Income */
+
+.type-badge.income i {
+    background: #ffffff;
+
+    color: #111111;
+}
+
+
+/* Expense */
+
+.type-badge.expense i {
+    background: #ffffff;
+
+    color: #111111;
+}
+
+
+/* =========================================
+   AMOUNT
+========================================= */
+
+.amount {
+    font-weight: 700;
+}
+
+
+.amount.income {
+    color: #111111;
+}
+
+
+.amount.expense {
+    color: #111111;
+}
+
+
+/* =========================================
+   ACTION BUTTON
+========================================= */
+
+.action-button {
+    width: 34px;
+
+    height: 34px;
+
+    border: none;
+
+    background: transparent;
+
+    border-radius: 6px;
+
+    color: #333333;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    transition: background 0.2s ease;
+}
+
+
+.action-button:hover {
+    background: #eeeeee;
+}
+
+
+/* =========================================
+   EMPTY STATE
+========================================= */
+
+.empty-state {
+    display: none;
+
+    text-align: center;
+
+    padding: 70px 20px;
+}
+
+
+.empty-state.visible {
+    display: block;
+}
+
+
+.empty-icon {
+    width: 58px;
+
+    height: 58px;
+
+    margin: 0 auto 18px;
+
+    border-radius: 50%;
+
+    background: #f3f3f3;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: #333333;
+
+    font-size: 20px;
+}
+
+
+.empty-state h3 {
+    font-size: 18px;
+
+    margin-bottom: 7px;
+}
+
+
+.empty-state p {
+    color: #777777;
+
+    font-size: 14px;
+}
+
+
+/* =========================================
+   SUMMARY
+========================================= */
+
+.summary-section {
+    margin-top: 26px;
+
+    border: 1px solid #dddddd;
+
+    border-radius: 15px;
+
+    padding: 25px 30px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 45px;
+}
+
+
+.summary-item {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 4px;
+
+    text-align: center;
+}
+
+
+.summary-item span {
+    font-size: 12px;
+
+    color: #777777;
+}
+
+
+.summary-item strong {
+    font-size: 18px;
+
+    color: #111111;
+}
+
+
+.summary-divider {
+    width: 1px;
+
+    height: 38px;
+
+    background: #dddddd;
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.site-footer {
+    border-top: 1px solid #eeeeee;
+
+    padding: 25px;
+
+    text-align: center;
+
+    color: #888888;
+
+    font-size: 12px;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 1100px) {
+
+    .transaction-form {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+
+    .add-button {
+        width: 100%;
+    }
+
+}
+
+
+@media (max-width: 700px) {
+
+    .site-header {
+        height: 72px;
+    }
+
+
+    .header-container {
+        width: 90%;
+
+        grid-template-columns: 1fr auto;
+    }
+
+
+    .main-nav {
+        display: none;
+    }
+
+
+    .logo-text {
+        font-size: 17px;
+    }
+
+
+    .main-container {
+        width: 92%;
+
+        padding-top: 35px;
+    }
+
+
+    .page-intro h1 {
+        font-size: 32px;
+    }
+
+
+    .transaction-form {
+        grid-template-columns: 1fr;
+    }
+
+
+    .add-transaction-card,
+    .transaction-history-card {
+        padding: 20px;
+    }
+
+
+    .history-header {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 18px;
+    }
+
+
+    .filter-wrapper {
+        width: 100%;
+    }
+
+
+    .search-box {
+        width: 100%;
+    }
+
+
+    .summary-section {
+        flex-direction: column;
+
+        gap: 20px;
+    }
+
+
+    .summary-divider {
+        width: 70%;
+
+        height: 1px;
+    }
+
 }

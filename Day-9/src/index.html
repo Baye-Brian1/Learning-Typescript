@@ -1,48 +1,198 @@
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TypeScript Tutorial</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A simple finance logger for tracking income and expenses."
+    />
+    <title>Finance Logger</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
 
-  <div class="wrapper">
-    <h1>Finance Logger</h1>
-
-    <!-- output list -->
-    <ul class="item-list">
-      
-    </ul>
-  </div>
-
-  <footer>
-    <form class="new-item-form">
-      <div class="field">
-        <label>Type:</label>
-        <select id="type">
-          <option value="invoice">Invoice</option>
-          <option value="payment">Payment</option>
-        </select>
+  <body>
+    <header class="site-header">
+      <div class="header-container">
+        <a href="#" class="logo">
+          <span class="logo-icon">
+            <i class="fa-solid fa-dollar-sign"></i>
+          </span>
+          <span class="logo-text">Finance Logger</span>
+        </a>
+        <nav class="main-nav">
+          <a href="#transactions" class="nav-link active"> Transactions </a>
+          <a href="#summary" class="nav-link" id="summaryLink"> Summary </a>
+        </nav>
+        <div class="header-actions">
+          <button
+            type="button"
+            class="icon-button"
+            id="theme-toggler"
+            aria-label="Toggle-dark-mode"
+          >
+            <i class="fa-regular fa-sun"></i>
+          </button>
+        </div>
       </div>
-      <div class="field">
-        <label>To / From:</label>
-        <input type="text" id="tofrom">
-      </div>   
-      <div class="field">
-        <label>Details:</label>
-        <input type="text" id="details">
-      </div>
-      <div class="field">
-        <label>Amount (£):</label>
-        <input type="number" id="amount">
-      </div>
-      <button>Add</button>
-    </form>
+    </header>
+    <main class="main-container">
+      <section class="page-intro">
+        <h1>Transactions</h1>
+        <p>Add and manage your income and expenses.</p>
+      </section>
+      <section class="add-transaction-card">
+        <div class="section-heading">
+          <h2>Add New Transaction</h2>
+        </div>
 
-    <a href="https://www.thenetninja.co.uk">The Net Ninja</a>
-  </footer>
+        <form id="transactionForm" class="transaction-form">
+          <div class="form-field">
+            <label for="transactionType"> Type </label>
+            <select name="type" id="transactionType" required>
+              <option value="income">Income</option>
+              <option value="expense">expense</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="transactionSource">To / From</label>
+            <input
+              type="text"
+              id="transactionSource"
+              name="source"
+              placeholder="e.g. Salary, Grocery"
+              required
+            />
+          </div>
+          <div class="form-field">
+            <label for="transactionDetails"> Details </label>
+            <input
+              type="text"
+              id="transactionDetails"
+              name="details"
+              placeholder="Add a note (Optional)"
+            />
+          </div>
+          <div class="form-field">
+            <label for="transactionAmount"> Amount (FCFA) </label>
+            <input
+              type="number"
+              id="transactionAmount"
+              name="amount"
+              placeholder="0.00"
+              min="0"
+              step="0.01"
+              required
+            />
+          </div>
+          <button type="submit" class="add-button" id="addTransactionButton">
+            <i class="fa-solid fa-plus"></i>
 
-  <script type="module" src="sandbox.js"></script>
-</body>
+            <span>Add Transaction</span>
+          </button>
+        </form>
+      </section>
+
+      <section class="transaction-history-card" id="transactions">
+        <!-- SECTION HEADER -->
+
+        <div class="history-header">
+          <h2>Transaction History</h2>
+
+          <!-- Filter -->
+
+          <div class="filter-wrapper">
+            <i class="fa-regular fa-calendar"></i>
+
+            <select id="dateFilter" aria-label="Filter transactions by date">
+              <option value="all">All Time</option>
+
+              <option value="today">Today</option>
+
+              <option value="week">This Week</option>
+
+              <option value="month">This Month</option>
+            </select>
+
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+        </div>
+
+        <div class="history-tools">
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+              type="search"
+              id="searchTransactions"
+              placeholder="Search transactions..."
+              aria-label="Search transactions"
+            />
+          </div>
+        </div>
+        <div class="table-wrapper">
+          <table class="transactions-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+
+                <th>Type</th>
+
+                <th>To / From</th>
+
+                <th>Details</th>
+
+                <th>Amount</th>
+
+                <th>Actions</th>
+              </tr>
+            </thead>
+
+            <tbody id="transactionList"></tbody>
+          </table>
+        </div>
+
+        <div class="empty-state" id="emptyState">
+          <div class="empty-icon">
+            <i class="fa-solid fa-receipt"></i>
+          </div>
+
+          <h3>No transactions yet</h3>
+
+          <p>Add your first income or expense to get started.</p>
+        </div>
+      </section>
+      <section class="summary-section" id="summary">
+        <div class="summary-item">
+          <span> Total Income </span>
+
+          <strong id="totalIncome"> 0 FCFA </strong>
+        </div>
+
+        <div class="summary-divider"></div>
+
+        <div class="summary-item">
+          <span> Total Expenses </span>
+
+          <strong id="totalExpenses"> 0 FCFA </strong>
+        </div>
+
+        <div class="summary-divider"></div>
+
+        <div class="summary-item">
+          <span> Balance </span>
+
+          <strong id="balance"> 0 FCFA </strong>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <p>Finance Logger &copy; 2026</p>
+    </footer>
+    <script type="module" src="./dist/main.js"></script>
+  </body>
 </html>
