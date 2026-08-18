@@ -210,7 +210,6 @@
 //     // form.scrollIntoView({ behavior: "smooth" });
 // window.scrollTo({ top: 0, behavior: "smooth" })
 
-   
 // }
 
 // // ==========================================
@@ -312,7 +311,7 @@
 
 //     if (button.classList.contains("edit-btn")) {
 //         editTransaction(transactionId); // ✅ FIXED: singular name
-      
+
 //     }
 // });
 
@@ -323,21 +322,126 @@
 // function init(): void {
 //     // Load from localStorage
 //     transactions = loadFromLocalStorage();
-    
+
 //     // Render transactions
 //     renderTransactions();
-    
+
 //     console.log("🚀 App initialized with", transactions.length, "transactions");
 // }
 
 // // Start the app
 // init();
 
-interface Transaction{
-    id: number;
-    type: "income"|"expense";
-    source: string;
-    details: string;
-    amount: number
-    date: string;
+interface Transaction {
+  id: number;
+  type: "income" | "expense";
+  source: string;
+  details: string;
+  amount: number;
+  date: string;
 }
+const form = document.querySelector("#transactionForm") as HTMLFormElement;
+const typeInput = document.querySelector(
+  "#transactionType",
+) as HTMLSelectElement;
+const sourceInput = document.querySelector(
+  "#transactionSource",
+) as HTMLInputElement;
+const detailsInput = document.querySelector(
+  "#transactionDetails",
+) as HTMLInputElement;
+const amountInput = document.querySelector(
+  "#transactionAmount",
+) as HTMLInputElement;
+const submitBtn = document.querySelector(
+  "#addTransactionButton",
+) as HTMLButtonElement;
+const transactionList = document.querySelector(
+  "#transactionList",
+) as HTMLTableSectionElement;
+
+let transactions: Transaction[] = [];
+
+const renderTransaction = () => {
+  transactionList.innerHTML = "";
+  if (transactions.length === 0) {
+    const emptyRow = document.createElement("tr");
+    emptyRow.innerHTML = `
+        <td colspan="6" class="empty-state">
+          <div class="empty-state visible">
+            <div class="empty-icon">
+              <i class="fa-solid fa-receipt"></i>
+            </div>
+            <h3>No transactions yet</h3>
+            <p>Add your Income or expenses</p>
+          </div>
+        </td>
+            
+        `;
+    transactionList.appendChild(emptyRow);
+    return;
+  }
+
+  transactions.forEach((transaction) => {
+    const row = document.createElement("tr");
+    row.dataset.id = String(transaction.id);
+
+    const isIncome = transaction.type === "income";
+    const typeClass = isIncome ? "income" : "expense";
+    const Sign = isIncome ? "+" : "-";
+    const formatAmount = `${Sign}${transaction.amount.toLocaleString()}`;
+    const formatDate = new Date(transaction.date).toLocaleDateString();
+
+    row.innerHTML = `
+        <td class="">${formatDate}</td>
+        <td>
+            <span class="type-badge ${typeClass}">
+              <i class="fa-solid ${isIncome? "fa-arrow-up":"fa-arrow-down"}"></i>
+             ${transaction.type}
+            </span>
+        </td>
+        <td>${transaction.source}</td>
+        <td>${transaction.details}</td>
+        <td class="amount ${typeClass}">${formatAmount}</td>
+        <td>
+            <button class="action-button edit-button" data-id="${transaction.id}" aria-label="Edit transaction">
+             <i class="fa-solid fa-pen"></i>
+            </button>
+            <button class="action-button delete-button" data-id="${transaction.id}" aria-label="Delete transaction">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+        </td>
+        `;
+
+    transactionList.appendChild(row);
+    return;
+  });
+};
+
+form.addEventListener("submit", (e: Event) => {
+  e.preventDefault();
+  const type = typeInput.value as "income" | "expense";
+  const source = sourceInput.value.trim();
+  const details = detailsInput.value.trim();
+  const amount = amountInput.valueAsNumber;
+
+  if (!source) {
+    alert("please enter source");
+    return;
+  }
+  if (!amount || amount <= 0) {
+    alert("pleae enter amount");
+    return;
+  }
+  const transaction: Transaction = {
+    id: Date.now(),
+    type: type,
+    source: source,
+    details: details,
+    amount: amount,
+    date: new Date().toISOString(),
+  };
+  transactions.push(transaction);
+  console.log(transaction);
+  renderTransaction();
+});

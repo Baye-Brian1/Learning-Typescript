@@ -577,10 +577,16 @@ a {
     display: inline-flex;
 
     align-items: center;
-
     justify-content: center;
 
     transition: background 0.2s ease;
+}
+.edit-button{
+  background-color: #2ecc705a;
+
+}
+.delete-button{
+  background-color: #e74d3c3a;
 }
 
 
