@@ -10,11 +10,37 @@ const submitBtn = document.querySelector("#addTransactionButton");
 const transactionList = document.querySelector("#transactionList");
 let transactions = [];
 let editingId = null;
+const STORAGE = "finance-transaction";
+const saveTransaction = () => {
+    try {
+        const data = JSON.stringify(transactions);
+        localStorage.setItem(STORAGE, data);
+        console.log("Data successfully saved");
+    }
+    catch (error) {
+        console.log("Failed to save data");
+    }
+};
+const loadTransaction = () => {
+    try {
+        const data = localStorage.getItem(STORAGE);
+        if (data) {
+            const parsed = JSON.parse(data);
+            transactions = parsed;
+            console.log("Data Parsed successfully");
+            return parsed;
+        }
+    }
+    catch (error) {
+        console.log("Failed to get data");
+    }
+};
 const deleteTransaction = (id) => {
     if (!confirm("Are you sure you want to delete this transaction")) {
         return;
     }
     transactions = transactions.filter(transaction => transaction.id !== id);
+    saveTransaction();
     renderTransaction();
     return;
 };
@@ -49,6 +75,8 @@ const renderTransaction = () => {
             
         `;
         transactionList.appendChild(emptyRow);
+        updateTotals();
+        saveTransaction();
         return;
     }
     transactions.forEach((transaction) => {
@@ -82,6 +110,7 @@ const renderTransaction = () => {
         transactionList.appendChild(row);
         return;
     });
+    updateTotals();
 };
 const calculateTotal = () => {
     const income = transactions.filter(t => t.type === "income");
@@ -100,6 +129,11 @@ const updateTotals = () => {
     const expenseElement = document.querySelector("#totalExpenses");
     const balance = document.querySelector("#balance");
     const total = calculateTotal();
+    incomeElement.textContent = `${total.totalIncome.toLocaleString()} FCFA`;
+    incomeElement.style.color = "green";
+    expenseElement.textContent = `${total.totalExpenses.toLocaleString()} FCFA`;
+    expenseElement.style.color = "red";
+    balance.textContent = `${total.balance.toLocaleString()} FCFA`;
 };
 form.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -121,6 +155,7 @@ form.addEventListener("submit", (e) => {
             transactions[index] = Object.assign(Object.assign({}, transactions[index]), { type: type, source: source, details: details, amount: amount });
             editingId = null;
             submitBtn.textContent = "Add Transaction";
+            saveTransaction();
             form.reset();
         }
         else {
@@ -142,6 +177,7 @@ form.addEventListener("submit", (e) => {
         transactions.push(transaction);
     }
     renderTransaction();
+    saveTransaction();
     form.reset();
 });
 transactionList.addEventListener('click', (e) => {
@@ -157,5 +193,11 @@ transactionList.addEventListener('click', (e) => {
         editTransaction(transactionID);
     }
 });
+const init = () => {
+    loadTransaction();
+    renderTransaction();
+    console.log("data succssfully loaded");
+};
+init();
 export {};
 //# sourceMappingURL=sandbox.js.map

@@ -362,11 +362,40 @@ const transactionList = document.querySelector(
 
 let transactions: Transaction[] = [];
 let editingId: number|null= null;
+const STORAGE= "finance-transaction"
+
+const saveTransaction=()=>{
+    try {
+        const data= JSON.stringify(transactions)
+    localStorage.setItem(STORAGE, data)
+    console.log("Data successfully saved");
+        
+    } catch (error) {
+        console.log("Failed to save data");
+        
+    }
+    
+}
+const loadTransaction=()=>{
+    try {
+        const data=  localStorage.getItem(STORAGE)
+        if (data){
+            const parsed: Transaction[]= JSON.parse(data);
+            transactions=parsed
+            console.log("Data Parsed successfully");
+            return parsed;
+        }   
+    } catch (error) {
+        console.log("Failed to get data");
+    }
+}
+
 const deleteTransaction =(id: number):void=>{
     if (!confirm("Are you sure you want to delete this transaction")){
         return;
     }
     transactions = transactions.filter(transaction=> transaction.id !== id);
+       saveTransaction()
     renderTransaction();
     return;
 }
@@ -402,6 +431,8 @@ const renderTransaction = () => {
             
         `;
     transactionList.appendChild(emptyRow);
+    updateTotals()
+    saveTransaction();
     return;
   }
 
@@ -439,12 +470,15 @@ const renderTransaction = () => {
     transactionList.appendChild(row);
     return;
   });
+
+  updateTotals()
+
 };
 const calculateTotal=()=>{
-    const income=transactions.filter(t =>t.type==="income");
+    const income=transactions.filter(t =>t.type === "income");
    const totalIncome= income.reduce((sum, num)=> sum+num.amount, 0)
 
-   const expenses=transactions.filter(t =>t.type==="expense");
+   const expenses=transactions.filter(t =>t.type === "expense");
    const totalExpenses= expenses.reduce((sum, num)=> sum+num.amount, 0)
     
    const balance= totalIncome-totalExpenses
@@ -461,6 +495,13 @@ const updateTotals=()=>{
     const balance= document.querySelector("#balance") as HTMLElement;
 
     const total= calculateTotal()
+     incomeElement.textContent=`${total.totalIncome.toLocaleString()} FCFA` ;
+     incomeElement.style.color= "green";
+     
+     expenseElement.textContent= `${total.totalExpenses.toLocaleString()} FCFA`;
+     expenseElement.style.color= "red";
+
+     balance.textContent= `${total.balance.toLocaleString()} FCFA`;
 
 };
 form.addEventListener("submit", (e: Event) => {
@@ -490,6 +531,7 @@ form.addEventListener("submit", (e: Event) => {
         } as Transaction
          editingId= null
         submitBtn.textContent="Add Transaction"
+        saveTransaction();
         form.reset();
     } else{
         alert("Transaction not found")
@@ -512,6 +554,7 @@ form.addEventListener("submit", (e: Event) => {
    
   }
   renderTransaction();
+  saveTransaction();
   form.reset();
 });
 
@@ -530,3 +573,11 @@ transactionList.addEventListener('click', (e:MouseEvent) =>{
         editTransaction(transactionID);
     }
 })
+
+const init=()=>{
+    loadTransaction();
+    renderTransaction();
+    console.log("data succssfully loaded");
+    
+}
+init();
