@@ -9,6 +9,29 @@ const amountInput = document.querySelector("#transactionAmount");
 const submitBtn = document.querySelector("#addTransactionButton");
 const transactionList = document.querySelector("#transactionList");
 let transactions = [];
+let editingId = null;
+const deleteTransaction = (id) => {
+    if (!confirm("Are you sure you want to delete this transaction")) {
+        return;
+    }
+    transactions = transactions.filter(transaction => transaction.id !== id);
+    renderTransaction();
+    return;
+};
+const editTransaction = (id) => {
+    const transaction = transactions.find(t => t.id === id);
+    if (!transaction) {
+        alert("Transaction not found");
+        return;
+    }
+    editingId = id;
+    typeInput.value = transaction.type;
+    sourceInput.value = transaction.source;
+    detailsInput.value = transaction.details;
+    amountInput.value = transaction.amount.toString();
+    submitBtn.textContent = "Edit Transaction";
+    return;
+};
 const renderTransaction = () => {
     transactionList.innerHTML = "";
     if (transactions.length === 0) {
@@ -60,6 +83,24 @@ const renderTransaction = () => {
         return;
     });
 };
+const calculateTotal = () => {
+    const income = transactions.filter(t => t.type === "income");
+    const totalIncome = income.reduce((sum, num) => sum + num.amount, 0);
+    const expenses = transactions.filter(t => t.type === "expense");
+    const totalExpenses = expenses.reduce((sum, num) => sum + num.amount, 0);
+    const balance = totalIncome - totalExpenses;
+    return {
+        totalIncome,
+        totalExpenses,
+        balance
+    };
+};
+const updateTotals = () => {
+    const incomeElement = document.querySelector("#totalIncome");
+    const expenseElement = document.querySelector("#totalExpenses");
+    const balance = document.querySelector("#balance");
+    const total = calculateTotal();
+};
 form.addEventListener("submit", (e) => {
     e.preventDefault();
     const type = typeInput.value;
@@ -71,20 +112,50 @@ form.addEventListener("submit", (e) => {
         return;
     }
     if (!amount || amount <= 0) {
-        alert("pleae enter amount");
+        alert("please enter amount");
         return;
     }
-    const transaction = {
-        id: Date.now(),
-        type: type,
-        source: source,
-        details: details,
-        amount: amount,
-        date: new Date().toISOString(),
-    };
-    transactions.push(transaction);
-    console.log(transaction);
+    if (editingId !== null) {
+        const index = transactions.findIndex(t => t.id === editingId);
+        if (index !== -1) {
+            transactions[index] = Object.assign(Object.assign({}, transactions[index]), { type: type, source: source, details: details, amount: amount });
+            editingId = null;
+            submitBtn.textContent = "Add Transaction";
+            form.reset();
+        }
+        else {
+            alert("Transaction not found");
+            editingId = null;
+            submitBtn.textContent = "Add Transaction";
+            form.reset();
+        }
+    }
+    else {
+        const transaction = {
+            id: Date.now(),
+            type: type,
+            source: source,
+            details: details,
+            amount: amount,
+            date: new Date().toISOString()
+        };
+        transactions.push(transaction);
+    }
     renderTransaction();
+    form.reset();
+});
+transactionList.addEventListener('click', (e) => {
+    const target = e.target;
+    const button = target.closest("button");
+    if (!button)
+        return;
+    const transactionID = Number(button.dataset.id);
+    if (button.classList.contains("delete-button")) {
+        deleteTransaction(transactionID);
+    }
+    if (button.classList.contains("edit-button")) {
+        editTransaction(transactionID);
+    }
 });
 export {};
 //# sourceMappingURL=sandbox.js.map
