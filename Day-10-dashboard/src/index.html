@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A simple finance logger for tracking income and expenses."
+    />
+    <title>Product Dashboard</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="header-container">
+        <h2>Product Dashboard</h2>
+        <button type="submit" class="add-button" id="addPopupFormButton">
+          <span>Add</span>  
+          <i class="fa-solid fa-plus"></i>
+          </button>
+      </div>
+    </header>
+    <main class="main-container">
+      <section class="page-intro">
+        <h2>Products</h2>
+        <p>Add and manage your products.</p>
+        <div class="card-container">
+          <div class="card">
+          <div class="card-info">
+            <h3>Total products</h3>
+            <p>10</p>
+          </div>
+          <i class="fa-solid fa-charts"></i>
+        </div>
+        <div class="card">
+          <div class="card-info">
+            <h3>Total Stocks</h3>
+            <p>10</p>
+          </div>
+          <i class="fa-solid fa-charts"></i>
+        </div>
+        </div>
+      </section>
+      <section class="add-product-card">
+        <div class="section-heading">
+          <h2>Add New Products</h2>
+        </div>
+
+        <form id="productForm" class="product-form">
+          <div class="form-field">
+            <label for="productName"> Products </label>
+            <input type="text"
+            id="productName"
+            placeholder="Products"
+            name="Products"
+            required>
+          </div>
+          
+          <div class="form-field">
+            <label for="productAmount"> Price (FCFA)  </label>
+            <input
+              type="number"
+              id="productAmount"
+              name="Price"
+              placeholder="Add Price"
+            />
+          </div>
+          <div class="form-field">
+            <label for="productQuantity"> Quantity </label>
+            <input
+              type="number"
+              id="productQuantity"
+              name="quantity"
+              placeholder="0.0"
+              min="0"
+              step="1.0"
+              required
+            />
+          </div>
+          <button type="submit" class="add-button" id="addProductButton">
+            <i class="fa-solid fa-plus"></i>
+
+            <span>Add Products</span>
+          </button>
+        </form>
+      </section>
+
+      <section class="transaction-history-card" id="transactions">
+        <!-- SECTION HEADER -->
+
+        <div class="history-header">
+          <h2>Transaction History</h2>
+
+          <!-- Filter -->
+
+          <div class="filter-wrapper">
+            <i class="fa-regular fa-calendar"></i>
+
+            <select id="dateFilter" aria-label="Filter transactions by date">
+              <option value="all">All Time</option>
+
+              <option value="today">Today</option>
+
+              <option value="week">This Week</option>
+
+              <option value="month">This Month</option>
+            </select>
+
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+        </div>
+
+        <div class="history-tools">
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+              type="search"
+              id="searchTransactions"
+              placeholder="Search transactions..."
+              aria-label="Search transactions"
+            />
+          </div>
+        </div>
+        <div class="table-wrapper">
+          <table class="product-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Products</th>
+                <th>Price</th>
+                <th>Amount</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+
+            <tbody id="productList"></tbody>
+          </table>
+        </div>
+
+        <div class="empty-state" id="emptyState">
+          <div class="empty-icon">
+            <i class="fa-solid fa-receipt"></i>
+          </div>
+
+          <h3>No products yet</h3>
+
+          <p>Add your first products.</p>
+        </div>
+      </section>
+      
+
+        
+    </main>
+    <footer class="site-footer">
+      <p>Brian &copy; 2026</p>
+    </footer>
+    <script type="module" src="sandbox.js"></script>
+  </body>
+</html>
