@@ -8,6 +8,8 @@ const detailsInput = document.querySelector("#transactionDetails");
 const amountInput = document.querySelector("#transactionAmount");
 const submitBtn = document.querySelector("#addTransactionButton");
 const transactionList = document.querySelector("#transactionList");
+const searchInput = document.querySelector("#searchTransactions");
+const dateFilter = document.querySelector("#dateFilter");
 let transactions = [];
 let editingId = null;
 const STORAGE = "finance-transaction";
@@ -35,6 +37,19 @@ const loadTransaction = () => {
         console.log("Failed to get data");
     }
 };
+searchInput.addEventListener('input', () => {
+    const search = searchInput.value.toLowerCase().trim();
+    if (search === '') {
+        renderTransaction(transactions);
+    }
+    else {
+        const filteredTransaction = transactions.filter(transaction => {
+            return transaction.source.toLowerCase().includes(search) ||
+                transaction.details.toLowerCase().includes(search);
+        });
+        renderTransaction(filteredTransaction);
+    }
+});
 const deleteTransaction = (id) => {
     if (!confirm("Are you sure you want to delete this transaction")) {
         return;
@@ -58,9 +73,10 @@ const editTransaction = (id) => {
     submitBtn.textContent = "Edit Transaction";
     return;
 };
-const renderTransaction = () => {
+const renderTransaction = (transactionsToRender = transactions) => {
     transactionList.innerHTML = "";
-    if (transactions.length === 0) {
+    const hasSearchTerm = searchInput.value.trim() !== '';
+    if (transactionsToRender.length === 0) {
         const emptyRow = document.createElement("tr");
         emptyRow.innerHTML = `
         <td colspan="6" class="empty-state">
@@ -68,8 +84,8 @@ const renderTransaction = () => {
             <div class="empty-icon">
               <i class="fa-solid fa-receipt"></i>
             </div>
-            <h3>No transactions yet</h3>
-            <p>Add your Income or expenses</p>
+            <h3>${hasSearchTerm ? "No matching transactions" : "No transactions yet"}</h3>
+            <p>${hasSearchTerm ? "Try adjusting your search" : "Add your Income or expenses"}</p>
           </div>
         </td>
             
@@ -79,7 +95,7 @@ const renderTransaction = () => {
         saveTransaction();
         return;
     }
-    transactions.forEach((transaction) => {
+    transactionsToRender.forEach((transaction) => {
         const row = document.createElement("tr");
         row.dataset.id = String(transaction.id);
         const isIncome = transaction.type === "income";
@@ -112,10 +128,10 @@ const renderTransaction = () => {
     });
     updateTotals();
 };
-const calculateTotal = () => {
-    const income = transactions.filter(t => t.type === "income");
+const calculateTotal = (transactionsToCalculate = transactions) => {
+    const income = transactionsToCalculate.filter(t => t.type === "income");
     const totalIncome = income.reduce((sum, num) => sum + num.amount, 0);
-    const expenses = transactions.filter(t => t.type === "expense");
+    const expenses = transactionsToCalculate.filter(t => t.type === "expense");
     const totalExpenses = expenses.reduce((sum, num) => sum + num.amount, 0);
     const balance = totalIncome - totalExpenses;
     return {
@@ -176,6 +192,7 @@ form.addEventListener("submit", (e) => {
         };
         transactions.push(transaction);
     }
+    searchInput.value = '';
     renderTransaction();
     saveTransaction();
     form.reset();
