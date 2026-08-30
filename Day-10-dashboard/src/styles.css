@@ -15,7 +15,7 @@ body{
   background: #ffffff;
 }
 .header-container{
-  width: min(1380px, 70%);
+  width: min(1380px, 92%);
   height: 100%;
   margin: auto;
   display: flex;
@@ -30,9 +30,10 @@ body{
   border: 1px solid #111111;
   outline: none;
   padding: 8px 30px;
+  cursor: pointer;
 }
 .main-container{
-  width: min(1380px, 70%);
+  width: min(1380px, 92%);
   margin: auto;
   padding: 10px;
 }
@@ -51,6 +52,7 @@ body{
   align-items: center;
   justify-content: flex-start;
   gap: 40px;
+  margin-bottom: 30px;
 }
 .card{
   background: #ffffff;
@@ -80,7 +82,7 @@ body{
 
 .card-info p{
   font-weight: 600;
-  font-size: 40px;
+  font-size: 30px;
 }
 .card i{
   font-weight: 600;
@@ -89,12 +91,50 @@ body{
   background: #6666661c;
   padding: 15px;
 }
+#closePopup{
+  position: fixed;
+  top: 70px;
+  right: 450px;
+  border-radius: 50%;
+  padding: 10px;
+  outline: none;
+  border: transparent;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #6666661c;
+  transition:  0.2s ease-in;
+  cursor: pointer;
+
+}
+#closePopup:hover{
+  background: #66666668;
+}
+.add-modal-card{
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.3);
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+}
+.add-modal-card.show{
+ opacity: 1;
+ pointer-events: auto;
+}
 .product-form{
   background: #ffffff;
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.103);
   padding: 10px 20px;
   width: min(400px);
-  height: 70vh;
+  height: 80vh;
   display: flex;
   flex-direction: column;
   align-items: start;
@@ -104,6 +144,7 @@ body{
   width: 100%;
   text-align: center;
   padding: 10px;
+  margin-top: 40px;
 }
 .form-field{
   display: flex;
@@ -269,3 +310,15 @@ body{
     color: #777777;
     font-size: 14px;
 }
+.site-footer {
+    border-top: 1px solid #eeeeee;
+
+    padding: 25px;
+
+    text-align: center;
+
+    color: #888888;
+
+    font-size: 12px;
+}
+

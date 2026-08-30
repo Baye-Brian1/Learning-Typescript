@@ -19,7 +19,7 @@
     <header class="site-header">
       <div class="header-container">
         <h2>Product Dashboard</h2>
-        <button type="submit" class="add-button" id="addPopupFormButton">
+        <button type="submit" class="add-button" id="addPopup">
           <span>Add</span>
           <i class="fa-solid fa-plus"></i>
         </button>
@@ -31,7 +31,7 @@
         <div class="card-container">
           <div class="card">
             <div class="card-info">
-              <h3>Total Stocks</h3>
+              <h3>Total Products</h3>
               <p>10</p>
             </div>
             <i class="fa-regular fa-calendar"></i>
@@ -45,7 +45,7 @@
           </div>
         </div>
       </section>
-      <section class="add-product-card">
+      <section class="add-modal-card">
         <form id="productForm" class="product-form">
           <div class="section-heading">
             <h2>Add New Products</h2>
@@ -89,7 +89,12 @@
               <span>Add Products</span>
             </button>
           </div>
+          
         </form>
+        <button id="closePopup">
+          <i class="fa-solid fa-close"></i>
+        </button>
+        
       </section>
 
       <section class="product-history-card" id="products">
