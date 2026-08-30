@@ -15,6 +15,7 @@ const productList = document.querySelector("#productList");
 const submitBtn = document.querySelector("#addProductButton");
 const form = document.querySelector("#productForm");
 const products = [];
+let editingID = null;
 const STORAGE = "products";
 const saveProduct = () => {
     try {
@@ -35,6 +36,27 @@ const loadProduct = () => {
     catch (_a) {
         return [];
     }
+};
+const deleteProduct = (id) => {
+    if (confirm("Are you sure you want to delete this product"))
+        products.filter(product => product.id !== id);
+    renderProduct();
+    saveProduct();
+    return;
+};
+const updateProduct = (id) => {
+    const product = products.find(product => product.id === id);
+    if (!product) {
+        alert("product not found");
+        return;
+    }
+    editingID = id;
+    productName.value = product.name;
+    productCategory.value = product.category;
+    productAmount.valueAsNumber = product.amount;
+    productQuantity.valueAsNumber = product.stock;
+    submitBtn.textContent = "Edit Product";
+    return;
 };
 const renderProduct = () => {
     productList.innerHTML = "";
@@ -59,7 +81,7 @@ const renderProduct = () => {
     <td>${product.category}</td>
     <td>${formatAmount}</td>
     <td>${product.stock}</td>
-    <td>
+    <td class="button-action">
         <button class="action-button edit-button" data-id="${product.id}" aria-label="Edit transaction">
              <i class="fa-solid fa-pen"></i>
             </button>
@@ -69,6 +91,8 @@ const renderProduct = () => {
         </td>
      `;
         productList.appendChild(row);
+        saveProduct();
+        return;
     });
 };
 form.addEventListener("submit", (e) => {
@@ -79,12 +103,15 @@ form.addEventListener("submit", (e) => {
     const quantity = productQuantity.valueAsNumber;
     if (!name) {
         alert("Please fill in the product name");
+        return;
     }
     if (!category) {
         alert("Please select the product's catgory");
+        return;
     }
     if (!amount || !amount) {
         alert("Please fill in the product's amount and quantity");
+        return;
     }
     const product = {
         id: Date.now(),

@@ -312,13 +312,37 @@ body{
 }
 .site-footer {
     border-top: 1px solid #eeeeee;
-
     padding: 25px;
-
     text-align: center;
-
     color: #888888;
-
     font-size: 12px;
 }
 
+.button-action{
+   display: flex;
+   align-items: center;
+   gap: 10px;
+
+}
+.edit-button{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding: 10px;
+   border: none;
+   background: rgba(0, 255, 98, 0.406);
+   border-radius: 50%;
+   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+   cursor: pointer;
+}
+.delete-button{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding: 10px;
+   border: none;
+   background: rgba(255, 0, 0, 0.297);
+   border-radius: 50%;
+   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+   cursor: pointer;
+}
