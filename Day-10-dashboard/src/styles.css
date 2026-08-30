@@ -93,14 +93,14 @@ body{
 }
 #closePopup{
   position: fixed;
-  top: 70px;
+  top: 45px;
   right: 450px;
   border-radius: 50%;
   padding: 10px;
   outline: none;
   border: transparent;
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -134,7 +134,7 @@ body{
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.103);
   padding: 10px 20px;
   width: min(400px);
-  height: 80vh;
+  height: 90vh;
   display: flex;
   flex-direction: column;
   align-items: start;
@@ -144,14 +144,14 @@ body{
   width: 100%;
   text-align: center;
   padding: 10px;
-  margin-top: 40px;
+  margin-top: 25px;
 }
 .form-field{
   display: flex;
   flex-direction: column;
   color: #111111;
   padding: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   width: 100%;
 }
 .form-field label{
@@ -159,7 +159,7 @@ body{
   font-size: 16px;
   margin-bottom: 4px;
 }
-.form-field input{
+.form-field input,select{
   height: 40px;
   border: 1px solid #6666663b;
   border-radius: 6px;
@@ -189,7 +189,7 @@ body{
 .history-header h2 {
   font-size: 24px;
   letter-spacing: -0.3px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 .contain{
   display: flex;

@@ -60,6 +60,19 @@
               required
             />
           </div>
+          <div class="form-field">
+            <label for="productCategory">Category</label>
+
+            <select
+              aria-placeholder="Categories"
+              id="productCategory"
+              aria-label="Filter transactions by Categories"
+            >
+              <option value="today">Electronics</option>
+              <option value="week">Pastries</option>
+              <option value="month">Digital</option>
+            </select>
+          </div>
 
           <div class="form-field">
             <label for="productAmount"> Price (FCFA) </label>
@@ -70,6 +83,7 @@
               placeholder="Add Price"
             />
           </div>
+
           <div class="form-field">
             <label for="productQuantity"> Quantity </label>
             <input
@@ -89,12 +103,10 @@
               <span>Add Products</span>
             </button>
           </div>
-          
         </form>
         <button id="closePopup">
           <i class="fa-solid fa-close"></i>
         </button>
-        
       </section>
 
       <section class="product-history-card" id="products">
@@ -107,10 +119,10 @@
               <i class="fa-regular fa-calendar"></i>
 
               <select id="dateFilter" aria-label="Filter transactions by date">
-                <option value="all">All Time</option>
-                <option value="today">Today</option>
-                <option value="week">This Week</option>
-                <option value="month">This Month</option>
+                <option value="all">Category</option>
+                <option value="today">Electronics</option>
+                <option value="week">Pastries</option>
+                <option value="month">Digital</option>
               </select>
             </div>
             <div class="history-tools">
@@ -132,10 +144,10 @@
           <table class="product-table">
             <thead>
               <tr>
-                <th>Date</th>
                 <th>Products</th>
+                <th>Category</th>
                 <th>Price</th>
-                <th>Amount</th>
+                <th>Quantity</th>
                 <th>Actions</th>
               </tr>
             </thead>
