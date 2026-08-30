@@ -15,7 +15,7 @@ body{
   background: #ffffff;
 }
 .header-container{
-  width: min(1380px, 92%);
+  width: min(1380px, 70%);
   height: 100%;
   margin: auto;
   display: flex;
@@ -30,4 +30,242 @@ body{
   border: 1px solid #111111;
   outline: none;
   padding: 8px 30px;
+}
+.main-container{
+  width: min(1380px, 70%);
+  margin: auto;
+  padding: 10px;
+}
+.page-intro h1{
+ font-size: 20px; 
+ line-height: 1.1;
+ margin-bottom: 10px;
+}
+.page-intro p {
+  color: #666666;
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+.card-container{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 40px;
+}
+.card{
+  background: #ffffff;
+  width: 300px;
+  height: 100px;
+  padding: 30px 15px;
+  border-radius: 8px;
+  box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.08);
+  margin-bottom: 20px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+.card-info{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: start;
+}
+.card-info h3{
+  font-weight: 600;
+  font-size: 20px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.card-info p{
+  font-weight: 600;
+  font-size: 40px;
+}
+.card i{
+  font-weight: 600;
+  font-size: 20px;
+  border-radius: 50%;
+  background: #6666661c;
+  padding: 15px;
+}
+.product-form{
+  background: #ffffff;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.103);
+  padding: 10px 20px;
+  width: min(400px);
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  border-radius: 8px;
+}
+.section-heading{
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+}
+.form-field{
+  display: flex;
+  flex-direction: column;
+  color: #111111;
+  padding: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+}
+.form-field label{
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+.form-field input{
+  height: 40px;
+  border: 1px solid #6666663b;
+  border-radius: 6px;
+  padding: 10px;
+  outline: none;
+}
+.add-button-form{
+ outline: none;
+ background: #111111;
+ color: white;
+ font-weight: 500;
+ width: 100%;
+ height: 40px;
+ padding: 10px; 
+ border: transparent;
+ border-radius: 6px;
+}
+.product-history-card{
+  padding: 10px;
+}
+.history-header {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  margin-bottom: 25px;
+}
+.history-header h2 {
+  font-size: 24px;
+  letter-spacing: -0.3px;
+  margin-bottom: 10px;
+}
+.contain{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 200px;
+}
+.filter-wrapper{
+  display: flex;
+  width: 330px;
+  height: 46px;
+  border: 1px solid #6666662f;
+  gap: 10px;
+  border-radius: 9px;
+  padding: 10px;
+  align-items: center;
+}
+.filter-wrapper select{
+  width: 90%;
+  height: 100%;
+  outline: none;
+  background: transparent;
+  border: transparent;
+
+}
+
+.search-box{
+  display: flex;
+  width: 330px;
+  height: 46px;
+  border: 1px solid #6666662f;
+  align-items: center;
+  gap: 10px;
+  border-radius: 9px;
+  padding: 0 15px;
+  color: #777777;
+}
+.search-box input{
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: transparent;
+  outline: none;
+  font-size: 13px;
+}
+.table-wrapper{
+  width: 100%;
+  overflow-x: auto;
+}
+.product-table{
+  width: 100%;
+  min-width: 850px;
+  border-collapse: separate;
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  border-spacing: 0;
+  overflow: hidden;
+}
+.product-table thead{
+  background: #f5f5f5;
+}
+.product-table th{
+  text-align: left;
+  padding: 16px 19px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+  color: #555555;
+  font-weight: 600;
+}
+.product-table td{
+  padding: 19px;
+  border: 1px solid #eeeeee;
+  font-size: 14px;
+  color: #222222;
+    white-space: nowrap;
+}
+.transactions-table tbody tr {
+    transition: background 0.2s ease;
+}
+.transactions-table tbody tr:hover {
+    background: #fafafa;
+}
+.empty-state {
+    display: none;
+    text-align: center;
+    padding: 70px 20px;
+}
+
+
+.empty-state.visible {
+    display: block;
+}
+
+
+.empty-icon {
+    width: 58px;
+    height: 58px;
+    margin: 0 auto 18px;
+    border-radius: 50%;
+    background: #f3f3f3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333333;
+    font-size: 20px;
+}
+
+
+.empty-state h3 {
+    font-size: 18px;
+    margin-bottom: 7px;
+}
+
+
+.empty-state p {
+    color: #777777;
+    font-size: 14px;
 }

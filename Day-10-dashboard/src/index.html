@@ -20,49 +20,49 @@
       <div class="header-container">
         <h2>Product Dashboard</h2>
         <button type="submit" class="add-button" id="addPopupFormButton">
-          <span>Add</span>  
+          <span>Add</span>
           <i class="fa-solid fa-plus"></i>
-          </button>
+        </button>
       </div>
     </header>
     <main class="main-container">
       <section class="page-intro">
-        <h2>Products</h2>
         <p>Add and manage your products.</p>
         <div class="card-container">
           <div class="card">
-          <div class="card-info">
-            <h3>Total products</h3>
-            <p>10</p>
+            <div class="card-info">
+              <h3>Total Stocks</h3>
+              <p>10</p>
+            </div>
+            <i class="fa-regular fa-calendar"></i>
           </div>
-          <i class="fa-solid fa-charts"></i>
-        </div>
-        <div class="card">
-          <div class="card-info">
-            <h3>Total Stocks</h3>
-            <p>10</p>
+          <div class="card">
+            <div class="card-info">
+              <h3>Total Stocks</h3>
+              <p>10</p>
+            </div>
+            <i class="fa-regular fa-calendar"></i>
           </div>
-          <i class="fa-solid fa-charts"></i>
-        </div>
         </div>
       </section>
       <section class="add-product-card">
-        <div class="section-heading">
-          <h2>Add New Products</h2>
-        </div>
-
         <form id="productForm" class="product-form">
+          <div class="section-heading">
+            <h2>Add New Products</h2>
+          </div>
           <div class="form-field">
             <label for="productName"> Products </label>
-            <input type="text"
-            id="productName"
-            placeholder="Products"
-            name="Products"
-            required>
+            <input
+              type="text"
+              id="productName"
+              placeholder="Products"
+              name="Products"
+              required
+            />
           </div>
-          
+
           <div class="form-field">
-            <label for="productAmount"> Price (FCFA)  </label>
+            <label for="productAmount"> Price (FCFA) </label>
             <input
               type="number"
               id="productAmount"
@@ -82,51 +82,47 @@
               required
             />
           </div>
-          <button type="submit" class="add-button" id="addProductButton">
-            <i class="fa-solid fa-plus"></i>
+          <div class="form-field">
+            <button type="submit" class="add-button-form" id="addProductButton">
+              <i class="fa-solid fa-plus"></i>
 
-            <span>Add Products</span>
-          </button>
+              <span>Add Products</span>
+            </button>
+          </div>
         </form>
       </section>
 
-      <section class="transaction-history-card" id="transactions">
+      <section class="product-history-card" id="products">
         <!-- SECTION HEADER -->
 
         <div class="history-header">
-          <h2>Transaction History</h2>
+          <h2>Product History</h2>
+          <div class="contain">
+            <div class="filter-wrapper">
+              <i class="fa-regular fa-calendar"></i>
 
-          <!-- Filter -->
+              <select id="dateFilter" aria-label="Filter transactions by date">
+                <option value="all">All Time</option>
+                <option value="today">Today</option>
+                <option value="week">This Week</option>
+                <option value="month">This Month</option>
+              </select>
+            </div>
+            <div class="history-tools">
+              <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
 
-          <div class="filter-wrapper">
-            <i class="fa-regular fa-calendar"></i>
-
-            <select id="dateFilter" aria-label="Filter transactions by date">
-              <option value="all">All Time</option>
-
-              <option value="today">Today</option>
-
-              <option value="week">This Week</option>
-
-              <option value="month">This Month</option>
-            </select>
-
-            <i class="fa-solid fa-chevron-down"></i>
+                <input
+                  type="search"
+                  id="searchTransactions"
+                  placeholder="Search transactions..."
+                  aria-label="Search transactions"
+                />
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="history-tools">
-          <div class="search-box">
-            <i class="fa-solid fa-magnifying-glass"></i>
-
-            <input
-              type="search"
-              id="searchTransactions"
-              placeholder="Search transactions..."
-              aria-label="Search transactions"
-            />
-          </div>
-        </div>
         <div class="table-wrapper">
           <table class="product-table">
             <thead>
@@ -153,9 +149,6 @@
           <p>Add your first products.</p>
         </div>
       </section>
-      
-
-        
     </main>
     <footer class="site-footer">
       <p>Brian &copy; 2026</p>
