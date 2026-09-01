@@ -15,6 +15,7 @@ const productList = document.querySelector("#productList");
 const submitBtn = document.querySelector("#addProductButton");
 const form = document.querySelector("#productForm");
 const searchInput = document.querySelector('#searchProducts');
+const filterCat = document.querySelector('#filter');
 let products = [];
 let editingID = null;
 const STORAGE = "products";
@@ -41,11 +42,11 @@ const loadProduct = () => {
 searchInput.addEventListener('input', () => {
     searchProduct();
 });
-productCategory.addEventListener('change', () => {
+filterCat.addEventListener('change', () => {
     filterCategories();
 });
 const filterCategories = () => {
-    const filter = productCategory.value.toLocaleLowerCase();
+    const filter = filterCat.value.toLocaleLowerCase();
     if (filter === '' || filter === "all") {
         renderProduct();
     }
@@ -102,7 +103,7 @@ const renderProduct = (productsRender = products) => {
         </div>`;
         productList.appendChild(emptyRow);
     }
-    products.forEach((product) => {
+    productsRender.forEach((product) => {
         const row = document.createElement("tr");
         const formatAmount = product.amount.toLocaleString();
         row.innerHTML = `
@@ -159,6 +160,16 @@ form.addEventListener("submit", (e) => {
 productList.addEventListener('click', (e) => {
     const target = e.target;
     const button = target.closest("button");
+    if (!button)
+        return;
+    const productId = Number(button === null || button === void 0 ? void 0 : button.dataset.id);
+    if (button.classList.contains("delete-button")) {
+        deleteProduct(productId);
+    }
+    if (button.classList.contains("edit-button")) {
+        updateProduct(productId);
+        popup === null || popup === void 0 ? void 0 : popup.classList.add('show');
+    }
 });
 const init = () => {
     products = loadProduct();

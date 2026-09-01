@@ -26,7 +26,7 @@ const submitBtn = document.querySelector(
 ) as HTMLButtonElement;
 const form = document.querySelector("#productForm") as HTMLFormElement;
 const searchInput= document.querySelector('#searchProducts') as HTMLInputElement
-
+const filterCat= document.querySelector('#filter') as HTMLSelectElement
 interface Product {
   id: number;
   name: string;
@@ -59,12 +59,12 @@ const loadProduct = (): Product[] => {
 searchInput.addEventListener('input', ()=>{
  searchProduct()
 })
-productCategory.addEventListener('change', ()=>{
+filterCat.addEventListener('change', ()=>{
   filterCategories()
 })
 
 const filterCategories=()=>{
-  const filter = productCategory.value.toLocaleLowerCase()
+  const filter =filterCat.value.toLocaleLowerCase()
    if (filter===''|| filter==="all") {
     renderProduct();
   } else {
@@ -125,7 +125,7 @@ const renderProduct = (productsRender= products) => {
     productList.appendChild(emptyRow);
   }
 
-  products.forEach((product) => {
+  productsRender.forEach((product) => {
     const row = document.createElement("tr");
     const formatAmount = product.amount.toLocaleString();
     row.innerHTML = `
@@ -189,9 +189,20 @@ form.addEventListener("submit", (e: Event) => {
  
 productList.addEventListener('click', (e:MouseEvent)=>{
   const target= e.target as HTMLElement
-    const button= target.closest("button")
-    
+    const button= target.closest("button");
+
+    if(!button)return; 
+    const productId= Number(button?.dataset.id);
+
+    if(button.classList.contains("delete-button")){
+      deleteProduct(productId);
+    }
+    if (button.classList.contains("edit-button")){
+       updateProduct(productId);
+       popup?.classList.add('show')
+    }
 })
+
 
 const init = () => {
   products=loadProduct();
