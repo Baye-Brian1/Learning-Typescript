@@ -14,7 +14,8 @@ const productQuantity = document.querySelector("#productQuantity");
 const productList = document.querySelector("#productList");
 const submitBtn = document.querySelector("#addProductButton");
 const form = document.querySelector("#productForm");
-const products = [];
+const searchInput = document.querySelector('#searchProducts');
+let products = [];
 let editingID = null;
 const STORAGE = "products";
 const saveProduct = () => {
@@ -37,10 +38,40 @@ const loadProduct = () => {
         return [];
     }
 };
+searchInput.addEventListener('input', () => {
+    searchProduct();
+});
+productCategory.addEventListener('change', () => {
+    filterCategories();
+});
+const filterCategories = () => {
+    const filter = productCategory.value.toLocaleLowerCase();
+    if (filter === '' || filter === "all") {
+        renderProduct();
+    }
+    else {
+        const filteredCategory = products.filter(product => {
+            return product.category.toLowerCase().includes(filter);
+        });
+        renderProduct(filteredCategory);
+    }
+};
+const searchProduct = () => {
+    const searchTerm = searchInput.value.toLowerCase().trim();
+    if (searchTerm === '') {
+        renderProduct();
+    }
+    else {
+        const filteredProducts = products.filter(product => {
+            return product.name.toLowerCase().includes(searchTerm);
+        });
+        renderProduct(filteredProducts);
+    }
+};
 const deleteProduct = (id) => {
     if (confirm("Are you sure you want to delete this product"))
-        products.filter(product => product.id !== id);
-    renderProduct();
+        products = products.filter(product => product.id !== id);
+    renderProduct(products);
     saveProduct();
     return;
 };
@@ -56,9 +87,8 @@ const updateProduct = (id) => {
     productAmount.valueAsNumber = product.amount;
     productQuantity.valueAsNumber = product.stock;
     submitBtn.textContent = "Edit Product";
-    return;
 };
-const renderProduct = () => {
+const renderProduct = (productsRender = products) => {
     productList.innerHTML = "";
     if (products.length === 0) {
         const emptyRow = document.createElement("tr");
@@ -71,7 +101,6 @@ const renderProduct = () => {
           <p>Add your first products.</p>
         </div>`;
         productList.appendChild(emptyRow);
-        saveProduct();
     }
     products.forEach((product) => {
         const row = document.createElement("tr");
@@ -91,7 +120,6 @@ const renderProduct = () => {
         </td>
      `;
         productList.appendChild(row);
-        saveProduct();
         return;
     });
 };
@@ -101,31 +129,35 @@ form.addEventListener("submit", (e) => {
     const category = productCategory.value;
     const amount = productAmount.valueAsNumber;
     const quantity = productQuantity.valueAsNumber;
-    if (!name) {
-        alert("Please fill in the product name");
+    if (!name || !category || !amount || !amount) {
+        alert("Please fill in all the required fields");
         return;
     }
-    if (!category) {
-        alert("Please select the product's catgory");
-        return;
+    if (editingID !==
+        null) {
+        products = products.map(p => p.id === editingID ? Object.assign(Object.assign({}, p), { name, category, amount, stock: quantity }) : p);
+        editingID = null;
+        submitBtn.textContent = "Add Products";
     }
-    if (!amount || !amount) {
-        alert("Please fill in the product's amount and quantity");
-        return;
+    else {
+        const product = {
+            id: Date.now(),
+            name: name,
+            category: category,
+            amount: amount,
+            stock: quantity,
+        };
+        products.push(product);
     }
-    const product = {
-        id: Date.now(),
-        name: name,
-        category: category,
-        amount: amount,
-        stock: quantity,
-    };
-    products.push(product);
+    form.reset();
+    setTimeout(() => {
+        popup === null || popup === void 0 ? void 0 : popup.classList.remove("show");
+    }, 500);
     renderProduct();
     saveProduct();
 });
 const init = () => {
-    loadProduct();
+    products = loadProduct();
     console.log("Data loaded successfully");
 };
 init();

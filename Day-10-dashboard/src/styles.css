@@ -204,7 +204,7 @@ body{
   border: 1px solid #6666662f;
   gap: 10px;
   border-radius: 9px;
-  padding: 10px;
+  padding: 5px;
   align-items: center;
 }
 .filter-wrapper select{
@@ -213,6 +213,7 @@ body{
   outline: none;
   background: transparent;
   border: transparent;
+  padding: 5px;
 
 }
 

@@ -25,6 +25,8 @@ const submitBtn = document.querySelector(
   "#addProductButton",
 ) as HTMLButtonElement;
 const form = document.querySelector("#productForm") as HTMLFormElement;
+const searchInput= document.querySelector('#searchProducts') as HTMLInputElement
+
 interface Product {
   id: number;
   name: string;
@@ -32,7 +34,7 @@ interface Product {
   category: string;
   stock: number;
 }
-const products: Product[] = [];
+let products: Product[] = [];
 let editingID: number| null=null;
 const STORAGE = "products";
 
@@ -53,10 +55,43 @@ const loadProduct = (): Product[] => {
     return [];
   }
 };
+
+searchInput.addEventListener('input', ()=>{
+ searchProduct()
+})
+productCategory.addEventListener('change', ()=>{
+  filterCategories()
+})
+
+const filterCategories=()=>{
+  const filter = productCategory.value.toLocaleLowerCase()
+   if (filter===''|| filter==="all") {
+    renderProduct();
+  } else {
+    const filteredCategory = products.filter(product=>{
+      return product.category.toLowerCase().includes(filter);
+  })
+  renderProduct(filteredCategory);
+}
+}
+
+const searchProduct=()=>{
+  const searchTerm= searchInput.value.toLowerCase().trim()
+  if (searchTerm==='') {
+    renderProduct()
+    
+  } else {
+    const filteredProducts=products.filter(product=>{
+      return product.name.toLowerCase().includes(searchTerm);
+  })
+   renderProduct(filteredProducts);
+  }
+  
+}
 const deleteProduct=(id:number)=>{
   if (confirm("Are you sure you want to delete this product"))
-  products.filter(product=> product.id !== id);
-  renderProduct();
+  products=products.filter(product=> product.id !== id);
+  renderProduct(products);
   saveProduct();
   return;
 }
@@ -72,10 +107,10 @@ const updateProduct=(id:number)=>{
   productAmount.valueAsNumber= product.amount;
   productQuantity.valueAsNumber=product.stock;
   submitBtn.textContent="Edit Product"
-  return;
+
 }
 
-const renderProduct = () => {
+const renderProduct = (productsRender= products) => {
   productList.innerHTML = "";
   if (products.length === 0) {
     const emptyRow = document.createElement("tr");
@@ -88,7 +123,6 @@ const renderProduct = () => {
           <p>Add your first products.</p>
         </div>`;
     productList.appendChild(emptyRow);
-    saveProduct();
   }
 
   products.forEach((product) => {
@@ -109,7 +143,6 @@ const renderProduct = () => {
         </td>
      `;
        productList.appendChild(row)
-       saveProduct()
        return;
   });
 
@@ -123,20 +156,19 @@ form.addEventListener("submit", (e: Event) => {
   const amount = productAmount.valueAsNumber;
   const quantity = productQuantity.valueAsNumber;
 
-  if (!name) {
-    alert("Please fill in the product name");
-    return;
-  }
-  if (!category) {
-    alert("Please select the product's catgory");
-    return;
-  }
-  if (!amount || !amount) {
-    alert("Please fill in the product's amount and quantity");
+  if (!name ||!category||!amount || !amount) {
+    alert("Please fill in all the required fields");
     return;
   }
 
-  const product: Product = {
+   if (editingID !==
+     null){
+    products = products.map(p=> p.id=== editingID? {...p, name, category, amount, stock:quantity}:p)
+    editingID= null;
+    submitBtn.textContent="Add Products"
+
+  }else{
+    const product: Product = {
     id: Date.now(),
     name: name,
     category: category,
@@ -144,12 +176,19 @@ form.addEventListener("submit", (e: Event) => {
     stock: quantity,
   };
   products.push(product);
+  
+
+  }
+  form.reset()
+  setTimeout(()=>{
+     popup?.classList.remove("show");
+  },500)
   renderProduct();
   saveProduct();
 });
 
 const init = () => {
-  loadProduct();
+  products=loadProduct();
   console.log("Data loaded successfully");
 };
 init();
