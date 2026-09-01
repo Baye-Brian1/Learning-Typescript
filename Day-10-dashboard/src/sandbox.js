@@ -16,6 +16,8 @@ const submitBtn = document.querySelector("#addProductButton");
 const form = document.querySelector("#productForm");
 const searchInput = document.querySelector('#searchProducts');
 const filterCat = document.querySelector('#filter');
+const ProductCount = document.querySelector('#productCount');
+const stockCount = document.querySelector('#stockCount');
 let products = [];
 let editingID = null;
 const STORAGE = "products";
@@ -38,6 +40,14 @@ const loadProduct = () => {
     catch (_a) {
         return [];
     }
+};
+const updateStats = () => {
+    const totalProducts = products.length;
+    const totalStocks = products.reduce((a, b) => {
+        return a + b.stock;
+    }, 0);
+    ProductCount.textContent = totalProducts.toString();
+    stockCount.textContent = totalStocks.toString();
 };
 searchInput.addEventListener('input', () => {
     searchProduct();
@@ -73,6 +83,7 @@ const deleteProduct = (id) => {
     if (confirm("Are you sure you want to delete this product"))
         products = products.filter(product => product.id !== id);
     renderProduct(products);
+    updateStats();
     saveProduct();
     return;
 };
@@ -123,6 +134,7 @@ const renderProduct = (productsRender = products) => {
         productList.appendChild(row);
         return;
     });
+    updateStats();
 };
 form.addEventListener("submit", (e) => {
     e.preventDefault();

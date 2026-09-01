@@ -27,6 +27,8 @@ const submitBtn = document.querySelector(
 const form = document.querySelector("#productForm") as HTMLFormElement;
 const searchInput= document.querySelector('#searchProducts') as HTMLInputElement
 const filterCat= document.querySelector('#filter') as HTMLSelectElement
+const ProductCount= document.querySelector('#productCount') as HTMLParagraphElement
+const stockCount= document.querySelector('#stockCount') as HTMLParagraphElement
 interface Product {
   id: number;
   name: string;
@@ -55,6 +57,18 @@ const loadProduct = (): Product[] => {
     return [];
   }
 };
+
+
+const updateStats=()=>{
+  const totalProducts = products.length;
+  const totalStocks= products.reduce((a, b)=>{
+    return a+b.stock;
+  },0)
+  ProductCount.textContent= totalProducts.toString();
+  stockCount.textContent= totalStocks.toString();
+
+}
+
 
 searchInput.addEventListener('input', ()=>{
  searchProduct()
@@ -91,7 +105,9 @@ const searchProduct=()=>{
 const deleteProduct=(id:number)=>{
   if (confirm("Are you sure you want to delete this product"))
   products=products.filter(product=> product.id !== id);
+
   renderProduct(products);
+  updateStats();
   saveProduct();
   return;
 }
@@ -146,6 +162,7 @@ const renderProduct = (productsRender= products) => {
        return;
   });
 
+  updateStats();
 };
 
 form.addEventListener("submit", (e: Event) => {
@@ -183,6 +200,7 @@ form.addEventListener("submit", (e: Event) => {
   setTimeout(()=>{
      popup?.classList.remove("show");
   },500)
+  
   renderProduct();
   saveProduct();
 });
@@ -207,6 +225,7 @@ productList.addEventListener('click', (e:MouseEvent)=>{
 const init = () => {
   products=loadProduct();
   renderProduct(products)
+  
   console.log("Data loaded successfully");
 };
 init();
