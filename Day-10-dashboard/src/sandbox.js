@@ -156,8 +156,13 @@ form.addEventListener("submit", (e) => {
     renderProduct();
     saveProduct();
 });
+productList.addEventListener('click', (e) => {
+    const target = e.target;
+    const button = target.closest("button");
+});
 const init = () => {
     products = loadProduct();
+    renderProduct(products);
     console.log("Data loaded successfully");
 };
 init();

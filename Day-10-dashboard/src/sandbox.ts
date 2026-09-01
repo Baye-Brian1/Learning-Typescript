@@ -186,9 +186,16 @@ form.addEventListener("submit", (e: Event) => {
   renderProduct();
   saveProduct();
 });
+ 
+productList.addEventListener('click', (e:MouseEvent)=>{
+  const target= e.target as HTMLElement
+    const button= target.closest("button")
+    
+})
 
 const init = () => {
   products=loadProduct();
+  renderProduct(products)
   console.log("Data loaded successfully");
 };
 init();
