@@ -59,9 +59,9 @@ textarea {
     padding: 24px 20px;
     font-size: 18px;
     font-weight: 800;
-    letter-spacing: -0.5;
+    letter-spacing: 0.5;
 }
-.logo i{
+.logo svg{
     width: 20px;
     height: 20px;
     stroke-width: 2;
@@ -86,7 +86,7 @@ textarea {
                 color var(--transition);
 
 }
-.nav-link i {
+.nav-link svg {
     width: 18px;
     height: 18px;
     flex-shrink: 0;
@@ -134,9 +134,75 @@ textarea {
 }
 .sidebar-brand-title{
     display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: 13px;
+    letter-spacing: 0.5;
 }
+.sidebar-brand-title svg{
+    width: 15px;
+    height: 15px;
+}
+.sidebar p{
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.7;
+}
+.social-links {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 20px 12px;
+  }
+  .social-links a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--muted); 
+    transition: background var(--transition),
+                color var(--transition),
+                border-color var(--transition);
+  }
+  /* Updated Brand colors on hover */
+  .social-links a:hover {
+    background: var(--surface);
+     color: var(--foreground); 
+     border-color: var(--foreground);
+    }
+  .social-icon {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .social-icon.github{
+    fill: currentColor;
+    stroke: none;
+
+  }
+
+  .social-icon.filled {
+    fill: currentColor;
+    stroke: none;
+  }
 
 .main-content{
     flex: 1;
     min-width: 0;
+}
+.topbar{
+    height: var(--topbar-height);
+    display: flex;
+    align-items: center;
+    padding: 0 28px;
+    border-bottom: 1px solid var(--border);
+    background: var(--background);
 }
