@@ -1,0 +1,13 @@
+{
+  "name": "nexus-store",
+  "version": "1.0.0",
+  "private": true,
+  "description": "NEXUS ecommerce frontend built with TypeScript",
+  "scripts": {
+    "build": "tsc --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.2"
+  }
+}

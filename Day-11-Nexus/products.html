@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="NEXUS — Premium products, exceptional quality.">
+  <title>All Products — NEXUS</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./src/css/style.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script type="module" src="./dist/ts/main.js"></script>
+
+</head>
+
+<body>
+  <div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+
+      <div class="logo">
+        <i data-lucide="shopping-bag"></i>
+        <span>NEXUS</span>
+      </div>
+
+      <nav class="sidebar-nav" aria-label="Main navigation">
+
+        <a href="./index.html" class="nav-link ">
+          <i data-lucide="house"></i>
+          <span>Home</span>
+        </a>
+
+        <a href="./products.html" class="nav-link active">
+          <i data-lucide="shopping-bag"></i>
+          <span>All Products</span>
+        </a>
+
+        <a href="./categories.html" class="nav-link ">
+          <i data-lucide="layout-grid"></i>
+          <span>Categories</span>
+        </a>
+
+        <a href="./cart.html" class="nav-link ">
+          <i data-lucide="shopping-cart"></i>
+          <span>Cart</span>
+          <span class="nav-count" id="cartCount">3</span>
+        </a>
+
+        <a href="./favorites.html" class="nav-link ">
+          <i data-lucide="heart"></i>
+          <span>Favorites</span>
+        </a>
+
+        <a href="./about.html" class="nav-link ">
+          <i data-lucide="circle-info"></i>
+          <span>About</span>
+        </a>
+
+        <a href="./contact.html" class="nav-link ">
+          <i data-lucide="mail"></i>
+          <span>Contact</span>
+        </a>
+
+      </nav>
+
+      <div class="sidebar-brand">
+        <div class="sidebar-brand-title">
+          <i data-lucide="sparkles"></i>
+          <strong>NEXUS</strong>
+        </div>
+        <p>Premium products,<br>exceptional quality.<br>Elevate your<br>lifestyle.</p>
+      </div>
+
+      <div class="social-links">
+        <a href="#" aria-label="Instagram"><i data-lucide="instagram"></i></a>
+        <a href="#" aria-label="Twitter"><i data-lucide="twitter"></i></a>
+        <a href="#" aria-label="GitHub"><i data-lucide="github"></i></a>
+      </div>
+
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main-content">
+
+      <header class="topbar">
+        <button class="mobile-menu-button" id="menuButton" aria-label="Open menu">
+          <i data-lucide="menu"></i>
+        </button>
+
+        <div class="search-container">
+          <i data-lucide="search"></i>
+          <input id="searchInput" type="search" placeholder="Search products...">
+        </div>
+
+        <div class="topbar-actions">
+          <button class="icon-button" aria-label="Toggle theme">
+            <i data-lucide="moon"></i>
+          </button>
+
+          <a href="./cart.html" class="icon-button cart-icon-button" aria-label="Cart">
+            <i data-lucide="shopping-cart"></i>
+            <span class="cart-badge">3</span>
+          </a>
+
+          <button class="profile-button" aria-label="Profile">
+            <i data-lucide="user-round"></i>
+          </button>
+        </div>
+      </header>
+
+      
+<section class="page-section products-page">
+
+  <div class="page-heading">
+    <div>
+      <h1>All Products</h1>
+      <p>Discover our premium collection</p>
+    </div>
+
+    <div class="sort-control">
+      <label for="sortSelect">Sort by:</label>
+      <select id="sortSelect">
+        <option value="featured">Featured</option>
+        <option value="price-low">Price: Low to High</option>
+        <option value="price-high">Price: High to Low</option>
+        <option value="rating">Highest Rated</option>
+        <option value="name">Name</option>
+      </select>
+      <i data-lucide="chevron-down"></i>
+    </div>
+  </div>
+
+  <div class="category-tabs" id="categories">
+    <button class="category-tab active" data-category="all">All</button>
+    <button class="category-tab" data-category="men's clothing">men's clothing</button>
+    <button class="category-tab" data-category="women's clothing">women's clothing</button>
+    <button class="category-tab" data-category="electronics">electronics</button>
+    <button class="category-tab" data-category="jewelery">jewelery</button>
+  </div>
+
+  <div class="products-layout">
+
+    <section class="products-content">
+      <div class="product-grid" id="productGrid">
+
+<article class="product-card">
+  <div class="product-image">
+    <img src="" alt="Product image">
+    <button class="favorite-button" aria-label="Add to favorites">
+      <i data-lucide="heart"></i>
+    </button>
+  </div>
+  <div class="product-info">
+    <h3 class="product-title">Product Title</h3>
+    <p class="product-category">men's clothing</p>
+    <div class="product-price">$109.95</div>
+    <button class="add-to-cart-button">
+      <i data-lucide="shopping-cart"></i>
+      <span>Add to Cart</span>
+    </button>
+  </div>
+</article>
+
+<article class="product-card">
+  <div class="product-image">
+    <img src="" alt="Product image">
+    <button class="favorite-button" aria-label="Add to favorites">
+      <i data-lucide="heart"></i>
+    </button>
+  </div>
+  <div class="product-info">
+    <h3 class="product-title">Product Title</h3>
+    <p class="product-category">men's clothing</p>
+    <div class="product-price">$109.95</div>
+    <button class="add-to-cart-button">
+      <i data-lucide="shopping-cart"></i>
+      <span>Add to Cart</span>
+    </button>
+  </div>
+</article>
+
+<article class="product-card">
+  <div class="product-image">
+    <img src="" alt="Product image">
+    <button class="favorite-button" aria-label="Add to favorites">
+      <i data-lucide="heart"></i>
+    </button>
+  </div>
+  <div class="product-info">
+    <h3 class="product-title">Product Title</h3>
+    <p class="product-category">men's clothing</p>
+    <div class="product-price">$109.95</div>
+    <button class="add-to-cart-button">
+      <i data-lucide="shopping-cart"></i>
+      <span>Add to Cart</span>
+    </button>
+  </div>
+</article>
+
+<article class="product-card">
+  <div class="product-image">
+    <img src="" alt="Product image">
+    <button class="favorite-button" aria-label="Add to favorites">
+      <i data-lucide="heart"></i>
+    </button>
+  </div>
+  <div class="product-info">
+    <h3 class="product-title">Product Title</h3>
+    <p class="product-category">men's clothing</p>
+    <div class="product-price">$109.95</div>
+    <button class="add-to-cart-button">
+      <i data-lucide="shopping-cart"></i>
+      <span>Add to Cart</span>
+    </button>
+  </div>
+</article>
+
+<article class="product-card">
+  <div class="product-image">
+    <img src="" alt="Product image">
+    <button class="favorite-button" aria-label="Add to favorites">
+      <i data-lucide="heart"></i>
+    </button>
+  </div>
+  <div class="product-info">
+    <h3 class="product-title">Product Title</h3>
+    <p class="product-category">men's clothing</p>
+    <div class="product-price">$109.95</div>
+    <button class="add-to-cart-button">
+      <i data-lucide="shopping-cart"></i>
+      <span>Add to Cart</span>
+    </button>
+  </div>
+</article>
+
+<article class="product-card">
+  <div class="product-image">
+    <img src="" alt="Product image">
+    <button class="favorite-button" aria-label="Add to favorites">
+      <i data-lucide="heart"></i>
+    </button>
+  </div>
+  <div class="product-info">
+    <h3 class="product-title">Product Title</h3>
+    <p class="product-category">men's clothing</p>
+    <div class="product-price">$109.95</div>
+    <button class="add-to-cart-button">
+      <i data-lucide="shopping-cart"></i>
+      <span>Add to Cart</span>
+    </button>
+  </div>
+</article>
+
+<article class="product-card">
+  <div class="product-image">
+    <img src="" alt="Product image">
+    <button class="favorite-button" aria-label="Add to favorites">
+      <i data-lucide="heart"></i>
+    </button>
+  </div>
+  <div class="product-info">
+    <h3 class="product-title">Product Title</h3>
+    <p class="product-category">men's clothing</p>
+    <div class="product-price">$109.95</div>
+    <button class="add-to-cart-button">
+      <i data-lucide="shopping-cart"></i>
+      <span>Add to Cart</span>
+    </button>
+  </div>
+</article>
+
+<article class="product-card">
+  <div class="product-image">
+    <img src="" alt="Product image">
+    <button class="favorite-button" aria-label="Add to favorites">
+      <i data-lucide="heart"></i>
+    </button>
+  </div>
+  <div class="product-info">
+    <h3 class="product-title">Product Title</h3>
+    <p class="product-category">men's clothing</p>
+    <div class="product-price">$109.95</div>
+    <button class="add-to-cart-button">
+      <i data-lucide="shopping-cart"></i>
+      <span>Add to Cart</span>
+    </button>
+  </div>
+</article>
+
+      </div>
+
+      <nav class="pagination" aria-label="Product pagination">
+        <button class="pagination-button" aria-label="Previous page">
+          <i data-lucide="chevron-left"></i>
+        </button>
+        <button class="pagination-number active">1</button>
+        <button class="pagination-number">2</button>
+        <button class="pagination-number">3</button>
+        <span class="pagination-dots">...</span>
+        <button class="pagination-number">6</button>
+        <button class="pagination-button" aria-label="Next page">
+          <i data-lucide="chevron-right"></i>
+        </button>
+      </nav>
+    </section>
+
+    <aside class="right-sidebar">
+
+      <section class="cart-preview">
+        <div class="panel-heading">
+          <h2>Your Cart <span>(3)</span></h2>
+        </div>
+
+        <div class="cart-preview-items">
+
+          <article class="mini-cart-item">
+            <img src="" alt="Mens Casual T-Shirt">
+            <div class="mini-cart-info">
+              <h3>Mens Casual<br>T-Shirt</h3>
+              <strong>$22.30</strong>
+            </div>
+            <button aria-label="Remove item"><i data-lucide="x"></i></button>
+            <div class="quantity-control">
+              <button aria-label="Decrease quantity"><i data-lucide="minus"></i></button>
+              <span>1</span>
+              <button aria-label="Increase quantity"><i data-lucide="plus"></i></button>
+            </div>
+          </article>
+
+          <article class="mini-cart-item">
+            <img src="" alt="Casio Men's Watch">
+            <div class="mini-cart-info">
+              <h3>Casio Men's<br>Watch</h3>
+              <strong>$89.99</strong>
+            </div>
+            <button aria-label="Remove item"><i data-lucide="x"></i></button>
+            <div class="quantity-control">
+              <button aria-label="Decrease quantity"><i data-lucide="minus"></i></button>
+              <span>1</span>
+              <button aria-label="Increase quantity"><i data-lucide="plus"></i></button>
+            </div>
+          </article>
+
+          <article class="mini-cart-item">
+            <img src="" alt="LED Desk Lamp">
+            <div class="mini-cart-info">
+              <h3>LED Desk Lamp</h3>
+              <strong>$15.99</strong>
+            </div>
+            <button aria-label="Remove item"><i data-lucide="x"></i></button>
+            <div class="quantity-control">
+              <button aria-label="Decrease quantity"><i data-lucide="minus"></i></button>
+              <span>1</span>
+              <button aria-label="Increase quantity"><i data-lucide="plus"></i></button>
+            </div>
+          </article>
+
+        </div>
+
+        <div class="cart-subtotal">
+          <span>Subtotal</span>
+          <strong>$128.28</strong>
+        </div>
+
+        <a href="./cart.html" class="view-cart-button">
+          <span>View Cart</span>
+          <i data-lucide="arrow-right"></i>
+        </a>
+      </section>
+
+      <section class="filters-panel">
+        <div class="panel-heading">
+          <h2>Filters</h2>
+          <button>Clear all</button>
+        </div>
+
+        <div class="filter-group">
+          <h3>Price Range</h3>
+          <div class="price-range">
+            <input type="range" min="0" max="2000" value="0">
+            <input type="range" min="0" max="2000" value="2000">
+          </div>
+          <div class="range-labels">
+            <span>$0</span>
+            <span>$2000+</span>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <h3>Categories</h3>
+          <label><input type="checkbox"> men's clothing <span>(12)</span></label>
+          <label><input type="checkbox"> women's clothing <span>(8)</span></label>
+          <label><input type="checkbox"> electronics <span>(16)</span></label>
+          <label><input type="checkbox"> jewelery <span>(10)</span></label>
+        </div>
+
+        <div class="filter-group">
+          <h3>Rating</h3>
+          <label><input type="checkbox"> ★★★★★ <span>(4 & up)</span></label>
+          <label><input type="checkbox"> ★★★★☆ <span>(3 & up)</span></label>
+          <label><input type="checkbox"> ★★★☆☆ <span>(2 & up)</span></label>
+          <label><input type="checkbox"> ★★☆☆☆ <span>(1 & up)</span></label>
+        </div>
+      </section>
+
+    </aside>
+  </div>
+
+</section>
+
+
+    </main>
+
+  </div>
+
+  <div class="mobile-overlay" id="overlay"></div>
+
+  <script>
+    lucide.createIcons();
+  </script>
+  <script type="module" src="./src/ts/main.ts"></script>
+</body>
+</html>

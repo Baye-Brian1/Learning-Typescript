@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="NEXUS — Premium products, exceptional quality.">
+  <title>Contact — NEXUS</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./src/css/style.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script type="module" src="./dist/ts/main.js"></script>
+
+</head>
+
+<body>
+  <div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+
+      <div class="logo">
+        <i data-lucide="shopping-bag"></i>
+        <span>NEXUS</span>
+      </div>
+
+      <nav class="sidebar-nav" aria-label="Main navigation">
+
+        <a href="./index.html" class="nav-link ">
+          <i data-lucide="house"></i>
+          <span>Home</span>
+        </a>
+
+        <a href="./products.html" class="nav-link ">
+          <i data-lucide="shopping-bag"></i>
+          <span>All Products</span>
+        </a>
+
+        <a href="./categories.html" class="nav-link ">
+          <i data-lucide="layout-grid"></i>
+          <span>Categories</span>
+        </a>
+
+        <a href="./cart.html" class="nav-link ">
+          <i data-lucide="shopping-cart"></i>
+          <span>Cart</span>
+          <span class="nav-count" id="cartCount">3</span>
+        </a>
+
+        <a href="./favorites.html" class="nav-link ">
+          <i data-lucide="heart"></i>
+          <span>Favorites</span>
+        </a>
+
+        <a href="./about.html" class="nav-link ">
+          <i data-lucide="circle-info"></i>
+          <span>About</span>
+        </a>
+
+        <a href="./contact.html" class="nav-link active">
+          <i data-lucide="mail"></i>
+          <span>Contact</span>
+        </a>
+
+      </nav>
+
+      <div class="sidebar-brand">
+        <div class="sidebar-brand-title">
+          <i data-lucide="sparkles"></i>
+          <strong>NEXUS</strong>
+        </div>
+        <p>Premium products,<br>exceptional quality.<br>Elevate your<br>lifestyle.</p>
+      </div>
+
+      <div class="social-links">
+        <a href="#" aria-label="Instagram"><i data-lucide="instagram"></i></a>
+        <a href="#" aria-label="Twitter"><i data-lucide="twitter"></i></a>
+        <a href="#" aria-label="GitHub"><i data-lucide="github"></i></a>
+      </div>
+
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main-content">
+
+      <header class="topbar">
+        <button class="mobile-menu-button" id="menuButton" aria-label="Open menu">
+          <i data-lucide="menu"></i>
+        </button>
+
+        <div class="search-container">
+          <i data-lucide="search"></i>
+          <input id="searchInput" type="search" placeholder="Search products...">
+        </div>
+
+        <div class="topbar-actions">
+          <button class="icon-button" aria-label="Toggle theme">
+            <i data-lucide="moon"></i>
+          </button>
+
+          <a href="./cart.html" class="icon-button cart-icon-button" aria-label="Cart">
+            <i data-lucide="shopping-cart"></i>
+            <span class="cart-badge">3</span>
+          </a>
+
+          <button class="profile-button" aria-label="Profile">
+            <i data-lucide="user-round"></i>
+          </button>
+        </div>
+      </header>
+
+      
+<section class="page-section contact-page">
+
+  <div class="page-heading">
+    <div>
+      <span class="eyebrow">GET IN TOUCH</span>
+      <h1>Contact NEXUS</h1>
+      <p>Have a question? We'd love to hear from you.</p>
+    </div>
+  </div>
+
+  <div class="contact-layout">
+
+    <div class="contact-info">
+
+      <div class="contact-item">
+        <div class="contact-icon"><i data-lucide="mail"></i></div>
+        <div>
+          <h2>Email</h2>
+          <p>hello@nexus.example</p>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-icon"><i data-lucide="phone"></i></div>
+        <div>
+          <h2>Phone</h2>
+          <p>+237 000 000 000</p>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-icon"><i data-lucide="map-pin"></i></div>
+        <div>
+          <h2>Location</h2>
+          <p>Cameroon</p>
+        </div>
+      </div>
+
+    </div>
+
+    <form class="contact-form">
+
+      <label for="name">Name</label>
+      <input id="name" name="name" type="text" placeholder="Your name">
+
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" placeholder="you@example.com">
+
+      <label for="message">Message</label>
+      <textarea id="message" name="message" rows="6" placeholder="How can we help?"></textarea>
+
+      <button type="submit" class="primary-button">
+        Send Message
+        <i data-lucide="send"></i>
+      </button>
+
+    </form>
+
+  </div>
+
+</section>
+
+
+    </main>
+
+  </div>
+
+  <div class="mobile-overlay" id="overlay"></div>
+
+  <script>
+    lucide.createIcons();
+  </script>
+  <script type="module" src="./src/ts/main.ts"></script>
+</body>
+</html>

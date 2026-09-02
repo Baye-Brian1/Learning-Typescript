@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="NEXUS — Premium products, exceptional quality.">
+  <title>Cart — NEXUS</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./src/css/style.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script type="module" src="./dist/ts/main.js"></script>
+
+</head>
+
+<body>
+  <div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+
+      <div class="logo">
+        <i data-lucide="shopping-bag"></i>
+        <span>NEXUS</span>
+      </div>
+
+      <nav class="sidebar-nav" aria-label="Main navigation">
+
+        <a href="./index.html" class="nav-link ">
+          <i data-lucide="house"></i>
+          <span>Home</span>
+        </a>
+
+        <a href="./products.html" class="nav-link ">
+          <i data-lucide="shopping-bag"></i>
+          <span>All Products</span>
+        </a>
+
+        <a href="./categories.html" class="nav-link ">
+          <i data-lucide="layout-grid"></i>
+          <span>Categories</span>
+        </a>
+
+        <a href="./cart.html" class="nav-link active">
+          <i data-lucide="shopping-cart"></i>
+          <span>Cart</span>
+          <span class="nav-count" id="cartCount">3</span>
+        </a>
+
+        <a href="./favorites.html" class="nav-link ">
+          <i data-lucide="heart"></i>
+          <span>Favorites</span>
+        </a>
+
+        <a href="./about.html" class="nav-link ">
+          <i data-lucide="circle-info"></i>
+          <span>About</span>
+        </a>
+
+        <a href="./contact.html" class="nav-link ">
+          <i data-lucide="mail"></i>
+          <span>Contact</span>
+        </a>
+
+      </nav>
+
+      <div class="sidebar-brand">
+        <div class="sidebar-brand-title">
+          <i data-lucide="sparkles"></i>
+          <strong>NEXUS</strong>
+        </div>
+        <p>Premium products,<br>exceptional quality.<br>Elevate your<br>lifestyle.</p>
+      </div>
+
+      <div class="social-links">
+        <a href="#" aria-label="Instagram"><i data-lucide="instagram"></i></a>
+        <a href="#" aria-label="Twitter"><i data-lucide="twitter"></i></a>
+        <a href="#" aria-label="GitHub"><i data-lucide="github"></i></a>
+      </div>
+
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main-content">
+
+      <header class="topbar">
+        <button class="mobile-menu-button" id="menuButton" aria-label="Open menu">
+          <i data-lucide="menu"></i>
+        </button>
+
+        <div class="search-container">
+          <i data-lucide="search"></i>
+          <input id="searchInput" type="search" placeholder="Search products...">
+        </div>
+
+        <div class="topbar-actions">
+          <button class="icon-button" aria-label="Toggle theme">
+            <i data-lucide="moon"></i>
+          </button>
+
+          <a href="./cart.html" class="icon-button cart-icon-button" aria-label="Cart">
+            <i data-lucide="shopping-cart"></i>
+            <span class="cart-badge">3</span>
+          </a>
+
+          <button class="profile-button" aria-label="Profile">
+            <i data-lucide="user-round"></i>
+          </button>
+        </div>
+      </header>
+
+      
+<section class="page-section cart-page">
+
+  <div class="page-heading">
+    <div>
+      <span class="eyebrow">YOUR BAG</span>
+      <h1>Shopping Cart</h1>
+      <p>Review your selected products.</p>
+    </div>
+  </div>
+
+  <div class="cart-page-layout">
+
+    <section class="cart-items-section">
+
+      <article class="cart-page-item">
+        <div class="cart-page-image"><img src="" alt="Mens Casual T-Shirt"></div>
+        <div class="cart-page-details">
+          <span>men's clothing</span>
+          <h2>Mens Casual T-Shirt</h2>
+          <strong>$22.30</strong>
+        </div>
+        <div class="quantity-control">
+          <button><i data-lucide="minus"></i></button>
+          <span>1</span>
+          <button><i data-lucide="plus"></i></button>
+        </div>
+        <button class="remove-item"><i data-lucide="trash-2"></i></button>
+      </article>
+
+      <article class="cart-page-item">
+        <div class="cart-page-image"><img src="" alt="Casio Men's Watch"></div>
+        <div class="cart-page-details">
+          <span>electronics</span>
+          <h2>Casio Men's Watch</h2>
+          <strong>$89.99</strong>
+        </div>
+        <div class="quantity-control">
+          <button><i data-lucide="minus"></i></button>
+          <span>1</span>
+          <button><i data-lucide="plus"></i></button>
+        </div>
+        <button class="remove-item"><i data-lucide="trash-2"></i></button>
+      </article>
+
+      <article class="cart-page-item">
+        <div class="cart-page-image"><img src="" alt="LED Desk Lamp"></div>
+        <div class="cart-page-details">
+          <span>electronics</span>
+          <h2>LED Desk Lamp</h2>
+          <strong>$15.99</strong>
+        </div>
+        <div class="quantity-control">
+          <button><i data-lucide="minus"></i></button>
+          <span>1</span>
+          <button><i data-lucide="plus"></i></button>
+        </div>
+        <button class="remove-item"><i data-lucide="trash-2"></i></button>
+      </article>
+
+    </section>
+
+    <aside class="order-summary">
+      <h2>Order Summary</h2>
+      <div><span>Subtotal</span><strong>$128.28</strong></div>
+      <div><span>Shipping</span><strong>Free</strong></div>
+      <div class="summary-divider"></div>
+      <div class="summary-total"><span>Total</span><strong>$128.28</strong></div>
+      <button class="checkout-button">
+        Proceed to Checkout
+        <i data-lucide="arrow-right"></i>
+      </button>
+    </aside>
+
+  </div>
+
+</section>
+
+
+    </main>
+
+  </div>
+
+  <div class="mobile-overlay" id="overlay"></div>
+
+  <script>
+    lucide.createIcons();
+  </script>
+  <script type="module" src="./src/ts/main.ts"></script>
+</body>
+</html>

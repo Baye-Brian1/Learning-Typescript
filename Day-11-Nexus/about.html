@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="NEXUS — Premium products, exceptional quality.">
+  <title>About — NEXUS</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./src/css/style.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script type="module" src="./dist/ts/main.js"></script>
+
+</head>
+
+<body>
+  <div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+
+      <div class="logo">
+        <i data-lucide="shopping-bag"></i>
+        <span>NEXUS</span>
+      </div>
+
+      <nav class="sidebar-nav" aria-label="Main navigation">
+
+        <a href="./index.html" class="nav-link ">
+          <i data-lucide="house"></i>
+          <span>Home</span>
+        </a>
+
+        <a href="./products.html" class="nav-link ">
+          <i data-lucide="shopping-bag"></i>
+          <span>All Products</span>
+        </a>
+
+        <a href="./categories.html" class="nav-link ">
+          <i data-lucide="layout-grid"></i>
+          <span>Categories</span>
+        </a>
+
+        <a href="./cart.html" class="nav-link ">
+          <i data-lucide="shopping-cart"></i>
+          <span>Cart</span>
+          <span class="nav-count" id="cartCount">3</span>
+        </a>
+
+        <a href="./favorites.html" class="nav-link ">
+          <i data-lucide="heart"></i>
+          <span>Favorites</span>
+        </a>
+
+        <a href="./about.html" class="nav-link active">
+          <i data-lucide="circle-info"></i>
+          <span>About</span>
+        </a>
+
+        <a href="./contact.html" class="nav-link ">
+          <i data-lucide="mail"></i>
+          <span>Contact</span>
+        </a>
+
+      </nav>
+
+      <div class="sidebar-brand">
+        <div class="sidebar-brand-title">
+          <i data-lucide="sparkles"></i>
+          <strong>NEXUS</strong>
+        </div>
+        <p>Premium products,<br>exceptional quality.<br>Elevate your<br>lifestyle.</p>
+      </div>
+
+      <div class="social-links">
+        <a href="#" aria-label="Instagram"><i data-lucide="instagram"></i></a>
+        <a href="#" aria-label="Twitter"><i data-lucide="twitter"></i></a>
+        <a href="#" aria-label="GitHub"><i data-lucide="github"></i></a>
+      </div>
+
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main-content">
+
+      <header class="topbar">
+        <button class="mobile-menu-button" id="menuButton" aria-label="Open menu">
+          <i data-lucide="menu"></i>
+        </button>
+
+        <div class="search-container">
+          <i data-lucide="search"></i>
+          <input id="searchInput" type="search" placeholder="Search products...">
+        </div>
+
+        <div class="topbar-actions">
+          <button class="icon-button" aria-label="Toggle theme">
+            <i data-lucide="moon"></i>
+          </button>
+
+          <a href="./cart.html" class="icon-button cart-icon-button" aria-label="Cart">
+            <i data-lucide="shopping-cart"></i>
+            <span class="cart-badge">3</span>
+          </a>
+
+          <button class="profile-button" aria-label="Profile">
+            <i data-lucide="user-round"></i>
+          </button>
+        </div>
+      </header>
+
+      
+<section class="page-section about-page">
+
+  <div class="about-hero">
+    <span class="eyebrow">ABOUT NEXUS</span>
+    <h1>Premium products.<br><span>Exceptional quality.</span></h1>
+    <p>NEXUS is a modern marketplace built around a simple idea: discovering great products should feel effortless.</p>
+  </div>
+
+  <div class="about-grid">
+
+    <article class="about-card">
+      <i data-lucide="gem"></i>
+      <h2>Curated Quality</h2>
+      <p>We focus on products that combine quality, utility and timeless design.</p>
+    </article>
+
+    <article class="about-card">
+      <i data-lucide="sparkles"></i>
+      <h2>Simple Discovery</h2>
+      <p>A clean experience designed to help you find what you need without the noise.</p>
+    </article>
+
+    <article class="about-card">
+      <i data-lucide="shield-check"></i>
+      <h2>Built for Trust</h2>
+      <p>Clear product information and a straightforward shopping experience.</p>
+    </article>
+
+  </div>
+
+</section>
+
+
+    </main>
+
+  </div>
+
+  <div class="mobile-overlay" id="overlay"></div>
+
+  <script>
+    lucide.createIcons();
+  </script>
+  <script type="module" src="./src/ts/main.ts"></script>
+</body>
+</html>
