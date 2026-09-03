@@ -1,173 +1,210 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="NEXUS — Premium products, exceptional quality.">
-  <title>Categories — NEXUS</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="NEXUS — Premium products, exceptional quality."
+    />
+    <title>Categories — NEXUS</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
 
-  <link rel="stylesheet" href="./src/css/style.css">
-  <script type="module" src="./dist/ts/main.js"></script>
+    <link rel="stylesheet" href="./src/css/style.css" />
+    <script type="module" src="./dist/ts/main.js"></script>
+  </head>
 
-</head>
-
-<body>
-  <div class="app">
-
-    <!-- SIDEBAR -->
-    <aside class="sidebar" id="sidebar">
-
-      <div class="logo">
-        <i data-lucide="shopping-bag"></i>
-        <span>NEXUS</span>
-      </div>
-
-      <nav class="sidebar-nav" aria-label="Main navigation">
-
-        <a href="./index.html" class="nav-link">
-          <i data-lucide="house"></i>
-          <span>Home</span>
-        </a>
-
-        <a href="./products.html" class="nav-link">
+  <body>
+    <div class="app">
+      <!-- SIDEBAR -->
+      <aside class="sidebar" id="sidebar">
+        <div class="logo">
           <i data-lucide="shopping-bag"></i>
-          <span>All Products</span>
-        </a>
-
-        <a href="./categories.html" class="nav-link active">
-          <i data-lucide="layout-grid"></i>
-          <span>Categories</span>
-        </a>
-
-        <a href="./cart.html" class="nav-link">
-          <i data-lucide="shopping-cart"></i>
-          <span>Cart</span>
-          <span class="nav-count" id="cartCount">0</span>
-        </a>
-
-        <a href="./favorites.html" class="nav-link">
-          <i data-lucide="heart"></i>
-          <span>Favorites</span>
-          <span class="nav-count" id="cartCount">0</span>
-        </a>
-
-        <a href="./about.html" class="nav-link">
-          <i data-lucide="info"></i>
-          <span>About</span>
-        </a>
-
-        <a href="./contact.html" class="nav-link">
-          <i data-lucide="mail"></i>
-          <span>Contact</span>
-        </a>
-
-      </nav>
-
-      <div class="sidebar-brand">
-        <div class="sidebar-brand-title">
-          <i data-lucide="sparkles"></i>
-          <strong>NEXUS</strong>
-        </div>
-        <p>Premium products,<br>exceptional quality.<br>Elevate your<br>lifestyle.</p>
-      </div>
-
-      <div class="social-links">
-        <a href="#" aria-label="Instagram"><i data-lucide="instagram"></i></a>
-        <a href="#" aria-label="Twitter"><i data-lucide="twitter"></i></a>
-        <a href="#" aria-label="GitHub"><i data-lucide="github"></i></a>
-      </div>
-
-    </aside>
-
-    <!-- MAIN -->
-    <main class="main-content">
-
-      <header class="topbar">
-        <button class="mobile-menu-button" id="menuButton" aria-label="Open menu">
-          <i data-lucide="menu"></i>
-        </button>
-
-        <div class="search-container">
-          <i data-lucide="search"></i>
-          <input id="searchInput" type="search" placeholder="Search products...">
+          <span>NEXUS</span>
         </div>
 
-        <div class="topbar-actions">
-          <button class="icon-button" aria-label="Toggle theme">
-            <i data-lucide="moon"></i>
-          </button>
-
-          <a href="./cart.html" class="icon-button cart-icon-button" aria-label="Cart">
-            <i data-lucide="shopping-cart"></i>
-            <span class="cart-badge">3</span>
+        <nav class="sidebar-nav" aria-label="Main navigation">
+          <a href="./index.html" class="nav-link">
+            <i data-lucide="house"></i>
+            <span>Home</span>
           </a>
 
-          <button class="profile-button" aria-label="Profile">
-            <i data-lucide="user-round"></i>
-          </button>
+          <a href="./products.html" class="nav-link">
+            <i data-lucide="shopping-bag"></i>
+            <span>All Products</span>
+          </a>
+
+          <a href="./categories.html" class="nav-link active">
+            <i data-lucide="layout-grid"></i>
+            <span>Categories</span>
+          </a>
+
+          <a href="./cart.html" class="nav-link">
+            <i data-lucide="shopping-cart"></i>
+            <span>Cart</span>
+            <span class="nav-count" id="cartCount">0</span>
+          </a>
+
+          <a href="./favorites.html" class="nav-link">
+            <i data-lucide="heart"></i>
+            <span>Favorites</span>
+            <span class="nav-count" id="cartCount">0</span>
+          </a>
+
+          <a href="./about.html" class="nav-link">
+            <i data-lucide="info"></i>
+            <span>About</span>
+          </a>
+
+          <a href="./contact.html" class="nav-link">
+            <i data-lucide="mail"></i>
+            <span>Contact</span>
+          </a>
+        </nav>
+
+        <div class="sidebar-brand">
+          <div class="sidebar-brand-title">
+            <i data-lucide="sparkles"></i>
+            <strong>NEXUS</strong>
+          </div>
+          <p>
+            Premium products,<br />exceptional quality.<br />Elevate your<br />lifestyle.
+          </p>
         </div>
-      </header>
 
-      
-<section class="page-section categories-page">
+        <div class="social-links">
+          <a href="#" class="instagram" aria-label="Instagram">
+            <svg class="social-icon" viewBox="0 0 24 24">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+          </a>
 
-  <div class="page-heading">
-    <div>
-      <span class="eyebrow">EXPLORE</span>
-      <h1>Categories</h1>
-      <p>Browse our collection by category.</p>
+          <a href="#" class="x-logo" aria-label="X">
+            <svg class="social-icon filled" viewBox="0 0 24 24">
+              <path
+                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+              ></path>
+            </svg>
+          </a>
+
+          <!-- GitHub -->
+          <a href="#" class="github" aria-label="GitHub">
+            <svg class="social-icon github" viewBox="0 0 24 24">
+              <path
+                d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
+              ></path>
+            </svg>
+          </a>
+        </div>
+      </aside>
+
+      <!-- MAIN -->
+      <main class="main-content">
+        <header class="topbar">
+          <button
+            class="mobile-menu-button"
+            id="menuButton"
+            aria-label="Open menu"
+          >
+            <i data-lucide="menu"></i>
+          </button>
+
+          <div class="search-container">
+            <i data-lucide="search"></i>
+            <input
+              id="searchInput"
+              type="search"
+              placeholder="Search products..."
+            />
+          </div>
+
+          <div class="topbar-actions">
+            <button class="icon-button" aria-label="Toggle theme">
+              <i data-lucide="moon"></i>
+            </button>
+
+            <a
+              href="./cart.html"
+              class="icon-button cart-icon-button"
+              aria-label="Cart"
+            >
+              <i data-lucide="shopping-cart"></i>
+              <span class="cart-badge">3</span>
+            </a>
+
+            <button class="profile-button" aria-label="Profile">
+              <i data-lucide="user-round"></i>
+            </button>
+          </div>
+        </header>
+
+        <section class="page-section categories-page">
+          <div class="page-heading">
+            <div>
+              <span class="eyebrow">EXPLORE</span>
+              <h1>Categories</h1>
+              <p>Browse our collection by category.</p>
+            </div>
+          </div>
+
+          <div class="category-grid">
+            <a
+              href="./products.html?category=men's%20clothing"
+              class="category-card"
+            >
+              <div class="category-icon"><i data-lucide="shirt"></i></div>
+              <h2>Men's Clothing</h2>
+              <p>12 products</p>
+              <i data-lucide="arrow-up-right"></i>
+            </a>
+
+            <a
+              href="./products.html?category=women's%20clothing"
+              class="category-card"
+            >
+              <div class="category-icon"><i data-lucide="shirt"></i></div>
+              <h2>Women's Clothing</h2>
+              <p>8 products</p>
+              <i data-lucide="arrow-up-right"></i>
+            </a>
+
+            <a
+              href="./products.html?category=electronics"
+              class="category-card"
+            >
+              <div class="category-icon">
+                <i data-lucide="monitor-smartphone"></i>
+              </div>
+              <h2>Electronics</h2>
+              <p>16 products</p>
+              <i data-lucide="arrow-up-right"></i>
+            </a>
+
+            <a href="./products.html?category=jewelery" class="category-card">
+              <div class="category-icon"><i data-lucide="gem"></i></div>
+              <h2>Jewelry</h2>
+              <p>10 products</p>
+              <i data-lucide="arrow-up-right"></i>
+            </a>
+          </div>
+        </section>
+      </main>
     </div>
-  </div>
 
-  <div class="category-grid">
+    <div class="mobile-overlay" id="overlay"></div>
 
-    <a href="./products.html?category=men's%20clothing" class="category-card">
-      <div class="category-icon"><i data-lucide="shirt"></i></div>
-      <h2>Men's Clothing</h2>
-      <p>12 products</p>
-      <i data-lucide="arrow-up-right"></i>
-    </a>
-
-    <a href="./products.html?category=women's%20clothing" class="category-card">
-      <div class="category-icon"><i data-lucide="shirt"></i></div>
-      <h2>Women's Clothing</h2>
-      <p>8 products</p>
-      <i data-lucide="arrow-up-right"></i>
-    </a>
-
-    <a href="./products.html?category=electronics" class="category-card">
-      <div class="category-icon"><i data-lucide="monitor-smartphone"></i></div>
-      <h2>Electronics</h2>
-      <p>16 products</p>
-      <i data-lucide="arrow-up-right"></i>
-    </a>
-
-    <a href="./products.html?category=jewelery" class="category-card">
-      <div class="category-icon"><i data-lucide="gem"></i></div>
-      <h2>Jewelry</h2>
-      <p>10 products</p>
-      <i data-lucide="arrow-up-right"></i>
-    </a>
-
-  </div>
-
-</section>
-
-
-    </main>
-
-  </div>
-
-  <div class="mobile-overlay" id="overlay"></div>
-
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <script>
-    lucide.createIcons();
-  </script>
-  <script type="module" src="./src/ts/main.ts"></script>
-</body>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+      lucide.createIcons();
+    </script>
+    <script type="module" src="./src/ts/main.ts"></script>
+  </body>
 </html>
