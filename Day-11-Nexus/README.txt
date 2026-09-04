@@ -1,13 +1,14 @@
 NEXUS HTML Structure
 
 Pages included:
-- index.html — Home
-- products.html — All Products
-- categories.html — Categories
-- cart.html — Cart
-- favorites.html — Favorites
-- about.html — About
-- contact.html — Contact
+- index.html 
+- products.html 
+- categories.html 
+- cart.html 
+- favorites.html 
+- about.html 
+- contact.html 
+- Style.css 
 
 
 Lucide Icons:
