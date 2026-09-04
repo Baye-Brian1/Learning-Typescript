@@ -1,4 +1,10 @@
-export interface CartItem {
-  productId: number;
-  quantity: number;
+import { Product } from "./product";
+
+export interface CartItem{
+  product: Product;
+  quantity:number;
+}
+
+export interface Cart{
+  cart: CartItem[];
 }
