@@ -47,46 +47,73 @@
 // document.addEventListener("DOMContentLoaded", initialize);
 
 import { fetchProduct } from "./api/products.js";
+import { Product } from "./models/product.js";
 import { getElement, queryElement } from "./utils/dom.js";
 
 console.log("MAIN.TS IS RUNNING");
 
-const searchInput= getElement<HTMLInputElement>("#searchInput");
-const menuButton= getElement<HTMLButtonElement>('#menuButton');
-const closeButton= getElement<HTMLButtonElement>('#closeButton');
-const sidebar= getElement<HTMLDivElement>('#sidebar')
-const overlay= getElement<HTMLDivElement>('#overlay');
-const sortSelect= queryElement<HTMLSelectElement>('#sortSelect');
-const cartCount = queryElement<HTMLSpanElement>('#cartCount');
-const favoriteCount = queryElement<HTMLSpanElement>('#favoriteCount');
+const searchInput = getElement<HTMLInputElement>("#searchInput");
+const menuButton = getElement<HTMLButtonElement>("#menuButton");
+const closeButton = getElement<HTMLButtonElement>("#closeButton");
+const sidebar = getElement<HTMLDivElement>("#sidebar");
+const overlay = getElement<HTMLDivElement>("#overlay");
+const sortSelect = queryElement<HTMLSelectElement>("#sortSelect");
+const cartCount = queryElement<HTMLSpanElement>("#cartCount");
+const favoriteCount = queryElement<HTMLSpanElement>("#favoriteCount");
+const productGrid = queryElement<HTMLDivElement>('#productGrid')
 
-menuButton.addEventListener('click', ()=>{
-  sidebar.classList.add('open');
-  overlay.classList.add('show')
-
-})
-closeButton.addEventListener('click', ()=>{
-  sidebar.classList.remove('open');
-  overlay.classList.remove('show')
-
-})
-overlay.addEventListener('click', ()=>{
-  sidebar.classList.remove('open');
-  overlay.classList.remove('show')
-
-})
-searchInput.addEventListener('input', ()=>{
+menuButton.addEventListener("click", () => {
+  sidebar.classList.add("open");
+  overlay.classList.add("show");
+});
+closeButton.addEventListener("click", () => {
+  sidebar.classList.remove("open");
+  overlay.classList.remove("show");
+});
+overlay.addEventListener("click", () => {
+  sidebar.classList.remove("open");
+  overlay.classList.remove("show");
+});
+searchInput.addEventListener("input", () => {
   console.log(searchInput.value);
-  
-})
-sortSelect.addEventListener('change', ()=>{
+});
+sortSelect.addEventListener("change", () => {
   console.log(sortSelect.value);
-  
-})
+});
 
-fetchProduct().then((products)=>{
-  console.log(products);
-}).catch((error)=>{
-  console.error(error);
-  
-})
+
+
+const createProductCard = (product: Product): string => {
+  const card = `
+    <article class="product-card">
+     <div class="product-image">
+       <img src="${product.image}" alt="Product image"/>
+       <button class="favorite-button">
+          <i data-lucide="heart"></i>
+       </button>
+     </div>
+     <div class="product-info">
+        <h3 class="product-title">${product.title}</h3>
+        <p class="product-category">${product.category}</p>
+        <div class="product-price">$${product.price}</div>
+        <button class="add-to-cart-button">
+          <i data-lucide="shopping-cart"></i>
+          <span>Add to Cart</span>
+        </button>
+      </div>
+    </article>
+  `;
+  return card;
+};
+
+const renderProducts=(products: Product[])=>{
+   const cardHTML= products.map(createProductCard).join('');
+   productGrid.innerHTML= cardHTML;
+}
+fetchProduct()
+  .then((products) => {
+    renderProducts(products);
+  })
+  .catch((error) => {
+    console.error(error);
+  });
