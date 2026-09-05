@@ -46,13 +46,13 @@
 
 // document.addEventListener("DOMContentLoaded", initialize);
 
-import { fetchProduct } from "./api/products";
-import { getElement } from "./utils/dom";
+import { fetchProduct } from "./api/products.js";
+import { getElement } from "./utils/dom.js";
 
 console.log("MAIN.TS IS RUNNING");
 
-const searchInput= getElement<HTMLInputElement>("#search-input");
-const productGrid= getElement<HTMLDivElement>('#product-grid')
+// const searchInput= getElement<HTMLInputElement>("#searchInput");
+// const productGrid= getElement<HTMLDivElement>('#productGrid')
 
 fetchProduct().then((products)=>{
   console.log(products);

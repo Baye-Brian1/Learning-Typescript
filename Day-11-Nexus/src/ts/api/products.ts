@@ -1,9 +1,8 @@
-import { Product } from "../models/product";
+import { Product } from "../models/product.js";
 
-export const fetchProduct= async ():Promise<Product[]>=>{
- const URL= "https://fakestoreapi.com/products"
+export const fetchProduct= async ():Promise<Product[]>=>{ 
  try {
-  const response= await fetch (URL)
+  const response= await fetch ("https://fakestoreapi.com/products")
   if(!response.ok){
     throw new Error("Failed to fetch data");
   }

@@ -40,8 +40,8 @@
 
 // export const store = new NexusStore();
 
-import { Product } from "../models/product";
-import { CartItem } from "../models/cart";
+import { Product } from "../models/product.js";
+import { CartItem } from "../models/cart.js";
 
 export interface AppState{
   products: Product[];
