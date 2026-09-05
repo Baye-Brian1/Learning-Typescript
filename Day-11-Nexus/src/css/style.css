@@ -94,11 +94,17 @@ img {
   display: none;
 }
 
+.logo-head{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  
+}
 .logo {
   display: flex;
   align-items: center;
   gap: 10px;
-
   min-height: var(--topbar-height);
   padding: 0 28px;
 
@@ -324,6 +330,23 @@ img {
 }
 
 .mobile-menu-button:hover {
+  background: var(--surface);
+}
+.mobile-close-button {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  margin-top: 5px;
+  color: var(--foreground);
+}
+
+.mobile-close-button:hover {
   background: var(--surface);
 }
 
@@ -2188,6 +2211,10 @@ img {
   }
 
   .mobile-menu-button {
+    display: flex;
+    flex-shrink: 0;
+  }
+  .mobile-close-button {
     display: flex;
     flex-shrink: 0;
   }

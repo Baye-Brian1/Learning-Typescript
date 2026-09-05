@@ -17,17 +17,24 @@
     />
 
     <link rel="stylesheet" href="./src/css/style.css" />
-
-    
   </head>
 
   <body>
     <div class="app">
       <!-- SIDEBAR -->
       <aside class="sidebar" id="sidebar">
-        <div class="logo">
-          <i data-lucide="shopping-bag"></i>
+        <div class="logo-head">
+         <div class="logo">
+           <i data-lucide="shopping-bag"></i>
           <span>NEXUS</span>
+         </div>
+          <button
+              class="mobile-close-button"
+              id="closeButton"
+              aria-label="close menu"
+            >
+              <i data-lucide="X"></i>
+            </button>
         </div>
 
         <nav class="sidebar-nav" aria-label="Main navigation">
@@ -73,6 +80,7 @@
           <div class="sidebar-brand-title">
             <i class="sparkles" data-lucide="sparkles"></i>
             <strong>NEXUS</strong>
+            
           </div>
           <p>
             Premium products,<br />exceptional quality.<br />Elevate your<br />lifestyle.
@@ -263,7 +271,7 @@
     <script>
       lucide.createIcons();
     </script>
-    
+
     <script type="module" src="./dist/ts/main.js"></script>
   </body>
 </html>

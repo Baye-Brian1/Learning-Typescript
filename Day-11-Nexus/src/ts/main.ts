@@ -51,8 +51,22 @@ import { getElement } from "./utils/dom.js";
 
 console.log("MAIN.TS IS RUNNING");
 
-// const searchInput= getElement<HTMLInputElement>("#searchInput");
-// const productGrid= getElement<HTMLDivElement>('#productGrid')
+const searchInput= getElement<HTMLInputElement>("#searchInput");
+const menuButton= getElement<HTMLButtonElement>('#menuButton');
+const closeButton= getElement<HTMLButtonElement>('#closeButton');
+const sidebar= getElement<HTMLDivElement>('#sidebar')
+const overlay= getElement<HTMLDivElement>('#overlay')
+
+menuButton.addEventListener('click', ()=>{
+  sidebar.classList.add('open');
+  overlay.classList.add('show')
+
+})
+closeButton.addEventListener('click', ()=>{
+  sidebar.classList.remove('open');
+  overlay.classList.remove('show')
+
+})
 
 fetchProduct().then((products)=>{
   console.log(products);

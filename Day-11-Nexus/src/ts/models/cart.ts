@@ -1,7 +1,6 @@
-import { Product } from "./product.js";
 
 export interface CartItem{
-  product: Product;
+  productId: number;
   quantity:number;
 }
 
