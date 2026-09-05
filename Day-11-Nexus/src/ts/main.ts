@@ -47,7 +47,7 @@
 // document.addEventListener("DOMContentLoaded", initialize);
 
 import { fetchProduct } from "./api/products.js";
-import { getElement } from "./utils/dom.js";
+import { getElement, queryElement } from "./utils/dom.js";
 
 console.log("MAIN.TS IS RUNNING");
 
@@ -55,7 +55,10 @@ const searchInput= getElement<HTMLInputElement>("#searchInput");
 const menuButton= getElement<HTMLButtonElement>('#menuButton');
 const closeButton= getElement<HTMLButtonElement>('#closeButton');
 const sidebar= getElement<HTMLDivElement>('#sidebar')
-const overlay= getElement<HTMLDivElement>('#overlay')
+const overlay= getElement<HTMLDivElement>('#overlay');
+const sortSelect= queryElement<HTMLSelectElement>('#sortSelect');
+const cartCount = queryElement<HTMLSpanElement>('#cartCount');
+const favoriteCount = queryElement<HTMLSpanElement>('#favoriteCount');
 
 menuButton.addEventListener('click', ()=>{
   sidebar.classList.add('open');
@@ -66,6 +69,19 @@ closeButton.addEventListener('click', ()=>{
   sidebar.classList.remove('open');
   overlay.classList.remove('show')
 
+})
+overlay.addEventListener('click', ()=>{
+  sidebar.classList.remove('open');
+  overlay.classList.remove('show')
+
+})
+searchInput.addEventListener('input', ()=>{
+  console.log(searchInput.value);
+  
+})
+sortSelect.addEventListener('change', ()=>{
+  console.log(sortSelect.value);
+  
 })
 
 fetchProduct().then((products)=>{

@@ -342,7 +342,6 @@ img {
   border: 0;
   border-radius: var(--radius-sm);
   background: transparent;
-  margin-top: 5px;
   color: var(--foreground);
 }
 

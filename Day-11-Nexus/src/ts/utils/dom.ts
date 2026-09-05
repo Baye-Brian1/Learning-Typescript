@@ -4,6 +4,10 @@ export const getElement=<T extends HTMLElement>(selector: string):T=>{
   if (!element) {
     throw new Error(`Element not found: ${selector}`);  
   }
-  return element
+  return element;
 }
 
+export const queryElement=<T extends HTMLElement>(selector: string):T | null =>{
+  const element= document.querySelector<T>(selector);
+  return element;
+}
