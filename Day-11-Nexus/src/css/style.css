@@ -775,15 +775,15 @@ img {
 
 .favorite-button {
   position: absolute;
-  top: 12px;
-  right: 12px;
+  top: 5px;
+  right: 5px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  width: 34px;
-  height: 34px;
+  width: 30px;
+  height: 30px;
 
   padding: 0;
 

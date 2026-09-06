@@ -45,7 +45,7 @@
 // }
 
 // document.addEventListener("DOMContentLoaded", initialize);
-
+declare const lucide: any;
 import { fetchProduct } from "./api/products.js";
 import { Product } from "./models/product.js";
 import { getElement, queryElement } from "./utils/dom.js";
@@ -62,6 +62,7 @@ const cartCount = queryElement<HTMLSpanElement>("#cartCount");
 const favoriteCount = queryElement<HTMLSpanElement>("#favoriteCount");
 const productGrid = queryElement<HTMLDivElement>('#productGrid')
 
+
 menuButton.addEventListener("click", () => {
   sidebar.classList.add("open");
   overlay.classList.add("show");
@@ -77,9 +78,12 @@ overlay.addEventListener("click", () => {
 searchInput.addEventListener("input", () => {
   console.log(searchInput.value);
 });
-sortSelect.addEventListener("change", () => {
+if (sortSelect){
+  sortSelect.addEventListener("change", () => {
   console.log(sortSelect.value);
 });
+}
+ 
 
 
 
@@ -107,9 +111,27 @@ const createProductCard = (product: Product): string => {
 };
 
 const renderProducts=(products: Product[])=>{
-   const cardHTML= products.map(createProductCard).join('');
+  if (productGrid) {
+    const cardHTML= products.map(createProductCard).join('');
    productGrid.innerHTML= cardHTML;
+   lucide.createIcons();
+    
+  }
+   
 }
+if (productGrid) {
+  productGrid.addEventListener('click', (e:Event)=>{
+    const target= e.target as HTMLElement
+    const button= target.closest('button')
+    if (button?.classList.contains('add-to-cart-button')) {
+      console.log('add-to-cart-button clicked');
+    }else if (button?.classList.contains('favorite-button')) {
+      console.log('favorite button clicked');
+    }
+})
+  
+}
+
 fetchProduct()
   .then((products) => {
     renderProducts(products);
