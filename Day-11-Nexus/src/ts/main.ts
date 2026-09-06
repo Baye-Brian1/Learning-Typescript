@@ -60,7 +60,8 @@ const overlay = getElement<HTMLDivElement>("#overlay");
 const sortSelect = queryElement<HTMLSelectElement>("#sortSelect");
 const cartCount = queryElement<HTMLSpanElement>("#cartCount");
 const favoriteCount = queryElement<HTMLSpanElement>("#favoriteCount");
-const productGrid = queryElement<HTMLDivElement>('#productGrid')
+const productGrid = queryElement<HTMLDivElement>('#productGrid');
+let allProducts: Product[]=[];
 
 
 menuButton.addEventListener("click", () => {
@@ -76,11 +77,19 @@ overlay.addEventListener("click", () => {
   overlay.classList.remove("show");
 });
 searchInput.addEventListener("input", () => {
-  console.log(searchInput.value);
+  const searchTerm = searchInput.value.toLowerCase().trim();
+  const filteredProduct = allProducts.filter(product =>{
+    return product.title.toLowerCase().includes(searchTerm)
+  })
+  renderProducts(filteredProduct)
 });
 if (sortSelect){
   sortSelect.addEventListener("change", () => {
-  console.log(sortSelect.value);
+   const sortTerm = sortSelect.value.toLowerCase().trim();
+   const sortedProduct= allProducts.filter(p=> 
+    p.category.toLowerCase().includes(sortTerm)
+  );
+  renderProducts(sortedProduct);
 });
 }
  
@@ -134,6 +143,7 @@ if (productGrid) {
 
 fetchProduct()
   .then((products) => {
+    allProducts=products
     renderProducts(products);
   })
   .catch((error) => {
