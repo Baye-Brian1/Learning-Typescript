@@ -1,57 +1,7 @@
-// import { fetchProducts } from "./api/products";
-// import { store } from "./state/store";
-// import { getElement } from "./utils/dom";
-
-// function updateCartCount(): void {
-//   const cartCount = getElement<HTMLElement>("#cartCount");
-//   if (cartCount) {
-//     cartCount.textContent = String(store.getCartCount());
-//   }
-// }
-
-// function setupMobileNavigation(): void {
-//   const menuButton = getElement<HTMLButtonElement>("#menuButton");
-//   const sidebar = getElement<HTMLElement>("#sidebar");
-//   const overlay = getElement<HTMLElement>("#overlay");
-
-//   if (!menuButton || !sidebar || !overlay) return;
-
-//   const closeMenu = (): void => {
-//     sidebar.classList.remove("open");
-//     overlay.classList.remove("show");
-//   };
-
-//   menuButton.addEventListener("click", () => {
-//     sidebar.classList.toggle("open");
-//     overlay.classList.toggle("show");
-//   });
-
-//   overlay.addEventListener("click", closeMenu);
-// }
-
-// async function initialize(): Promise<void> {
-//   setupMobileNavigation();
-//   updateCartCount();
-
-//   try {
-//     const products = await fetchProducts();
-//     store.setProducts(products);
-
-//     // Phase 1 only: verify that the API is connected.
-//     console.log("NEXUS products loaded:", products.length);
-//   } catch (error) {
-//     console.error("NEXUS initialization failed:", error);
-//   }
-// }
-
-// document.addEventListener("DOMContentLoaded", initialize);
 declare const lucide: any;
 import { fetchProduct } from "./api/products.js";
 import { Product } from "./models/product.js";
 import { getElement, queryElement } from "./utils/dom.js";
-import { productRating } from "./models/product.js";
-
-console.log("MAIN.TS IS RUNNING");
 
 const searchInput = getElement<HTMLInputElement>("#searchInput");
 const menuButton = getElement<HTMLButtonElement>("#menuButton");
@@ -61,9 +11,9 @@ const overlay = getElement<HTMLDivElement>("#overlay");
 const sortSelect = queryElement<HTMLSelectElement>("#sortSelect");
 const cartCount = queryElement<HTMLSpanElement>("#cartCount");
 const favoriteCount = queryElement<HTMLSpanElement>("#favoriteCount");
-const productGrid = queryElement<HTMLDivElement>('#productGrid');
-const category= queryElement<HTMLDivElement>('#categories')
-let allProducts: Product[]=[];
+const productGrid = queryElement<HTMLDivElement>("#productGrid");
+const category = queryElement<HTMLDivElement>("#categories");
+let allProducts: Product[] = [];
 
 menuButton.addEventListener("click", () => {
   sidebar.classList.add("open");
@@ -77,62 +27,64 @@ overlay.addEventListener("click", () => {
   sidebar.classList.remove("open");
   overlay.classList.remove("show");
 });
-  let currentSearchTerm=''
-  let currentCategory='all'
-  const applyFilter=()=>{
-    let result= allProducts;
-    result= result.filter(product=> 
-      product.title.toLowerCase().trim().includes(currentSearchTerm))
+let currentSearchTerm = "";
+let currentCategory = "all";
+let currentSortTerm = "feature";
+const applyFilter = () => {
+  let result = [...allProducts];
+  result = result.filter((product) =>
+    product.title.toLowerCase().trim().includes(currentSearchTerm),
+  );
 
-      if (currentCategory !== 'all') {
-        result = result.filter(product => product.category === currentCategory)
-      }
-      renderProducts(result)
+  if (currentCategory !== "all") {
+    result = result.filter((product) => product.category === currentCategory);
   }
-searchInput.addEventListener('input', ()=>{
-  currentSearchTerm = searchInput.value.toLowerCase().trim()
-  applyFilter();
-})
 
-if (category){
-  category.addEventListener('click', (e:Event)=>{
-    const target= e.target as HTMLElement
-    const button= target.closest('.category-tab') as HTMLButtonElement|null
+  if (currentSortTerm === "price-low") {
+    result.sort((a, b) => a.price - b.price);
+  }
+  if (currentSortTerm === "price-high") {
+    result.sort((a, b) => b.price - a.price);
+  }
+  if (currentSortTerm === "rating") {
+    result.sort((a, b) => b.rating.rate - a.rating.rate);
+  }
+  if (currentSortTerm === "name") {
+    result.sort((a, b) => a.title.localeCompare(b.title));
+  }
+  renderProducts(result);
+};
+searchInput.addEventListener("input", () => {
+  currentSearchTerm = searchInput.value.toLowerCase().trim();
+  applyFilter();
+});
+
+if (category) {
+  category.addEventListener("click", (e: Event) => {
+    const target = e.target as HTMLElement;
+    const button = target.closest(".category-tab") as HTMLButtonElement | null;
     if (button) {
-      currentCategory = button.dataset.category?? 'all';
-      const prevBtn= category.querySelector('.category-tab.active');
+      currentCategory = button.dataset.category ?? "all";
+      const prevBtn = category.querySelector(".category-tab.active");
       if (prevBtn) {
-        prevBtn.classList.remove('active');
+        prevBtn.classList.remove("active");
       }
 
-      button.classList.add('active')
-      applyFilter()
+      button.classList.add("active");
+      applyFilter();
     }
-  })
+  });
 }
-if (sortSelect){
+if (sortSelect) {
   sortSelect.addEventListener("change", () => {
-   const sortTerm = sortSelect.value;
-   let sortedProducts = [...allProducts];
-
-   if (sortTerm === 'price-low'){
-    sortedProducts.sort((a, b)=> a.price - b.price)
-   }
-   if (sortTerm === 'price-high'){
-    sortedProducts.sort((a, b)=> b.price-a.price)
-   }
-   if (sortTerm === 'rating'){
-    sortedProducts.sort((a, b)=> b.rating.rate-a.rating.rate)
-   }if (sortTerm === 'name'){
-    sortedProducts.sort((a, b)=> a.title.localeCompare(b.title))
-   }
-   renderProducts(sortedProducts)
-});
+    currentSortTerm = sortSelect.value;
+    applyFilter()
+  });
 }
- 
+
 const createProductCard = (product: Product): string => {
   const card = `
-    <article class="product-card">
+    <article class="product-card" data-id= ${product.id}>
      <div class="product-image">
        <img src="${product.image}" alt="Product image"/>
        <button class="favorite-button">
@@ -153,31 +105,28 @@ const createProductCard = (product: Product): string => {
   return card;
 };
 
-const renderProducts=(products: Product[])=>{
+const renderProducts = (products: Product[]) => {
   if (productGrid) {
-    const cardHTML= products.map(createProductCard).join('');
-   productGrid.innerHTML= cardHTML;
-   lucide.createIcons();
-    
+    const cardHTML = products.map(createProductCard).join("");
+    productGrid.innerHTML = cardHTML;
+    lucide.createIcons();
   }
-   
-}
+};
 if (productGrid) {
-  productGrid.addEventListener('click', (e:Event)=>{
-    const target= e.target as HTMLElement
-    const button= target.closest('button')
-    if (button?.classList.contains('add-to-cart-button')) {
-      console.log('add-to-cart-button clicked');
-    }else if (button?.classList.contains('favorite-button')) {
-      console.log('favorite button clicked');
+  productGrid.addEventListener("click", (e: Event) => {
+    const target = e.target as HTMLElement;
+    const button = target.closest("button");
+    if (button?.classList.contains("add-to-cart-button")) {
+      console.log("add-to-cart-button clicked");
+    } else if (button?.classList.contains("favorite-button")) {
+      console.log("favorite button clicked");
     }
-})
-  
+  });
 }
 
 fetchProduct()
   .then((products) => {
-    allProducts=products
+    allProducts = products;
     renderProducts(products);
   })
   .catch((error) => {
