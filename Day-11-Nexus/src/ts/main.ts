@@ -62,8 +62,8 @@ const sortSelect = queryElement<HTMLSelectElement>("#sortSelect");
 const cartCount = queryElement<HTMLSpanElement>("#cartCount");
 const favoriteCount = queryElement<HTMLSpanElement>("#favoriteCount");
 const productGrid = queryElement<HTMLDivElement>('#productGrid');
+const category= queryElement<HTMLDivElement>('#categories')
 let allProducts: Product[]=[];
-
 
 menuButton.addEventListener("click", () => {
   sidebar.classList.add("open");
@@ -77,16 +77,42 @@ overlay.addEventListener("click", () => {
   sidebar.classList.remove("open");
   overlay.classList.remove("show");
 });
-searchInput.addEventListener("input", () => {
-  const searchTerm = searchInput.value;
-  const filteredProduct = allProducts.filter(product =>{
-    return product.title.toLowerCase().includes(searchTerm)
+  let currentSearchTerm=''
+  let currentCategory='all'
+  const applyFilter=()=>{
+    let result= allProducts;
+    result= result.filter(product=> 
+      product.title.toLowerCase().trim().includes(currentSearchTerm))
+
+      if (currentCategory !== 'all') {
+        result = result.filter(product => product.category === currentCategory)
+      }
+      renderProducts(result)
+  }
+searchInput.addEventListener('input', ()=>{
+  currentSearchTerm = searchInput.value.toLowerCase().trim()
+  applyFilter();
+})
+
+if (category){
+  category.addEventListener('click', (e:Event)=>{
+    const target= e.target as HTMLElement
+    const button= target.closest('.category-tab') as HTMLButtonElement|null
+    if (button) {
+      currentCategory = button.dataset.category?? 'all';
+      const prevBtn= category.querySelector('.category-tab.active');
+      if (prevBtn) {
+        prevBtn.classList.remove('active');
+      }
+
+      button.classList.add('active')
+      applyFilter()
+    }
   })
-  renderProducts(filteredProduct)
-});
+}
 if (sortSelect){
   sortSelect.addEventListener("change", () => {
-   const sortTerm = sortSelect.value.toLowerCase().trim();
+   const sortTerm = sortSelect.value;
    let sortedProducts = [...allProducts];
 
    if (sortTerm === 'price-low'){
