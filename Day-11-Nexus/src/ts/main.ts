@@ -49,6 +49,7 @@ declare const lucide: any;
 import { fetchProduct } from "./api/products.js";
 import { Product } from "./models/product.js";
 import { getElement, queryElement } from "./utils/dom.js";
+import { productRating } from "./models/product.js";
 
 console.log("MAIN.TS IS RUNNING");
 
@@ -77,7 +78,7 @@ overlay.addEventListener("click", () => {
   overlay.classList.remove("show");
 });
 searchInput.addEventListener("input", () => {
-  const searchTerm = searchInput.value.toLowerCase().trim();
+  const searchTerm = searchInput.value;
   const filteredProduct = allProducts.filter(product =>{
     return product.title.toLowerCase().includes(searchTerm)
   })
@@ -86,16 +87,23 @@ searchInput.addEventListener("input", () => {
 if (sortSelect){
   sortSelect.addEventListener("change", () => {
    const sortTerm = sortSelect.value.toLowerCase().trim();
-   const sortedProduct= allProducts.filter(p=> 
-    p.category.toLowerCase().includes(sortTerm)
-  );
-  renderProducts(sortedProduct);
+   let sortedProducts = [...allProducts];
+
+   if (sortTerm === 'price-low'){
+    sortedProducts.sort((a, b)=> a.price - b.price)
+   }
+   if (sortTerm === 'price-high'){
+    sortedProducts.sort((a, b)=> b.price-a.price)
+   }
+   if (sortTerm === 'rating'){
+    sortedProducts.sort((a, b)=> b.rating.rate-a.rating.rate)
+   }if (sortTerm === 'name'){
+    sortedProducts.sort((a, b)=> a.title.localeCompare(b.title))
+   }
+   renderProducts(sortedProducts)
 });
 }
  
-
-
-
 const createProductCard = (product: Product): string => {
   const card = `
     <article class="product-card">
