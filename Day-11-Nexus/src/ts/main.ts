@@ -2,6 +2,8 @@ declare const lucide: any;
 import { fetchProduct } from "./api/products.js";
 import { Product } from "./models/product.js";
 import { getElement, queryElement } from "./utils/dom.js";
+import { saveCart, loadCart } from "./state/storage.js";
+import { CartItem } from "./models/cart.js";
 
 const searchInput = getElement<HTMLInputElement>("#searchInput");
 const menuButton = getElement<HTMLButtonElement>("#menuButton");
@@ -13,7 +15,9 @@ const cartCount = queryElement<HTMLSpanElement>("#cartCount");
 const favoriteCount = queryElement<HTMLSpanElement>("#favoriteCount");
 const productGrid = queryElement<HTMLDivElement>("#productGrid");
 const category = queryElement<HTMLDivElement>("#categories");
+const addToCartButton = queryElement<HTMLButtonElement>('#add-to-cart-button')
 let allProducts: Product[] = [];
+let cart: CartItem[]= loadCart();
 
 menuButton.addEventListener("click", () => {
   sidebar.classList.add("open");
@@ -69,7 +73,6 @@ if (category) {
       if (prevBtn) {
         prevBtn.classList.remove("active");
       }
-
       button.classList.add("active");
       applyFilter();
     }
@@ -117,11 +120,20 @@ if (productGrid) {
     const target = e.target as HTMLElement;
     const button = target.closest("button");
     if (button?.classList.contains("add-to-cart-button")) {
+      const card = button.closest('.product-card') as HTMLElement|null
+      if (card) {
+       const productId= Number(card.dataset.id);
+       console.log(productId);
+      
+      }
       console.log("add-to-cart-button clicked");
     } else if (button?.classList.contains("favorite-button")) {
       console.log("favorite button clicked");
     }
   });
+}
+const addToCart=(productId: number)=>{
+
 }
 
 fetchProduct()
