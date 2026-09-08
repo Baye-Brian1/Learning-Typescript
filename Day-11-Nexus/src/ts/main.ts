@@ -123,7 +123,7 @@ if (productGrid) {
       const card = button.closest('.product-card') as HTMLElement|null
       if (card) {
        const productId= Number(card.dataset.id);
-       console.log(productId);
+       addToCart(productId);
       
       }
       console.log("add-to-cart-button clicked");
@@ -132,7 +132,15 @@ if (productGrid) {
     }
   });
 }
-const addToCart=(productId: number)=>{
+
+const addToCart=(productID: number)=>{
+  const existingItem= cart.find(item=> item.productId=== productID )
+  if (existingItem){
+    existingItem.quantity +=1
+  }else{
+    cart.push({productId: productID, quantity: 1})
+  }
+  saveCart(cart);
 
 }
 
