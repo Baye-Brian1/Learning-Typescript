@@ -3,7 +3,7 @@ import { fetchProduct } from "./api/products.js";
 import { Product } from "./models/product.js";
 import { getElement, queryElement } from "./utils/dom.js";
 import { saveCart, loadCart } from "./state/storage.js";
-import { CartItem } from "./models/cart.js";
+import { Cart, CartItem } from "./models/cart.js";
 
 const searchInput = getElement<HTMLInputElement>("#searchInput");
 const menuButton = getElement<HTMLButtonElement>("#menuButton");
@@ -15,9 +15,9 @@ const cartCount = queryElement<HTMLSpanElement>("#cartCount");
 const favoriteCount = queryElement<HTMLSpanElement>("#favoriteCount");
 const productGrid = queryElement<HTMLDivElement>("#productGrid");
 const category = queryElement<HTMLDivElement>("#categories");
-const addToCartButton = queryElement<HTMLButtonElement>('#add-to-cart-button')
+const addToCartButton = queryElement<HTMLButtonElement>("#add-to-cart-button");
 let allProducts: Product[] = [];
-let cart: CartItem[]= loadCart();
+let cart: CartItem[] = loadCart();
 
 menuButton.addEventListener("click", () => {
   sidebar.classList.add("open");
@@ -81,13 +81,39 @@ if (category) {
 if (sortSelect) {
   sortSelect.addEventListener("change", () => {
     currentSortTerm = sortSelect.value;
-    applyFilter()
+    applyFilter();
   });
 }
-
+const createCartCard = (item: CartItem) => {
+  const product = allProducts.find((product) => product.id === item.productId);
+  if (!product) {
+    return "";
+  }
+  const cardCart = `
+    <article class="cart-page-item" data-id="${item.productId}">
+  <div class="cart-page-image">
+    <img src="${product.image}" alt="${product.title}" />
+  </div>
+  <div class="cart-page-details">
+    <span>${product.category}</span>
+    <h2>${product.title}</h2>
+    <strong>$${product.price}</strong>
+  </div>
+  <div class="quantity-control">
+    <button class="decrease-qty"><i data-lucide="minus"></i></button>
+    <span>${item.quantity}</span>
+    <button class="increase-qty"><i data-lucide="plus"></i></button>
+  </div>
+  <button class="remove-item">
+    <i data-lucide="trash-2"></i>
+  </button>
+</article>
+  `;
+  return cardCart;
+};
 const createProductCard = (product: Product): string => {
   const card = `
-    <article class="product-card" data-id= ${product.id}>
+    <article class="product-card" data-id=" ${product.id}">
      <div class="product-image">
        <img src="${product.image}" alt="Product image"/>
        <button class="favorite-button">
@@ -107,6 +133,26 @@ const createProductCard = (product: Product): string => {
   `;
   return card;
 };
+const cartSection= queryElement<HTMLElement>('.cart-items-section');
+const renderCart=()=>{
+  if (cartSection){
+    const cartHTML= cart.map(createCartCard).join('');
+    cartSection.innerHTML = cartHTML;
+    lucide.createIcons();
+  }
+
+};
+if (cartSection){
+  cartSection.addEventListener('click', (e: Event)=>{
+    const target= e.target as HTMLElement
+    const button= target.closest('button');
+
+  if (button?.classList.contains('increase-qty')){
+      
+  }
+  })
+
+}
 
 const renderProducts = (products: Product[]) => {
   if (productGrid) {
@@ -120,41 +166,41 @@ if (productGrid) {
     const target = e.target as HTMLElement;
     const button = target.closest("button");
     if (button?.classList.contains("add-to-cart-button")) {
-      const card = button.closest('.product-card') as HTMLElement|null
-      if (card) {
-       const productId= Number(card.dataset.id);
-       addToCart(productId);
+      const card = button.closest(".product-card") as HTMLElement | null;
+      if (card){
+        const productId = Number(card.dataset.id);
+        addToCart(productId);
       }
     } else if (button?.classList.contains("favorite-button")) {
       console.log("favorite button clicked");
     }
   });
 }
-const getCount=():number=>{
-  return cart.reduce((total, item)=> total+item.quantity, 0)
-}
+const getCount = (): number => {
+  return cart.reduce((total, item) => total + item.quantity, 0);
+};
 
-const updateCartBadge= ()=>{
+const updateCartBadge = () => {
   if (cartCount) {
-    cartCount.textContent= String(getCount());
+    cartCount.textContent = String(getCount());
   }
-}  
+};
 
-const addToCart=(productID: number)=>{
-  const existingItem= cart.find(item=> item.productId=== productID )
-  if (existingItem){
-    existingItem.quantity +=1
-  }else{
-    cart.push({productId: productID, quantity: 1})
+const addToCart = (productID: number) => {
+  const existingItem = cart.find((item) => item.productId === productID);
+  if (existingItem) {
+    existingItem.quantity += 1;
+  } else {
+    cart.push({ productId: productID, quantity: 1 });
   }
   updateCartBadge();
   saveCart(cart);
-
-}
+};
 
 fetchProduct()
   .then((products) => {
     allProducts = products;
+    renderCart(cart)
     renderProducts(products);
     updateCartBadge();
   })
