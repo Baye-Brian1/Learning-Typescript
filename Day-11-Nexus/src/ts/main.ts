@@ -124,14 +124,21 @@ if (productGrid) {
       if (card) {
        const productId= Number(card.dataset.id);
        addToCart(productId);
-      
       }
-      console.log("add-to-cart-button clicked");
     } else if (button?.classList.contains("favorite-button")) {
       console.log("favorite button clicked");
     }
   });
 }
+const getCount=():number=>{
+  return cart.reduce((total, item)=> total+item.quantity, 0)
+}
+
+const updateCartBadge= ()=>{
+  if (cartCount) {
+    cartCount.textContent= String(getCount());
+  }
+}  
 
 const addToCart=(productID: number)=>{
   const existingItem= cart.find(item=> item.productId=== productID )
@@ -140,6 +147,7 @@ const addToCart=(productID: number)=>{
   }else{
     cart.push({productId: productID, quantity: 1})
   }
+  updateCartBadge();
   saveCart(cart);
 
 }
@@ -148,6 +156,7 @@ fetchProduct()
   .then((products) => {
     allProducts = products;
     renderProducts(products);
+    updateCartBadge();
   })
   .catch((error) => {
     console.error(error);
