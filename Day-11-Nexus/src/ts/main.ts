@@ -134,6 +134,7 @@ const createProductCard = (product: Product): string => {
   return card;
 };
 const cartSection= queryElement<HTMLElement>('.cart-items-section');
+const favoriteSection= queryElement<HTMLDivElement>('#favoritesGrid')
 const renderCart=()=>{
   if (cartSection){
     const cartHTML= cart.map(createCartCard).join('');
@@ -148,11 +149,41 @@ if (cartSection){
     const button= target.closest('button');
 
   if (button?.classList.contains('increase-qty')){
-      
+    const card= button.closest('.cart-page-item') as HTMLElement|null
+    if (card) {
+     const ProductID= Number(card.dataset.id);
+     const item= cart.find(i=> i.productId === ProductID)
+     if (item) {
+      item.quantity +=1;
+     } 
+    }
+    renderCart()
+    saveCart(cart)
+  }
+  if (button?.classList.contains('decrease-qty')) {
+    const card= button.closest('.cart-page-item') as HTMLElement | null;
+    if (card) {
+      const ProductID = Number(card.dataset.id)
+      const item = cart.find(i=> i.productId === ProductID);
+      if (item?.quantity === 0) {
+        cart= cart.filter(i=> i.quantity)
+      }
+    }
+    renderCart();
+    saveCart(cart);
+    
   }
   })
 
 }
+// const addFavorite=(favoriteID: number)=>{
+//   const existingItemFav= cart.find(item=> item.productId === favoriteID)
+//   if (existingItemFav) {
+//     existingItemFav.quantity +=1;   
+//   } else {
+//     cart.push({productId: favoriteID, quantity: 1})
+//   }
+// }
 
 const renderProducts = (products: Product[]) => {
   if (productGrid) {
@@ -176,6 +207,7 @@ if (productGrid) {
     }
   });
 }
+
 const getCount = (): number => {
   return cart.reduce((total, item) => total + item.quantity, 0);
 };
@@ -197,10 +229,11 @@ const addToCart = (productID: number) => {
   saveCart(cart);
 };
 
+
 fetchProduct()
   .then((products) => {
     allProducts = products;
-    renderCart(cart)
+    renderCart()
     renderProducts(products);
     updateCartBadge();
   })
