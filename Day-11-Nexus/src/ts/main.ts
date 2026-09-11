@@ -16,6 +16,10 @@ const favoriteCount = queryElement<HTMLSpanElement>("#favoriteCount");
 const productGrid = queryElement<HTMLDivElement>("#productGrid");
 const category = queryElement<HTMLDivElement>("#categories");
 const addToCartButton = queryElement<HTMLButtonElement>("#add-to-cart-button");
+const favoriteSection = queryElement<HTMLDivElement>("#favoritesGrid");
+const cartSection = queryElement<HTMLElement>(".cart-items-section");
+const totalAmount = queryElement<HTMLElement>("#totalAmount");
+const subtotalAmount= queryElement<HTMLElement>("#subtotalAmount")
 let allProducts: Product[] = [];
 let cart: CartItem[] = loadCart();
 
@@ -111,6 +115,16 @@ const createCartCard = (item: CartItem) => {
   `;
   return cardCart;
 };
+const getSubTotal=():number=>{
+  const card= cart.reduce((total, item)=>{
+    const product= allProducts.find(p=> p.id === item.productId)
+    if (!product) {
+      return total;
+    }
+    return total + (item.quantity * product.price)
+  }, 0)
+  return card
+}
 const createProductCard = (product: Product): string => {
   const card = `
     <article class="product-card" data-id=" ${product.id}">
@@ -133,55 +147,61 @@ const createProductCard = (product: Product): string => {
   `;
   return card;
 };
-const favoriteSection= queryElement<HTMLDivElement>('#favoritesGrid')
-const cartSection= queryElement<HTMLElement>('.cart-items-section');
-const renderCart=()=>{
-  if (cartSection){
-    const cartHTML= cart.map(createCartCard).join('');
+
+const renderCart = () => {
+  if (cartSection) {
+    const cartHTML = cart.map(createCartCard).join("");
     cartSection.innerHTML = cartHTML;
     lucide.createIcons();
   }
-
 };
-if (cartSection){
-  cartSection.addEventListener('click', (e: Event)=>{
-    const target= e.target as HTMLElement
-    const button= target.closest('button');
+if (cartSection) {
+  cartSection.addEventListener("click", (e: Event) => {
+    const target = e.target as HTMLElement;
+    const button = target.closest("button");
 
-  if (button?.classList.contains('increase-qty')){
-    const card= button.closest('.cart-page-item') as HTMLElement|null
-    if (card) {
-     const ProductID= Number(card.dataset.id);
-     const item= cart.find(i=> i.productId === ProductID)
-     if (item) {
-      item.quantity +=1;
-     } 
-    }
-    
-    updateCartBadge()
-    renderCart()
-    saveCart(cart)
-  }
-  if (button?.classList.contains('decrease-qty')) {
-    const card= button.closest('.cart-page-item') as HTMLElement | null;
-    if (card) {
-      const ProductID = Number(card.dataset.id)
-      const item = cart.find(i=> i.productId === ProductID);
-      if (item) {
-        item.quantity -= 1;
-        if (item?.quantity <= 0) {
-        cart= cart.filter(i=> i.quantity > 0)
-      }        
+    if (button?.classList.contains("increase-qty")) {
+      const card = button.closest(".cart-page-item") as HTMLElement | null;
+      if (card) {
+        const ProductID = Number(card.dataset.id);
+        const item = cart.find((i) => i.productId === ProductID);
+        if (item) {
+          item.quantity += 1;
+        }
       }
+
+      updateCartUI();
+      renderCart();
+      saveCart(cart);
+    }
+    if (button?.classList.contains("decrease-qty")) {
+      const card = button.closest(".cart-page-item") as HTMLElement | null;
+      if (card) {
+        const ProductId = Number(card.dataset.id);
+        const item = cart.find((i) => i.productId === ProductId);
+        if (item) {
+          item.quantity -= 1;
+          if (item.quantity <= 0) {
+            cart = cart.filter((i) => i.quantity > 0);
+          }
+        }
+      }
+      updateCartUI();
+      renderCart();
+      saveCart(cart);
+    }
+    if (button?.classList.contains('remove-item')) {
+      const card= button.closest('.cart-page-item') as HTMLDivElement | null
+      if (card) {
+        const ProductId= Number(card.dataset.id)
+        cart = cart.filter(item=> item.productId !== ProductId)        
+      }
+      updateCartUI();
+      renderCart();
+      saveCart(cart);
       
     }
-    updateCartBadge()
-    renderCart();
-    saveCart(cart);
-    
-  }
-  })
-
+  });
 }
 const renderProducts = (products: Product[]) => {
   if (productGrid) {
@@ -196,7 +216,7 @@ if (productGrid) {
     const button = target.closest("button");
     if (button?.classList.contains("add-to-cart-button")) {
       const card = button.closest(".product-card") as HTMLElement | null;
-      if (card){
+      if (card) {
         const productId = Number(card.dataset.id);
         addToCart(productId);
       }
@@ -210,9 +230,15 @@ const getCount = (): number => {
   return cart.reduce((total, item) => total + item.quantity, 0);
 };
 
-const updateCartBadge = () => {
+const updateCartUI = () => {
   if (cartCount) {
     cartCount.textContent = String(getCount());
+  }
+  if (totalAmount) {
+    totalAmount.textContent = String(getSubTotal().toFixed(2));
+  }
+  if (subtotalAmount) {
+    subtotalAmount.textContent = String(getSubTotal().toFixed(2));
   }
 };
 
@@ -223,17 +249,16 @@ const addToCart = (productID: number) => {
   } else {
     cart.push({ productId: productID, quantity: 1 });
   }
-  updateCartBadge();
+  updateCartUI();
   saveCart(cart);
 };
-
 
 fetchProduct()
   .then((products) => {
     allProducts = products;
-    renderCart()
+    renderCart();
     renderProducts(products);
-    updateCartBadge();
+    updateCartUI();
   })
   .catch((error) => {
     console.error(error);
