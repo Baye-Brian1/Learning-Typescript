@@ -2,7 +2,7 @@ declare const lucide: any;
 import { fetchProduct } from "./api/products.js";
 import { Product } from "./models/product.js";
 import { getElement, queryElement } from "./utils/dom.js";
-import { saveCart, loadCart } from "./state/storage.js";
+import { saveCart, loadCart, loadFavorite, saveFavorite } from "./state/storage.js";
 import { Cart, CartItem } from "./models/cart.js";
 
 const searchInput = getElement<HTMLInputElement>("#searchInput");
@@ -22,6 +22,7 @@ const totalAmount = queryElement<HTMLElement>("#totalAmount");
 const subtotalAmount= queryElement<HTMLElement>("#subtotalAmount")
 let allProducts: Product[] = [];
 let cart: CartItem[] = loadCart();
+let favorite: number[] = loadFavorite();
 
 menuButton.addEventListener("click", () => {
   sidebar.classList.add("open");
@@ -147,6 +148,15 @@ const createProductCard = (product: Product): string => {
   `;
   return card;
 };
+const toggleFavorite=(ProductId: number)=>{
+  if (favorite.includes(ProductId)) {
+    const filter= allProducts.filter(item=> item.id! == ProductId)
+    
+  } else {
+    
+  }
+
+}
 
 const renderCart = () => {
   if (cartSection) {
@@ -235,10 +245,10 @@ const updateCartUI = () => {
     cartCount.textContent = String(getCount());
   }
   if (totalAmount) {
-    totalAmount.textContent = String(getSubTotal().toFixed(2));
+    totalAmount.textContent = `$${getSubTotal().toFixed(2)}`;
   }
   if (subtotalAmount) {
-    subtotalAmount.textContent = String(getSubTotal().toFixed(2));
+    subtotalAmount.textContent = `$${getSubTotal().toFixed(2)}`;
   }
 };
 

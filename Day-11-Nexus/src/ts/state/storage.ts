@@ -7,6 +7,7 @@ export const saveCart=(cart: CartItem[])=>{
   const data= JSON.stringify(cart)
   localStorage.setItem(CART_KEY, data)
 }
+
 export const loadCart=():CartItem[]=>{
   const stored= localStorage.getItem(CART_KEY)
   if (!stored) return[] 
