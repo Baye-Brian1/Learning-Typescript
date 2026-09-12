@@ -156,6 +156,7 @@ const createProductCard = (product: Product): string => {
   `;
   return card;
 };
+
 const toggleFavorite = (productId: number) => {
   if (favorite.includes(productId)) {
     favorite = favorite.filter((id) => id !== productId);
@@ -163,7 +164,19 @@ const toggleFavorite = (productId: number) => {
     favorite.push(productId);
   }
   saveFavorite(favorite);
+  updateCartUI();
 };
+
+const renderFavorites = () => {
+  if (favoriteSection) {
+    const favoriteProducts= favorite.map( id => allProducts.find(p => p.id === id))
+    const validFavorites= favoriteProducts.filter( product => product !== undefined)
+    const favoriteHTML= validFavorites.map(createProductCard).join('');
+    favoriteSection.innerHTML = favoriteHTML 
+    lucide.createIcons();
+  } 
+
+}
 
 const renderCart = () => {
   if (cartSection) {
@@ -286,6 +299,7 @@ fetchProduct()
     allProducts = products;
     renderCart();
     renderProducts(products);
+    renderFavorites();
     updateCartUI();
   })
   .catch((error) => {
