@@ -99,6 +99,7 @@ const createCartCard = (item: CartItem) => {
   if (!product) {
     return "";
   }
+
   const cardCart = `
     <article class="cart-page-item" data-id="${item.productId}">
   <div class="cart-page-image">
@@ -132,11 +133,13 @@ const getSubTotal = (): number => {
   return card;
 };
 const createProductCard = (product: Product): string => {
+    const isFavorited= favorite.includes(product.id)
+    const favoriteClass = isFavorited? "favorited":''
   const card = `
     <article class="product-card" data-id=" ${product.id}">
      <div class="product-image">
        <img src="${product.image}" alt="${product.title}"/>
-       <button class="favorite-button">
+       <button class="favorite-button ${favoriteClass}">
           <i data-lucide="heart"></i>
        </button>
      </div>
@@ -248,6 +251,9 @@ if (productGrid) {
 const getCount = (): number => {
   return cart.reduce((total, item) => total + item.quantity, 0);
 };
+const getFavoriteCount=():number=>{
+  return favorite.length
+}
 
 const updateCartUI = () => {
   if (cartCount) {
@@ -258,6 +264,9 @@ const updateCartUI = () => {
   }
   if (subtotalAmount) {
     subtotalAmount.textContent = `$${getSubTotal().toFixed(2)}`;
+  }
+  if (favoriteCount) {
+    favoriteCount.textContent = String(getFavoriteCount());
   }
 };
 
