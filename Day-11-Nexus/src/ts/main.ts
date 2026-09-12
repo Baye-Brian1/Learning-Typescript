@@ -239,8 +239,7 @@ const renderProducts = (products: Product[]) => {
     lucide.createIcons();
   }
 };
-if (productGrid) {
-  productGrid.addEventListener("click", (e: Event) => {
+const handleProductGridClick = (e: Event) => {
     const target = e.target as HTMLElement;
     const button = target.closest("button");
     if (button?.classList.contains("add-to-cart-button")) {
@@ -254,13 +253,18 @@ if (productGrid) {
       if (card) {
         const productId = Number(card.dataset.id);
         toggleFavorite(productId);
-        button.classList.toggle("favorited")
+        button.classList.toggle("favorited");
+        renderFavorites();
       }
 
     }
-  });
 }
-
+if (productGrid) {
+  productGrid.addEventListener('click', handleProductGridClick)
+}
+if (favoriteSection) {
+  favoriteSection.addEventListener('click', handleProductGridClick)
+}
 const getCount = (): number => {
   return cart.reduce((total, item) => total + item.quantity, 0);
 };
@@ -303,5 +307,6 @@ fetchProduct()
     updateCartUI();
   })
   .catch((error) => {
+    alert(error)
     console.error(error);
   });
