@@ -2,7 +2,12 @@ declare const lucide: any;
 import { fetchProduct } from "./api/products.js";
 import { Product } from "./models/product.js";
 import { getElement, queryElement } from "./utils/dom.js";
-import { saveCart, loadCart, loadFavorite, saveFavorite } from "./state/storage.js";
+import {
+  saveCart,
+  loadCart,
+  loadFavorite,
+  saveFavorite,
+} from "./state/storage.js";
 import { Cart, CartItem } from "./models/cart.js";
 
 const searchInput = getElement<HTMLInputElement>("#searchInput");
@@ -19,7 +24,7 @@ const addToCartButton = queryElement<HTMLButtonElement>("#add-to-cart-button");
 const favoriteSection = queryElement<HTMLDivElement>("#favoritesGrid");
 const cartSection = queryElement<HTMLElement>(".cart-items-section");
 const totalAmount = queryElement<HTMLElement>("#totalAmount");
-const subtotalAmount= queryElement<HTMLElement>("#subtotalAmount")
+const subtotalAmount = queryElement<HTMLElement>("#subtotalAmount");
 let allProducts: Product[] = [];
 let cart: CartItem[] = loadCart();
 let favorite: number[] = loadFavorite();
@@ -116,21 +121,21 @@ const createCartCard = (item: CartItem) => {
   `;
   return cardCart;
 };
-const getSubTotal=():number=>{
-  const card= cart.reduce((total, item)=>{
-    const product= allProducts.find(p=> p.id === item.productId)
+const getSubTotal = (): number => {
+  const card = cart.reduce((total, item) => {
+    const product = allProducts.find((p) => p.id === item.productId);
     if (!product) {
       return total;
     }
-    return total + (item.quantity * product.price)
-  }, 0)
-  return card
-}
+    return total + item.quantity * product.price;
+  }, 0);
+  return card;
+};
 const createProductCard = (product: Product): string => {
   const card = `
     <article class="product-card" data-id=" ${product.id}">
      <div class="product-image">
-       <img src="${product.image}" alt="Product image"/>
+       <img src="${product.image}" alt="${product.title}"/>
        <button class="favorite-button">
           <i data-lucide="heart"></i>
        </button>
@@ -148,15 +153,14 @@ const createProductCard = (product: Product): string => {
   `;
   return card;
 };
-const toggleFavorite=(ProductId: number)=>{
-  if (favorite.includes(ProductId)) {
-    const filter= allProducts.filter(item=> item.id! == ProductId)
-    
+const toggleFavorite = (productId: number) => {
+  if (favorite.includes(productId)) {
+    favorite = favorite.filter((id) => id !== productId);
   } else {
-    
+    favorite.push(productId);
   }
-
-}
+  saveFavorite(favorite);
+};
 
 const renderCart = () => {
   if (cartSection) {
@@ -200,16 +204,15 @@ if (cartSection) {
       renderCart();
       saveCart(cart);
     }
-    if (button?.classList.contains('remove-item')) {
-      const card= button.closest('.cart-page-item') as HTMLDivElement | null
+    if (button?.classList.contains("remove-item")) {
+      const card = button.closest(".cart-page-item") as HTMLDivElement | null;
       if (card) {
-        const ProductId= Number(card.dataset.id)
-        cart = cart.filter(item=> item.productId !== ProductId)        
+        const ProductId = Number(card.dataset.id);
+        cart = cart.filter((item) => item.productId !== ProductId);
       }
       updateCartUI();
       renderCart();
       saveCart(cart);
-      
     }
   });
 }
@@ -231,7 +234,13 @@ if (productGrid) {
         addToCart(productId);
       }
     } else if (button?.classList.contains("favorite-button")) {
-      console.log("favorite button clicked");
+      const card = button.closest(".product-card") as HTMLElement | null;
+      if (card) {
+        const productId = Number(card.dataset.id);
+        toggleFavorite(productId);
+        button.classList.toggle("favorited")
+      }
+
     }
   });
 }
