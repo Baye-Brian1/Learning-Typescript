@@ -44,6 +44,7 @@ overlay.addEventListener("click", () => {
 let currentSearchTerm = "";
 let currentCategory = "all";
 let currentSortTerm = "feature";
+  const emptyProducts = queryElement<HTMLElement>('#emptyProducts');
 const applyFilter = () => {
   let result = [...allProducts];
   result = result.filter((product) =>
@@ -66,7 +67,7 @@ const applyFilter = () => {
   if (currentSortTerm === "name") {
     result.sort((a, b) => a.title.localeCompare(b.title));
   }
-  const emptyProducts = queryElement<HTMLElement>('#emptyProducts');
+
   if (emptyProducts) {
     emptyProducts.hidden = result.length > 0
   }
@@ -314,7 +315,15 @@ const addToCart = (productID: number) => {
 if (productGrid) {
   productGrid.innerHTML = '<p class="loading-message">Loading products...</p>';
 }
-
+const showError=(container: HTMLElement, message: string)=>{
+  container.innerHTML = `
+  <div class="empty-state">
+   <i data-lucide="alert-triangle"></i>
+   <h2>Something went wrong</h2>
+    <p>${message}</p>
+  </div>
+  `
+}
 
 
   fetchProduct()
@@ -326,8 +335,15 @@ if (productGrid) {
     updateCartUI();
   })
   .catch((error) => {
-    alert(error)
-    console.error(error);
+    if (productGrid) {
+      showError(productGrid, error)
+    }
+    if (cartSection) {
+      showError(cartSection, error)
+    }
+    if (favoriteSection) {
+      showError(favoriteSection, error)
+    }
   });
 
 
