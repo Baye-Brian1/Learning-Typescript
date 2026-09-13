@@ -66,6 +66,10 @@ const applyFilter = () => {
   if (currentSortTerm === "name") {
     result.sort((a, b) => a.title.localeCompare(b.title));
   }
+  const emptyProducts = queryElement<HTMLElement>('#emptyProducts');
+  if (emptyProducts) {
+    emptyProducts.hidden = result.length > 0
+  }
   renderProducts(result);
 };
 searchInput.addEventListener("input", () => {
@@ -166,8 +170,9 @@ const toggleFavorite = (productId: number) => {
   saveFavorite(favorite);
   updateCartUI();
 };
-
+const emptyFavorites = queryElement<HTMLElement>('#emptyFavorites');
 const renderFavorites = () => {
+ 
   if (favoriteSection) {
     const favoriteProducts= favorite.map( id => allProducts.find(p => p.id === id))
     const validFavorites= favoriteProducts.filter( product => product !== undefined)
@@ -175,14 +180,22 @@ const renderFavorites = () => {
     favoriteSection.innerHTML = favoriteHTML 
     lucide.createIcons();
   } 
+   if (emptyFavorites) {
+    emptyFavorites.hidden= favorite.length > 0 
+  }
 
 }
+const emptyCarts = queryElement<HTMLElement>('#emptyCart');
 
 const renderCart = () => {
   if (cartSection) {
     const cartHTML = cart.map(createCartCard).join("");
     cartSection.innerHTML = cartHTML;
     lucide.createIcons();
+  }
+  if (emptyCarts) {
+    emptyCarts.hidden = cart.length > 0 
+    
   }
 };
 if (cartSection) {
@@ -298,7 +311,13 @@ const addToCart = (productID: number) => {
   saveCart(cart);
 };
 
-fetchProduct()
+if (productGrid) {
+  productGrid.innerHTML = '<p class="loading-message">Loading products...</p>';
+}
+
+
+
+  fetchProduct()
   .then((products) => {
     allProducts = products;
     renderCart();
@@ -310,3 +329,5 @@ fetchProduct()
     alert(error)
     console.error(error);
   });
+
+

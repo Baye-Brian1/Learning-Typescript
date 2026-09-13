@@ -24,17 +24,17 @@
       <!-- SIDEBAR -->
       <aside class="sidebar" id="sidebar">
         <div class="logo-head">
-         <div class="logo">
-           <i data-lucide="shopping-bag"></i>
-          <span>NEXUS</span>
-         </div>
+          <div class="logo">
+            <i data-lucide="shopping-bag"></i>
+            <span>NEXUS</span>
+          </div>
           <button
-              class="mobile-close-button"
-              id="closeButton"
-              aria-label="close menu"
-            >
-              <i data-lucide="X"></i>
-            </button>
+            class="mobile-close-button"
+            id="closeButton"
+            aria-label="close menu"
+          >
+            <i data-lucide="X"></i>
+          </button>
         </div>
 
         <nav class="sidebar-nav" aria-label="Main navigation">
@@ -164,72 +164,30 @@
           </div>
 
           <div class="cart-page-layout">
-            <section class="cart-items-section">
-              <article class="cart-page-item">
-                <div class="cart-page-image">
-                  <img src="" alt="Mens Casual T-Shirt" />
-                </div>
-                <div class="cart-page-details">
-                  <span>men's clothing</span>
-                  <h2>Mens Casual T-Shirt</h2>
-                  <strong>$22.30</strong>
-                </div>
-                <div class="quantity-control">
-                  <button><i data-lucide="minus"></i></button>
-                  <span>1</span>
-                  <button><i data-lucide="plus"></i></button>
-                </div>
-                <button class="remove-item">
-                  <i data-lucide="trash-2"></i>
-                </button>
-              </article>
+            <div class="cart-items-column">
+              <section class="cart-items-section">
+                <!-- left empty — renderCart() fills this dynamically -->
+              </section>
 
-              <article class="cart-page-item">
-                <div class="cart-page-image">
-                  <img src="" alt="Casio Men's Watch" />
-                </div>
-                <div class="cart-page-details">
-                  <span>electronics</span>
-                  <h2>Casio Men's Watch</h2>
-                  <strong>$89.99</strong>
-                </div>
-                <div class="quantity-control">
-                  <button><i data-lucide="minus"></i></button>
-                  <span>1</span>
-                  <button><i data-lucide="plus"></i></button>
-                </div>
-                <button class="remove-item">
-                  <i data-lucide="trash-2"></i>
-                </button>
-              </article>
-
-              <article class="cart-page-item">
-                <div class="cart-page-image">
-                  <img src="" alt="LED Desk Lamp" />
-                </div>
-                <div class="cart-page-details">
-                  <span>electronics</span>
-                  <h2>LED Desk Lamp</h2>
-                  <strong>$15.99</strong>
-                </div>
-                <div class="quantity-control">
-                  <button><i data-lucide="minus"></i></button>
-                  <span>1</span>
-                  <button><i data-lucide="plus"></i></button>
-                </div>
-                <button class="remove-item">
-                  <i data-lucide="trash-2"></i>
-                </button>
-              </article>
-            </section>
+              <div class="empty-state" id="emptyCart" hidden>
+                <i data-lucide="shopping-cart"></i>
+                <h2>Your cart is empty</h2>
+                <p>Looks like you haven't added anything yet.</p>
+                <a href="./products.html" class="secondary-button"
+                  >Browse Products</a
+                >
+              </div>
+            </div>
 
             <aside class="order-summary">
               <h2>Order Summary</h2>
-              <div><span>Subtotal</span><strong  id="subtotalAmount">$128.28</strong></div>
+              <div>
+                <span>Subtotal</span><strong id="subtotalAmount"></strong>
+              </div>
               <div><span>Shipping</span><strong>Free</strong></div>
               <div class="summary-divider"></div>
               <div class="summary-total">
-                <span>Total</span><strong id="totalAmount">$128.28</strong>
+                <span>Total</span><strong id="totalAmount"></strong>
               </div>
               <button class="checkout-button">
                 Proceed to Checkout

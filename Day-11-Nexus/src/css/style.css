@@ -1111,6 +1111,12 @@ img {
   font-size: 12px;
 }
 
+.loading-message {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 40px 0;
+  color: var(--muted-foreground, #888);
+}
 /* product sidebar */
 
 .right-sidebar {
@@ -1845,7 +1851,6 @@ img {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
   min-height: 360px;
   padding: 48px 24px;
 
@@ -1854,7 +1859,9 @@ img {
 
   text-align: center;
 }
-
+.empty-state[hidden] {
+  display: none;
+}
 .empty-state > svg {
   width: 30px;
   height: 30px;
