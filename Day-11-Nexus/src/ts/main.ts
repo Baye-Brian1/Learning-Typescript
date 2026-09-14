@@ -8,7 +8,7 @@ import {
   loadFavorite,
   saveFavorite,
 } from "./state/storage.js";
-import { Cart, CartItem } from "./models/cart.js";
+import { CartItem } from "./models/cart.js";
 
 const searchInput = getElement<HTMLInputElement>("#searchInput");
 const menuButton = getElement<HTMLButtonElement>("#menuButton");
@@ -25,9 +25,16 @@ const favoriteSection = queryElement<HTMLDivElement>("#favoritesGrid");
 const cartSection = queryElement<HTMLElement>(".cart-items-section");
 const totalAmount = queryElement<HTMLElement>("#totalAmount");
 const subtotalAmount = queryElement<HTMLElement>("#subtotalAmount");
+const prevPageButton = queryElement<HTMLButtonElement>("#prevPage");
+const nextPageButton = queryElement<HTMLButtonElement>("#nextPage");
+const pageIndicator = queryElement<HTMLElement>("#pageIndicator");
+
+let currentPage = 1;
+const productPerPages = 8;
 let allProducts: Product[] = [];
 let cart: CartItem[] = loadCart();
 let favorite: number[] = loadFavorite();
+let filteredProducts: Product[] = [];
 
 menuButton.addEventListener("click", () => {
   sidebar.classList.add("open");
@@ -44,8 +51,9 @@ overlay.addEventListener("click", () => {
 let currentSearchTerm = "";
 let currentCategory = "all";
 let currentSortTerm = "feature";
-  const emptyProducts = queryElement<HTMLElement>('#emptyProducts');
+const emptyProducts = queryElement<HTMLElement>("#emptyProducts");
 const applyFilter = () => {
+  currentPage = 1;
   let result = [...allProducts];
   result = result.filter((product) =>
     product.title.toLowerCase().trim().includes(currentSearchTerm),
@@ -69,10 +77,39 @@ const applyFilter = () => {
   }
 
   if (emptyProducts) {
-    emptyProducts.hidden = result.length > 0
+    emptyProducts.hidden = result.length > 0;
   }
-  renderProducts(result);
+  filteredProducts= result
+
+  renderPage();
 };
+if (prevPageButton) {
+  prevPageButton.addEventListener('click', ()=>{
+    if (currentPage > 1) {
+      currentPage -= 1
+      renderPage();
+    }
+  })
+}
+if (nextPageButton) {
+  nextPageButton.addEventListener('click', ()=>{
+    const totalPages = Math.ceil(filteredProducts.length / productPerPages);
+    if (currentPage < totalPages) {
+      currentPage += 1;
+      renderPage();
+    }
+  })
+}
+const renderPage=()=>{
+  const totalPages= Math.ceil(filteredProducts.length/ productPerPages );
+  const startIndex= (currentPage-1) * productPerPages;
+  const paginatedResults = filteredProducts.slice(startIndex, startIndex + productPerPages);
+
+  if (pageIndicator) {
+    pageIndicator.textContent=` Page ${currentPage} of ${totalPages}`
+  }
+  renderProducts(paginatedResults)
+}
 searchInput.addEventListener("input", () => {
   currentSearchTerm = searchInput.value.toLowerCase().trim();
   applyFilter();
@@ -138,8 +175,8 @@ const getSubTotal = (): number => {
   return card;
 };
 const createProductCard = (product: Product): string => {
-    const isFavorited= favorite.includes(product.id)
-    const favoriteClass = isFavorited? "favorited":''
+  const isFavorited = favorite.includes(product.id);
+  const favoriteClass = isFavorited ? "favorited" : "";
   const card = `
     <article class="product-card" data-id=" ${product.id}">
      <div class="product-image">
@@ -171,22 +208,24 @@ const toggleFavorite = (productId: number) => {
   saveFavorite(favorite);
   updateCartUI();
 };
-const emptyFavorites = queryElement<HTMLElement>('#emptyFavorites');
+const emptyFavorites = queryElement<HTMLElement>("#emptyFavorites");
 const renderFavorites = () => {
- 
   if (favoriteSection) {
-    const favoriteProducts= favorite.map( id => allProducts.find(p => p.id === id))
-    const validFavorites= favoriteProducts.filter( product => product !== undefined)
-    const favoriteHTML= validFavorites.map(createProductCard).join('');
-    favoriteSection.innerHTML = favoriteHTML 
+    const favoriteProducts = favorite.map((id) =>
+      allProducts.find((p) => p.id === id),
+    );
+    const validFavorites = favoriteProducts.filter(
+      (product) => product !== undefined,
+    );
+    const favoriteHTML = validFavorites.map(createProductCard).join("");
+    favoriteSection.innerHTML = favoriteHTML;
     lucide.createIcons();
-  } 
-   if (emptyFavorites) {
-    emptyFavorites.hidden= favorite.length > 0 
   }
-
-}
-const emptyCarts = queryElement<HTMLElement>('#emptyCart');
+  if (emptyFavorites) {
+    emptyFavorites.hidden = favorite.length > 0;
+  }
+};
+const emptyCarts = queryElement<HTMLElement>("#emptyCart");
 
 const renderCart = () => {
   if (cartSection) {
@@ -195,8 +234,7 @@ const renderCart = () => {
     lucide.createIcons();
   }
   if (emptyCarts) {
-    emptyCarts.hidden = cart.length > 0 
-    
+    emptyCarts.hidden = cart.length > 0;
   }
 };
 if (cartSection) {
@@ -207,8 +245,8 @@ if (cartSection) {
     if (button?.classList.contains("increase-qty")) {
       const card = button.closest(".cart-page-item") as HTMLElement | null;
       if (card) {
-        const ProductID = Number(card.dataset.id);
-        const item = cart.find((i) => i.productId === ProductID);
+        const productId = Number(card.dataset.id);
+        const item = cart.find((i) => i.productId === productId);
         if (item) {
           item.quantity += 1;
         }
@@ -254,37 +292,36 @@ const renderProducts = (products: Product[]) => {
   }
 };
 const handleProductGridClick = (e: Event) => {
-    const target = e.target as HTMLElement;
-    const button = target.closest("button");
-    if (button?.classList.contains("add-to-cart-button")) {
-      const card = button.closest(".product-card") as HTMLElement | null;
-      if (card) {
-        const productId = Number(card.dataset.id);
-        addToCart(productId);
-      }
-    } else if (button?.classList.contains("favorite-button")) {
-      const card = button.closest(".product-card") as HTMLElement | null;
-      if (card) {
-        const productId = Number(card.dataset.id);
-        toggleFavorite(productId);
-        button.classList.toggle("favorited");
-        renderFavorites();
-      }
-
+  const target = e.target as HTMLElement;
+  const button = target.closest("button");
+  if (button?.classList.contains("add-to-cart-button")) {
+    const card = button.closest(".product-card") as HTMLElement | null;
+    if (card) {
+      const productId = Number(card.dataset.id);
+      addToCart(productId);
     }
-}
+  } else if (button?.classList.contains("favorite-button")) {
+    const card = button.closest(".product-card") as HTMLElement | null;
+    if (card) {
+      const productId = Number(card.dataset.id);
+      toggleFavorite(productId);
+      button.classList.toggle("favorited");
+      renderFavorites();
+    }
+  }
+};
 if (productGrid) {
-  productGrid.addEventListener('click', handleProductGridClick)
+  productGrid.addEventListener("click", handleProductGridClick);
 }
 if (favoriteSection) {
-  favoriteSection.addEventListener('click', handleProductGridClick)
+  favoriteSection.addEventListener("click", handleProductGridClick);
 }
 const getCount = (): number => {
   return cart.reduce((total, item) => total + item.quantity, 0);
 };
-const getFavoriteCount=():number=>{
-  return favorite.length
-}
+const getFavoriteCount = (): number => {
+  return favorite.length;
+};
 
 const updateCartUI = () => {
   if (cartCount) {
@@ -301,12 +338,12 @@ const updateCartUI = () => {
   }
 };
 
-const addToCart = (productID: number) => {
-  const existingItem = cart.find((item) => item.productId === productID);
+const addToCart = (productId: number) => {
+  const existingItem = cart.find((item) => item.productId === productId);
   if (existingItem) {
     existingItem.quantity += 1;
   } else {
-    cart.push({ productId: productID, quantity: 1 });
+    cart.push({ productId: productId, quantity: 1 });
   }
   updateCartUI();
   saveCart(cart);
@@ -315,35 +352,36 @@ const addToCart = (productID: number) => {
 if (productGrid) {
   productGrid.innerHTML = '<p class="loading-message">Loading products...</p>';
 }
-const showError=(container: HTMLElement, message: string)=>{
+const showError = (container: HTMLElement, message: string) => {
   container.innerHTML = `
   <div class="empty-state">
    <i data-lucide="alert-triangle"></i>
    <h2>Something went wrong</h2>
     <p>${message}</p>
   </div>
-  `
-}
+  `;
+  lucide.createIcons();
+};
 
-
-  fetchProduct()
+fetchProduct()
   .then((products) => {
     allProducts = products;
     renderCart();
-    renderProducts(products);
+    applyFilter()
     renderFavorites();
     updateCartUI();
   })
   .catch((error) => {
+    console.log(error);
+    const message =
+      "We couldn't load products right now. Please try again later.";
     if (productGrid) {
-      showError(productGrid, error)
+      showError(productGrid, message);
     }
     if (cartSection) {
-      showError(cartSection, error)
+      showError(cartSection, message);
     }
     if (favoriteSection) {
-      showError(favoriteSection, error)
+      showError(favoriteSection, message);
     }
   });
-
-
