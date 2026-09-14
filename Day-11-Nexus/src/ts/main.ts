@@ -10,6 +10,7 @@ import {
 } from "./state/storage.js";
 import { CartItem } from "./models/cart.js";
 
+
 const searchInput = getElement<HTMLInputElement>("#searchInput");
 const menuButton = getElement<HTMLButtonElement>("#menuButton");
 const closeButton = getElement<HTMLButtonElement>("#closeButton");
@@ -17,10 +18,10 @@ const sidebar = getElement<HTMLDivElement>("#sidebar");
 const overlay = getElement<HTMLDivElement>("#overlay");
 const sortSelect = queryElement<HTMLSelectElement>("#sortSelect");
 const cartCount = queryElement<HTMLSpanElement>("#cartCount");
+const topcartCount = queryElement<HTMLSpanElement>("#topcartCount");
 const favoriteCount = queryElement<HTMLSpanElement>("#favoriteCount");
 const productGrid = queryElement<HTMLDivElement>("#productGrid");
 const category = queryElement<HTMLDivElement>("#categories");
-const addToCartButton = queryElement<HTMLButtonElement>("#add-to-cart-button");
 const favoriteSection = queryElement<HTMLDivElement>("#favoritesGrid");
 const cartSection = queryElement<HTMLElement>(".cart-items-section");
 const totalAmount = queryElement<HTMLElement>("#totalAmount");
@@ -28,6 +29,8 @@ const subtotalAmount = queryElement<HTMLElement>("#subtotalAmount");
 const prevPageButton = queryElement<HTMLButtonElement>("#prevPage");
 const nextPageButton = queryElement<HTMLButtonElement>("#nextPage");
 const pageIndicator = queryElement<HTMLElement>("#pageIndicator");
+const urlParams = new URLSearchParams(window.location.search)
+let currentCategory= urlParams.get('category')?? 'all'
 
 let currentPage = 1;
 const productPerPages = 8;
@@ -48,8 +51,17 @@ overlay.addEventListener("click", () => {
   sidebar.classList.remove("open");
   overlay.classList.remove("show");
 });
+if (category) {
+  const matchingTab= category.querySelector(`[data-category= "${currentCategory}"]`) as HTMLButtonElement | null;
+  if (matchingTab) {
+    const currentActive= category.querySelector('.category-tab.active')
+    if (currentActive) {
+      currentActive?.classList.remove('active')
+    }
+    matchingTab.classList.add('active')
+  }
+}
 let currentSearchTerm = "";
-let currentCategory = "all";
 let currentSortTerm = "feature";
 const emptyProducts = queryElement<HTMLElement>("#emptyProducts");
 const applyFilter = () => {
@@ -92,7 +104,7 @@ if (prevPageButton) {
   })
 }
 if (nextPageButton) {
-  nextPageButton.addEventListener('click', ()=>{
+  nextPageButton.addEventListener('click', () => {
     const totalPages = Math.ceil(filteredProducts.length / productPerPages);
     if (currentPage < totalPages) {
       currentPage += 1;
@@ -323,9 +335,34 @@ const getFavoriteCount = (): number => {
   return favorite.length;
 };
 
+
+const getCategoryCount=(categoryName: string)=>{
+ const category= allProducts.filter(p=> p.category === categoryName).length
+ return category
+}
+const menCategory= queryElement<HTMLParagraphElement>("#menCategory");
+const womenCategory= queryElement<HTMLParagraphElement>("#womenCategory");
+const electronicCategory= queryElement<HTMLParagraphElement>("#electronicCategory");
+const jewelryCategory= queryElement<HTMLParagraphElement>("#jewelryCategory");
 const updateCartUI = () => {
+  if (menCategory) {
+    menCategory.textContent = String(getCategoryCount("men's clothing")) 
+  }
+   if (womenCategory) {
+    womenCategory.textContent = String(getCategoryCount("women's clothing")) 
+  }
+   if (electronicCategory) {
+    electronicCategory.textContent = String(getCategoryCount("electronics")) 
+  }
+  if (jewelryCategory) {
+    jewelryCategory.textContent = String(getCategoryCount("jewelery")) 
+  }
+  
   if (cartCount) {
     cartCount.textContent = String(getCount());
+  }
+  if (topcartCount) {
+    topcartCount.textContent = String(getCount());
   }
   if (totalAmount) {
     totalAmount.textContent = `$${getSubTotal().toFixed(2)}`;
@@ -348,6 +385,17 @@ const addToCart = (productId: number) => {
   updateCartUI();
   saveCart(cart);
 };
+const featureGrid= queryElement<HTMLDivElement>('#featuredGrid')
+const featureProduct=()=>{
+  if (featureGrid) {
+    featureGrid.addEventListener('click', handleProductGridClick)
+    const feature= allProducts.slice(6, 10)
+    featureGrid.innerHTML= feature.map(createProductCard).join('')
+    lucide.createIcons();
+    
+  }
+  
+}
 
 if (productGrid) {
   productGrid.innerHTML = '<p class="loading-message">Loading products...</p>';
@@ -368,6 +416,7 @@ fetchProduct()
     allProducts = products;
     renderCart();
     applyFilter()
+    featureProduct();
     renderFavorites();
     updateCartUI();
   })
