@@ -29,8 +29,10 @@ const subtotalAmount = queryElement<HTMLElement>("#subtotalAmount");
 const prevPageButton = queryElement<HTMLButtonElement>("#prevPage");
 const nextPageButton = queryElement<HTMLButtonElement>("#nextPage");
 const pageIndicator = queryElement<HTMLElement>("#pageIndicator");
+const themeToggle = queryElement<HTMLButtonElement>("#themeToggle");
 const urlParams = new URLSearchParams(window.location.search)
 let currentCategory= urlParams.get('category')?? 'all'
+
 
 let currentPage = 1;
 const productPerPages = 8;
@@ -38,6 +40,31 @@ let allProducts: Product[] = [];
 let cart: CartItem[] = loadCart();
 let favorite: number[] = loadFavorite();
 let filteredProducts: Product[] = [];
+
+const THEME_KEY="nexus-theme"
+
+const applyTheme=(theme: string): void=>{
+  document.documentElement.setAttribute('data-theme', theme);
+  const icon= themeToggle?.querySelector('i')
+  if (icon) {
+    icon.setAttribute('data-lucide', theme=== "dark" ? "sun": "moon")
+  }
+  lucide.createIcons()
+}
+
+const savedTheme= localStorage.getItem(THEME_KEY);
+const systemPrefersDark= window.matchMedia('(prefers-color-scheme: dark);').matches;
+const intialTheme= savedTheme ?? (systemPrefersDark ? 'dark':'light')
+applyTheme(intialTheme)
+
+if (themeToggle) {
+  themeToggle.addEventListener('click', ()=>{
+    const current= document.documentElement.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark'
+    applyTheme(next)
+    localStorage.setItem(THEME_KEY, next)
+  })
+}
 
 menuButton.addEventListener("click", () => {
   sidebar.classList.add("open");
