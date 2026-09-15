@@ -42,10 +42,9 @@ let filteredProducts: Product[] = [];
 const THEME_KEY = "nexus-theme";
 
 const applyTheme = (theme: string): void => {
-  document.documentElement.setAttribute("data-theme", theme);
-  const icon = themeToggle?.querySelector("i");
-  if (icon) {
-    icon.setAttribute("data-lucide", theme === "dark" ? "sun" : "moon");
+  document.documentElement.setAttribute('data-theme', theme);
+  if (themeToggle) {
+    themeToggle.innerHTML = `<i data-lucide="${theme === 'dark' ? 'sun' : 'moon'}"></i>`;
   }
   lucide.createIcons();
 };
@@ -186,21 +185,21 @@ const miniCart = (item: CartItem) => {
     return "";
   }
   const miniCard = `
-  <article class="mini-cart-item" data-id=""${item.productId}>
+  <article class="mini-cart-item" data-id="${item.productId}">
     <img src="${product.image}" alt="Mens Casual T-Shirt" />
     <div class="mini-cart-info">
-      <h3${product.category}</h3>
+      <h3>${product.title}</h3>
       <strong>$${product.price}</strong>
     </div>
-    <button aria-label="Remove item">
+    <button aria-label="Remove item" class="remove-item">
       <i data-lucide="x"></i>
     </button>
     <div class="quantity-control">
-      <button aria-label="Decrease quantity">
+      <button aria-label="Decrease quantity" class="decrease-qty">
         <i data-lucide="minus"></i>
       </button>
       <span>1</span>
-      <button aria-label="Increase quantity">
+      <button aria-label="Increase quantity" class="increase-qty">
         <i data-lucide="plus"></i>
       </button>
     </div>
@@ -298,7 +297,7 @@ const renderFavorites = () => {
   }
 };
 const emptyCarts = queryElement<HTMLElement>("#emptyCart");
-const miniCartSection = queryElement<HTMLElement>('#cart-preview-items')
+const miniCartSection = queryElement<HTMLElement>('.cart-preview-items')
 const renderMiniCarts = () =>{
   if (miniCartSection) {
     const cartHTML = cart.map(miniCart).join("");
@@ -342,7 +341,7 @@ if (miniCartSection) {
       saveCart(cart);
     }
     if (button?.classList.contains("remove-item")) {
-      const card = button.closest(".cart-preview-items") as HTMLDivElement | null;
+      const card = button.closest(".mini-cart-item") as HTMLDivElement | null;
       if (card) {
         const ProductId = Number(card.dataset.id);
         cart = cart.filter((item) => item.productId !== ProductId);
@@ -369,7 +368,7 @@ if (cartSection) {
     const button = target.closest("button");
 
     if (button?.classList.contains("increase-qty")) {
-      const card = button.closest(".cart-page-item") as HTMLElement | null;
+      const card = button.closest(".mini-cart-item") as HTMLElement | null;
       if (card) {
         const productId = Number(card.dataset.id);
         const item = cart.find((i) => i.productId === productId);
@@ -383,7 +382,7 @@ if (cartSection) {
       saveCart(cart);
     }
     if (button?.classList.contains("decrease-qty")) {
-      const card = button.closest(".cart-page-item") as HTMLElement | null;
+      const card = button.closest(".mini-cart-item") as HTMLElement | null;
       if (card) {
         const ProductId = Number(card.dataset.id);
         const item = cart.find((i) => i.productId === ProductId);
@@ -533,6 +532,7 @@ fetchProduct()
     renderCart();
     applyFilter();
     featureProduct();
+    renderMiniCarts();
     renderFavorites();
     updateCartUI();
   })
