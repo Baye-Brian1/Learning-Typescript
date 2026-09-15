@@ -315,7 +315,7 @@ img {
 
   border-bottom: 1px solid var(--border);
 
-  background: rgba(255, 255, 255, 0.96);
+  background: var(--background);
 
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
