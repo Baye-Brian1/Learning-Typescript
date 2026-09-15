@@ -1178,6 +1178,7 @@ img {
 /* MINI CART */
 
 .cart-preview-items {
+  overflow-y: auto;
   padding: 0 18px;
 }
 

@@ -298,23 +298,21 @@ const renderFavorites = () => {
   }
 };
 const emptyCarts = queryElement<HTMLElement>("#emptyCart");
-const renderCart = () => {
-  if (cartSection) {
-    const cartHTML = cart.map(createCartCard).join("");
-    cartSection.innerHTML = cartHTML;
+const miniCartSection = queryElement<HTMLElement>('#cart-preview-items')
+const renderMiniCarts = () =>{
+  if (miniCartSection) {
+    const cartHTML = cart.map(miniCart).join("");
+    miniCartSection.innerHTML = cartHTML;
     lucide.createIcons();
   }
-  if (emptyCarts) {
-    emptyCarts.hidden = cart.length > 0;
-  }
-};
-if (cartSection) {
-  cartSection.addEventListener("click", (e: Event) => {
+}
+if (miniCartSection) {
+  miniCartSection.addEventListener("click", (e: Event) => {
     const target = e.target as HTMLElement;
     const button = target.closest("button");
 
     if (button?.classList.contains("increase-qty")) {
-      const card = button.closest(".cart-page-item") as HTMLElement | null;
+      const card = button.closest(".cart-preview-items") as HTMLElement | null;
       if (card) {
         const productId = Number(card.dataset.id);
         const item = cart.find((i) => i.productId === productId);
@@ -324,11 +322,11 @@ if (cartSection) {
       }
 
       updateCartUI();
-      renderCart();
+      renderMiniCarts();
       saveCart(cart);
     }
     if (button?.classList.contains("decrease-qty")) {
-      const card = button.closest(".cart-page-item") as HTMLElement | null;
+      const card = button.closest(".cart-preview-items") as HTMLElement | null;
       if (card) {
         const ProductId = Number(card.dataset.id);
         const item = cart.find((i) => i.productId === ProductId);
@@ -340,29 +338,31 @@ if (cartSection) {
         }
       }
       updateCartUI();
-      renderCart();
+      renderMiniCarts();
       saveCart(cart);
     }
     if (button?.classList.contains("remove-item")) {
-      const card = button.closest(".cart-page-item") as HTMLDivElement | null;
+      const card = button.closest(".cart-preview-items") as HTMLDivElement | null;
       if (card) {
         const ProductId = Number(card.dataset.id);
         cart = cart.filter((item) => item.productId !== ProductId);
       }
       updateCartUI();
-      renderCart();
+      renderMiniCarts();
       saveCart(cart);
     }
   });
 }
-const miniCartSection = queryElement<HTMLElement>('#cart-preview-items')
-const renderMiniCarts = () =>{
-  if (miniCartSection) {
-    const cartHTML = cart.map(miniCart).join("");
-    miniCartSection.innerHTML = cartHTML;
+const renderCart = () => {
+  if (cartSection) {
+    const cartHTML = cart.map(createCartCard).join("");
+    cartSection.innerHTML = cartHTML;
     lucide.createIcons();
   }
-}
+  if (emptyCarts) {
+    emptyCarts.hidden = cart.length > 0;
+  }
+};
 if (cartSection) {
   cartSection.addEventListener("click", (e: Event) => {
     const target = e.target as HTMLElement;
