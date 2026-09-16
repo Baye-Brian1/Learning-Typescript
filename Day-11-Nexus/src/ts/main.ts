@@ -42,9 +42,9 @@ let filteredProducts: Product[] = [];
 const THEME_KEY = "nexus-theme";
 
 const applyTheme = (theme: string): void => {
-  document.documentElement.setAttribute('data-theme', theme);
+  document.documentElement.setAttribute("data-theme", theme);
   if (themeToggle) {
-    themeToggle.innerHTML = `<i data-lucide="${theme === 'dark' ? 'sun' : 'moon'}"></i>`;
+    themeToggle.innerHTML = `<i data-lucide="${theme === "dark" ? "sun" : "moon"}"></i>`;
   }
   lucide.createIcons();
 };
@@ -188,21 +188,17 @@ const miniCart = (item: CartItem) => {
   <article class="mini-cart-item" data-id="${item.productId}">
     <img src="${product.image}" alt="Mens Casual T-Shirt" />
     <div class="mini-cart-info">
-      <h3>${product.title}</h3>
+      <h3 class= "mini-product-title">${product.title}</h3>
       <strong>$${product.price}</strong>
     </div>
     <button aria-label="Remove item" class="remove-item">
       <i data-lucide="x"></i>
     </button>
     <div class="quantity-control">
-      <button aria-label="Decrease quantity" class="decrease-qty">
-        <i data-lucide="minus"></i>
-      </button>
-      <span>1</span>
-      <button aria-label="Increase quantity" class="increase-qty">
-        <i data-lucide="plus"></i>
-      </button>
-    </div>
+    <button class="decrease-qty"><i data-lucide="minus"></i></button>
+    <span>${item.quantity}</span>
+    <button class="increase-qty"><i data-lucide="plus"></i></button>
+  </div>
 </article>
   `;
   return miniCard;
@@ -220,7 +216,7 @@ const createCartCard = (item: CartItem) => {
   </div>
   <div class="cart-page-details">
     <span>${product.category}</span>
-    <h2>${product.title}</h2>
+    <h2 class="product-title">${product.title}</h2>
     <strong>$${product.price}</strong>
   </div>
   <div class="quantity-control">
@@ -297,21 +293,21 @@ const renderFavorites = () => {
   }
 };
 const emptyCarts = queryElement<HTMLElement>("#emptyCart");
-const miniCartSection = queryElement<HTMLElement>('.cart-preview-items')
-const renderMiniCarts = () =>{
+const miniCartSection = queryElement<HTMLElement>(".cart-preview-items");
+const renderMiniCarts = () => {
   if (miniCartSection) {
     const cartHTML = cart.map(miniCart).join("");
     miniCartSection.innerHTML = cartHTML;
     lucide.createIcons();
   }
-}
+};
 if (miniCartSection) {
   miniCartSection.addEventListener("click", (e: Event) => {
     const target = e.target as HTMLElement;
     const button = target.closest("button");
 
     if (button?.classList.contains("increase-qty")) {
-      const card = button.closest(".cart-preview-items") as HTMLElement | null;
+      const card = button.closest(".mini-cart-item") as HTMLElement | null;
       if (card) {
         const productId = Number(card.dataset.id);
         const item = cart.find((i) => i.productId === productId);
@@ -325,7 +321,7 @@ if (miniCartSection) {
       saveCart(cart);
     }
     if (button?.classList.contains("decrease-qty")) {
-      const card = button.closest(".cart-preview-items") as HTMLElement | null;
+      const card = button.closest(".mini-cart-item") as HTMLElement | null;
       if (card) {
         const ProductId = Number(card.dataset.id);
         const item = cart.find((i) => i.productId === ProductId);
@@ -449,6 +445,9 @@ const getFavoriteCount = (): number => {
   return favorite.length;
 };
 
+const miniCartCount = queryElement<HTMLElement>("#miniCartCount");
+const miniSubtotal = queryElement<HTMLElement>("#miniSubtotal");
+
 const getCategoryCount = (categoryName: string) => {
   const category = allProducts.filter(
     (p) => p.category === categoryName,
@@ -478,6 +477,12 @@ const updateCartUI = () => {
   if (cartCount) {
     cartCount.textContent = String(getCount());
   }
+  if (miniCartCount) {
+    miniCartCount.textContent = `(${getCount()})`;
+  }
+  if (miniSubtotal) {
+    miniSubtotal.textContent = `$${getSubTotal().toFixed(2)}`;
+  }
   if (topcartCount) {
     topcartCount.textContent = String(getCount());
   }
@@ -500,6 +505,7 @@ const addToCart = (productId: number) => {
     cart.push({ productId: productId, quantity: 1 });
   }
   updateCartUI();
+  renderMiniCarts();
   saveCart(cart);
 };
 const featureGrid = queryElement<HTMLDivElement>("#featuredGrid");
