@@ -7,7 +7,7 @@
       name="description"
       content="NEXUS — Premium products, exceptional quality."
     />
-    <title>All Products — NEXUS</title>
+    <title>NEXUS-Products</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -15,6 +15,15 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./src/css/style.css" />
+    <script>
+  (function () {
+    var theme = localStorage.getItem('nexus-theme');
+    if (!theme) {
+      theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    document.documentElement.setAttribute('data-theme', theme);
+  })();
+</script>
   </head>
 
   <body>
