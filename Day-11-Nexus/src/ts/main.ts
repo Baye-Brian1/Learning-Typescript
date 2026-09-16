@@ -364,7 +364,7 @@ if (cartSection) {
     const button = target.closest("button");
 
     if (button?.classList.contains("increase-qty")) {
-      const card = button.closest(".mini-cart-item") as HTMLElement | null;
+      const card = button.closest(".cart-page-item") as HTMLElement | null;
       if (card) {
         const productId = Number(card.dataset.id);
         const item = cart.find((i) => i.productId === productId);
@@ -378,7 +378,7 @@ if (cartSection) {
       saveCart(cart);
     }
     if (button?.classList.contains("decrease-qty")) {
-      const card = button.closest(".mini-cart-item") as HTMLElement | null;
+      const card = button.closest(".cart-page-item") as HTMLElement | null;
       if (card) {
         const ProductId = Number(card.dataset.id);
         const item = cart.find((i) => i.productId === ProductId);
